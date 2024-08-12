@@ -15,7 +15,7 @@ Planned features include:
 - Unlockable tools to encourage game progression
 - Save states that utilize local storage
 
-The current version of Tiny Island can be tested here: https://michael-a-davis.github.io/Tiny-Town
+The current version of Tiny Island can be tested here: https://michael-a-davis.github.io/tiny-island/
 
 ## Release Notes
 ### Alpha 1.0
