@@ -49,3 +49,12 @@ let tools = [
     new Tool("water", "/assets/tools/water.svg", false, waterTool),
     new Tool("remove", "/assets/tools/bulldoze.svg", false, removeTool)
 ];
+
+function Roll(min, max) {
+    let roll = Math.floor(Math.random() * (max - min + 1) + min);
+    if (roll === max) {
+        return true;
+    } else {
+        return false;
+    }
+}

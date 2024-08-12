@@ -44,10 +44,19 @@
     }
     #controlsBox button {
         font-size: larger;
-        font-family: Arial, Helvetica, sans-serif;
         padding: 10px;
-        background-color: rgb(25, 25, 25);
-        color: white;
+        background-color: hsl(0, 0%, 11%);
+        border-radius: 20px;
+        border: none;
+        transition: 100ms;
+    }
+    #controlsBox button:hover {
+        background-color: hsl(0, 0%, 31%);
+        cursor: pointer;
+    }
+    .icon {
+        width: 30px;
+        height: auto;
     }
     .tile {
         box-sizing: border-box;

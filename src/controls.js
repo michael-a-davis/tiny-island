@@ -1,7 +1,23 @@
 for (const control of controls) {
     const button = document.createElement('button');
-    button.id = control;
-    button.innerHTML = control;
+    button.id = control
+    const icon = document.createElement('img');
+    icon.classList.add('icon');
+    switch(control) {
+        case "up":
+            icon.src = "icons/arrow-up.svg";
+            break;
+        case "left":
+            icon.src = "icons/arrow-left.svg";
+            break;
+        case "right":
+            icon.src = "icons/arrow-right.svg";
+            break;
+        case "down":
+            icon.src = "icons/arrow-down.svg";
+            break;
+    }
+    button.appendChild(icon);
     controlsBox.appendChild(button);
 }
 

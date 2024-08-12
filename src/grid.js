@@ -3,10 +3,6 @@ GenerateGrid();
 UpdateGrid(gridCenter);
 console.log(GenerateNeighborStateString(gridCenter));
 
-function Roll(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 function GenerateIsland() {
     let treeCount = 0;
     for (i = 0; i < gridSize; i++) {
@@ -63,8 +59,8 @@ function GenerateIsland() {
             tiles.push(new Tile(i, "remove", false, false));
             continue;
         }
-        let type = Roll(1, 4);
-        if (type === 1 && treeCount < treeMax) {
+        let makeTree = Roll(1, treeFrequency);
+        if (makeTree && treeCount < treeMax) {
             tiles.push(new Tile(i, "tree", false, false));
             treeCount++;
         } 
