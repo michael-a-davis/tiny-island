@@ -1,8 +1,9 @@
 class Tile {
-    constructor(id, state, perimeter) {
+    constructor(id, state, perimeter, shore) {
         this.id = id;
         this.state = state;
         this.perimeter = perimeter;
+        this.shore = shore;
     }
 }
 class Tool {
@@ -22,7 +23,6 @@ class Player {
 
 let cameraColumns = 5;
 let cameraScope = cameraColumns ** 2;
-let cameraRadius = cameraColumns / 2 - 0.5;
 let currentTool = "path";
 let tiles = [];
 let gridSize = gridColumns ** 2;

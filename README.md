@@ -18,6 +18,11 @@ Planned features include:
 The current version of Tiny Island can be tested here: https://michael-a-davis.github.io/tiny-island/
 
 ## Release Notes
+
+### Alpha 1.0.1
+Fixed the perimeter bug so that users can walk closer to the shores. May add the ability to walk on
+the actual perimeter of the island.
+
 ### Alpha 1.0
 New updated version due to lots of changes - primarily to the concept of the game. Tiny Town is now Tiny Island! The path-building
 module has taken a back seat to the new functions I am implementing.

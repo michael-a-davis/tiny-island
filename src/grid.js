@@ -10,49 +10,66 @@ function Roll(min, max) {
 function GenerateIsland() {
     let treeCount = 0;
     for (i = 0; i < gridSize; i++) {
-        if (i === 0) {
-            tiles.push(new Tile(i, "water", "UL"));
+        //Perimeter tiles
+        if (i === 0 ||
+            i === gridColumns - 1 ||
+            i === gridSize - 1 ||
+            i === gridSize - gridColumns ||
+            i < gridColumns ||
+            i % gridColumns === 0 ||
+            i % gridColumns === gridColumns - 1 ||
+            i > gridSize - 1 - gridColumns
+        ) {
+            tiles.push(new Tile(i, "water", true, false));
             continue;
         }
-        if (i === gridColumns - 1) {
-            tiles.push(new Tile(i, "water", "UR"));
+
+        //Shore tiles
+        if (i === 1 + gridColumns) {
+            tiles.push(new Tile(i, "water", false, "UL"));
             continue;
         }
-        if (i === gridSize - 1) {
-            tiles.push(new Tile(i, "water", "DR"));
+        if (i === gridSize - gridColumns - 2) {
+            tiles.push(new Tile(i, "water", false, "DR"));
             continue;
         }
-        if (i === gridSize - gridColumns) {
-            tiles.push(new Tile(i, "water", "DL"));
+        if (i === gridSize - gridColumns - gridColumns + 1) {
+            tiles.push(new Tile(i, "water", false, "DL"));
             continue;
         }
-        if (i < gridColumns) {
-            tiles.push(new Tile(i, "water", "U"));
+        if (i === gridColumns + gridColumns - 2) {
+            tiles.push(new Tile(i, "water", false, "UR"));
             continue;
         }
-        if (i % gridColumns === 0) {
-            tiles.push(new Tile(i, "water", "L"));
+        if (i < gridColumns * 2) {
+            tiles.push(new Tile(i, "water", false, "U"));
             continue;
         }
-        if (i % gridColumns === gridColumns - 1) {
-            tiles.push(new Tile(i, "water", "R"));
+        if (i % gridColumns - 1 === 0) {
+            tiles.push(new Tile(i, "water", false, "L"));
             continue;
         }
-        if (i > gridSize - 1 - gridColumns) {
-            tiles.push(new Tile(i, "water", "D"));
+        if (i % gridColumns === gridColumns - 2) {
+            tiles.push(new Tile(i, "water", false, "R"));
             continue;
-        } 
+        }
+        if (i > gridSize - 1 - gridColumns - gridColumns) {
+            tiles.push(new Tile(i, "water", false, "D"));
+            continue;
+        }
+
+        //Internal tiles
         if (i === gridCenter) {
-            tiles.push(new Tile(i, "remove", false));
+            tiles.push(new Tile(i, "remove", false, false));
             continue;
         }
         let type = Roll(1, 4);
         if (type === 1 && treeCount < treeMax) {
-            tiles.push(new Tile(i, "tree", false));
+            tiles.push(new Tile(i, "tree", false, false));
             treeCount++;
         } 
         else {
-            tiles.push(new Tile(i, "remove", false));
+            tiles.push(new Tile(i, "remove", false, false));
         }
     }
 }
@@ -101,7 +118,11 @@ function UpdateGrid(id) {
             tile.src = "tiles/player.png";
             continue;
         }
-        switch(tiles[range[i]].perimeter) {
+        if (tiles[range[i]].perimeter) {
+            tile.src = "tiles/water.png";
+            continue;
+        }
+        switch(tiles[range[i]].shore) {
             case "UL":
                 tile.src = "tiles/corner-UL.png";
                 break;
