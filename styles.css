@@ -26,10 +26,21 @@
         width: 100%;
     }
     #controlsBox {
-        display: flex;
-        flex-direction: row;
-        width: 80%;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    #up {
+        grid-column: 2 / 3;
+    }
+    #left {
+        grid-column: 1 / 2;
+    }
+    #right {
+        grid-column: 3 / 4;
+    }
+    #down {
+        grid-column: 2 / 3;
+        grid-row: 3;
     }
     #controlsBox button {
         font-size: larger;

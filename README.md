@@ -19,6 +19,9 @@ The current version of Tiny Island can be tested here: https://michael-a-davis.g
 
 ## Release Notes
 
+### Alpha 1.0.2
+Re-upped tree max and minor CSS edits to make the control buttons appear in a cross.
+
 ### Alpha 1.0.1
 Fixed the perimeter bug so that users can walk closer to the shores. May add the ability to walk on
 the actual perimeter of the island.
