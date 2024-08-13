@@ -26,21 +26,18 @@ class Player {
 let cameraColumns = 5;
 let cameraScope = cameraColumns ** 2;
 let cameraCenter = (cameraScope / 2) - 0.5
-let currentTool = "path";
+let currentTool = "axe";
 let tiles = [];
 let gridSize = gridColumns ** 2;
 let gridCenter = (gridSize / 2) - 0.5;
 let player = new Player(gridCenter, {}, "down");
 
-
-const toolBox = document.getElementById('toolBox');
-const islandGrid = document.getElementById('islandGrid');
-const controlsBox = document.getElementById('controlsBox');
-const playerGrid = document.getElementById('playerGrid');
-islandGrid.style.gridTemplateColumns = `repeat(${cameraColumns}, 1fr)`;
-islandGrid.style.gridTemplateRows = `repeat(${cameraColumns}, 1fr)`;
-playerGrid.style.gridTemplateColumns = `repeat(${cameraColumns}, 1fr)`;
-playerGrid.style.gridTemplateRows = `repeat(${cameraColumns}, 1fr)`;
+let tools = [
+    new Tool("axe", "/assets/icons/axe.svg", true, axeTool),
+    new Tool("Pick", "Inner Html", true, false),
+    new Tool("Example", "i", true, false),
+    new Tool("Example2", "i", true, false)
+];
 
 let controls = [
     "up",
@@ -49,12 +46,14 @@ let controls = [
     "right"
 ]
 
-let tools = [
-    new Tool("path", "/assets/tools/shovel.svg", true, paveTool),
-    new Tool("tree", "/assets/tools/tree.svg", false, treeTool),
-    new Tool("water", "/assets/tools/water.svg", false, waterTool),
-    new Tool("remove", "/assets/tools/bulldoze.svg", false, removeTool)
-];
+const toolBox = document.getElementById('toolBox');
+const islandGrid = document.getElementById('islandGrid');
+const movementBox = document.getElementById('movementBox');
+const playerGrid = document.getElementById('playerGrid');
+islandGrid.style.gridTemplateColumns = `repeat(${cameraColumns}, 1fr)`;
+islandGrid.style.gridTemplateRows = `repeat(${cameraColumns}, 1fr)`;
+playerGrid.style.gridTemplateColumns = `repeat(${cameraColumns}, 1fr)`;
+playerGrid.style.gridTemplateRows = `repeat(${cameraColumns}, 1fr)`;
 
 function Roll(min, max) {
     let roll = Math.floor(Math.random() * (max - min + 1) + min);

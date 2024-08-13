@@ -7,15 +7,21 @@
     <title>Tiny Island</title>
 </head>
 <body>
+    <!-- DOM -->
     <div id="grid">
-        <div id="playerGrid"></div>
-        <div id="islandGrid"></div>
+        <div class="grid-layer" id="playerGrid"></div>
+        <div class="grid-layer" id="islandGrid"></div>
     </div>
-    <div id="controlsBox"></div>
-    <div id="toolBox"></div>
+    <div id="controlsBox">
+        <div class="button-group" id="movementBox"></div>
+        <div class="button-group" id="toolBox"></div>
+    </div>
+
+    <!-- Scripts -->
     <script src="src/config.js"></script>
     <script src="src/data.js"></script>
     <script src="src/grid.js"></script>
-    <script src="src/controls.js"></script>
+    <script src="src/movement.js"></script>
+    <script src="src/tools.js"></script>
 </body>
 </html>

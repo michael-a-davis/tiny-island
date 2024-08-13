@@ -124,7 +124,7 @@ function UpdateGrid(id) {
         id + gridColumns + gridColumns + 1,
         id + gridColumns + gridColumns + 2
     ]
-
+    
     for (i = 0; i < range.length; i++) {
         const tile = document.getElementById(i);
         if (tiles[range[i]].perimeter) {

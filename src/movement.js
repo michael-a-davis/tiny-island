@@ -1,6 +1,7 @@
 for (const control of controls) {
     const button = document.createElement('button');
-    button.id = control
+    button.classList.add('button');
+    button.id = control;
     const icon = document.createElement('img');
     icon.classList.add('icon');
     switch(control) {
@@ -18,7 +19,7 @@ for (const control of controls) {
             break;
     }
     button.appendChild(icon);
-    controlsBox.appendChild(button);
+    movementBox.appendChild(button);
 }
 
 const playerTile = document.getElementById("playerTile");
