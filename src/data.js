@@ -33,8 +33,8 @@ let gridCenter = (gridSize / 2) - 0.5;
 let player = new Player(gridCenter, {}, "down");
 
 let tools = [
-    new Tool("axe", "/assets/icons/axe.svg", true, axeTool),
-    new Tool("Pick", "Inner Html", true, false),
+    new Tool("axe", "assets/icons/axe.svg", true, axeTool),
+    new Tool("pick", "assets/icons/pick.svg", true, pickTool),
     new Tool("Example", "i", true, false),
     new Tool("Example2", "i", true, false)
 ];

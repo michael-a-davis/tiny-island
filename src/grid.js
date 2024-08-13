@@ -5,6 +5,7 @@ console.log(GenerateNeighborStateString(gridCenter));
 
 function GenerateIsland() {
     let treeCount = 0;
+    let rockCount = 0;
     for (i = 0; i < gridSize; i++) {
         //Perimeter tiles
         if (i === 0 ||
@@ -68,10 +69,17 @@ function GenerateIsland() {
             continue;
         }
         let makeTree = Roll(1, treeFrequency);
+        let makeRocks = Roll(1, rockFrequency);
         if (makeTree && treeCount < treeMax) {
             tiles.push(new Tile(i, "tree", false, false, true));
             treeCount++;
-        } 
+            continue;
+        }
+        if (makeRocks && rockCount < rockMax) {
+            tiles.push(new Tile(i, "rock", false, false, true));
+            rockCount++;
+            continue;
+        }
         else {
             tiles.push(new Tile(i, "remove", false, false, false));
         }
@@ -124,7 +132,7 @@ function UpdateGrid(id) {
         id + gridColumns + gridColumns + 1,
         id + gridColumns + gridColumns + 2
     ]
-    
+
     for (i = 0; i < range.length; i++) {
         const tile = document.getElementById(i);
         if (tiles[range[i]].perimeter) {
@@ -159,7 +167,11 @@ function UpdateGrid(id) {
             default:
                 if (tiles[range[i]].state === "tree") {
                     tile.src = "assets/tiles/tree.png";
-                } else {
+                } 
+                else if (tiles[range[i]].state === "rock") {
+                    tile.src = "assets/tiles/rocks.png";
+                }
+                else if (tiles[range[i]].state === "remove") {
                     tile.src = "assets/tiles/grass.png";
                 }
                 break;
@@ -190,6 +202,10 @@ function GenerateNeighborStateString(i) {
                 break;
             case "water":
                 neighborStateArray.push("W");
+                break;
+            case "rock":
+                neighborStateArray.push("R");
+                break;
         }
     }
     let neighborStatesString = neighborStateArray.toString();

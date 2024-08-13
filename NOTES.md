@@ -1,4 +1,7 @@
 # Release Notes
+### Alpha 1.1.1
+Added a rock texture and a pick tool to mine them out of the ground.
+
 ### Alpha 1.1.0
 Some big changes in this version. The list includes:
 - Major CSS cleanup and additions to make the site more responsive
