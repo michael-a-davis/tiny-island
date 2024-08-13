@@ -1,10 +1,10 @@
 @media only screen and (min-width: 0px) {
     body {
-        height: 100svh;
+        height: 90svh;
         overflow-y: hidden;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: flex-end;
         align-items: center;
         margin: 0;
         padding: 0 5%;
@@ -12,12 +12,21 @@
         background: rgb(67, 166, 67);
     }
     
-    #islandGrid {
+    #islandGrid, #playerGrid {
         width: 100%;
         height: auto;
         max-width: 500px;
         display: grid;
         justify-items: center;
+        position: absolute;
+        top: 20px;
+        left: 0px;
+    }
+    #islandGrid {
+        z-index: 0;
+    }
+    #playerGrid {
+        z-index: 1;
     }
     
     #toolBox {
@@ -49,6 +58,9 @@
         border-radius: 20px;
         border: none;
         transition: 100ms;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     #controlsBox button:hover {
         background-color: hsl(0, 0%, 31%);
@@ -59,8 +71,6 @@
         height: auto;
     }
     .tile {
-        box-sizing: border-box;
-        border: 1px solid rgb(25, 25, 25, 0.1);
         background-size: cover;
         display: flex;
         align-items: center;
@@ -89,7 +99,7 @@
     }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
     body {
         flex-direction: row;
         justify-content: center;
@@ -99,7 +109,7 @@
         justify-content: center;
         width: 10%;
     }
-    #islandGrid {
+    #islandGrid, #playerGrid {
         max-width: 650px;
     }
     #controlsBox {

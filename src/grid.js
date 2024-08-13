@@ -77,6 +77,15 @@ function GenerateGrid() {
         tile.id = i;
         islandGrid.appendChild(tile);
     }
+    for (i = 0; i < cameraScope; i++) {
+        const tile = document.createElement('img');
+        tile.classList.add('tile');
+        if (i === cameraCenter) {
+            tile.src = "assets/player/front.png";
+            tile.id = "playerTile";
+        }
+        playerGrid.appendChild(tile);
+    }
 }
 
 function UpdateGrid(id) {
@@ -111,7 +120,7 @@ function UpdateGrid(id) {
     for (i = 0; i < range.length; i++) {
         const tile = document.getElementById(i);
         if (tiles[range[i]].id === player.location) {
-            tile.src = "tiles/player.png";
+            tile.src = "tiles/grass.png";
             continue;
         }
         if (tiles[range[i]].perimeter) {

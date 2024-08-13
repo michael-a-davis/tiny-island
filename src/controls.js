@@ -5,22 +5,23 @@ for (const control of controls) {
     icon.classList.add('icon');
     switch(control) {
         case "up":
-            icon.src = "icons/arrow-up.svg";
+            icon.src = "assets/icons/arrow-up.svg";
             break;
         case "left":
-            icon.src = "icons/arrow-left.svg";
+            icon.src = "assets/icons/arrow-left.svg";
             break;
         case "right":
-            icon.src = "icons/arrow-right.svg";
+            icon.src = "assets/icons/arrow-right.svg";
             break;
         case "down":
-            icon.src = "icons/arrow-down.svg";
+            icon.src = "assets/icons/arrow-down.svg";
             break;
     }
     button.appendChild(icon);
     controlsBox.appendChild(button);
 }
 
+const playerTile = document.getElementById("playerTile");
 const upButton = document.getElementById("up");
 const downButton = document.getElementById("down");
 const leftButton = document.getElementById("left");
@@ -44,8 +45,8 @@ rightButton.addEventListener("click", function() {
 
 function Up() {
     if(!tiles[player.location - gridColumns - gridColumns].perimeter &&
-        tiles[player.location - gridColumns].state === "remove"
-    ) {
+        tiles[player.location - gridColumns].state === "remove") {
+        playerTile.src = "assets/player/back.png";
         player.location = player.location - gridColumns;
         UpdateGrid(player.location);
     }
@@ -53,7 +54,9 @@ function Up() {
 
 function Down() {
     if(!tiles[player.location + gridColumns + gridColumns].perimeter &&
-        tiles[player.location + gridColumns].state === "remove") {
+        tiles[player.location + gridColumns].state === "remove"
+    ) {
+        playerTile.src = "assets/player/front.png";
         player.location = player.location + gridColumns;
         UpdateGrid(player.location);
     }
@@ -63,6 +66,7 @@ function Left() {
     if(!tiles[player.location - 2].perimeter &&
         tiles[player.location - 1].state === "remove"
     ) {
+        playerTile.src = "assets/player/left.png";
         player.location = player.location - 1;
         UpdateGrid(player.location);
     }
@@ -71,8 +75,8 @@ function Left() {
 function Right() {
     if(!tiles[player.location + 2].perimeter &&
         tiles[player.location + 1].state === "remove"
-
     ) {
+        playerTile.src = "assets/player/right.png";
         player.location = player.location + 1;
         UpdateGrid(player.location);
     }

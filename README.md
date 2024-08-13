@@ -18,6 +18,10 @@ Planned features include:
 The current version of Tiny Island can be tested here: https://michael-a-davis.github.io/tiny-island/
 
 ## Release Notes
+### Alpha 1.0.4
+Added a simple character sprite to the game with a second tile layer that sits on
+top of the main grid. The character exists on this second layer and can move freely
+about the island.
 
 ### Alpha 1.0.3
 Edits to CSS and control button generation to have an appearance more aligned to a directional pad.

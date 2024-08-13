@@ -23,6 +23,7 @@ class Player {
 
 let cameraColumns = 5;
 let cameraScope = cameraColumns ** 2;
+let cameraCenter = (cameraScope / 2) - 0.5
 let currentTool = "path";
 let tiles = [];
 let gridSize = gridColumns ** 2;
@@ -33,8 +34,11 @@ let player = new Player(gridCenter, {})
 const toolBox = document.getElementById('toolBox');
 const islandGrid = document.getElementById('islandGrid');
 const controlsBox = document.getElementById('controlsBox');
+const playerGrid = document.getElementById('playerGrid');
 islandGrid.style.gridTemplateColumns = `repeat(${cameraColumns}, 1fr)`;
 islandGrid.style.gridTemplateRows = `repeat(${cameraColumns}, 1fr)`;
+playerGrid.style.gridTemplateColumns = `repeat(${cameraColumns}, 1fr)`;
+playerGrid.style.gridTemplateRows = `repeat(${cameraColumns}, 1fr)`;
 
 let controls = [
     "up",
