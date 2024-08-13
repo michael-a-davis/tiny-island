@@ -18,6 +18,15 @@ Planned features include:
 The current version of Tiny Island can be tested here: https://michael-a-davis.github.io/tiny-island/
 
 ## Release Notes
+### Alpha 1.0.5
+Added a parameter to tiles called "collision" to check whether or not a player can walk into them,
+applied to both ocean tiles and tree tiles, and more to come. The controls then simply check whether
+the desired tile to enter has a state of collision on it and prevents the player from moving there
+if it does.
+
+Secondly, added a second ring of ocean around the perimeter so now players can walk freely along
+the actual shores of the island. The full editable island is now accessible.
+
 ### Alpha 1.0.4
 Added a simple character sprite to the game with a second tile layer that sits on
 top of the main grid. The character exists on this second layer and can move freely

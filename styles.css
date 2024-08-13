@@ -19,8 +19,9 @@
         display: grid;
         justify-items: center;
         position: absolute;
-        top: 20px;
-        left: 0px;
+        left: 50%;
+        top: 30px;
+        transform: translate(-50%, 0);
     }
     #islandGrid {
         z-index: 0;

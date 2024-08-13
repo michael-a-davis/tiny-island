@@ -1,6 +1,6 @@
-let gridColumns = 17;
+let gridColumns = 19;
 
-let treeMax = 35;
+let treeMax = 40;
 let treeFrequency = 4;
 
 let paveTool = true;

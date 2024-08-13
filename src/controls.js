@@ -44,8 +44,7 @@ rightButton.addEventListener("click", function() {
 })
 
 function Up() {
-    if(!tiles[player.location - gridColumns - gridColumns].perimeter &&
-        tiles[player.location - gridColumns].state === "remove") {
+    if(!tiles[player.location - gridColumns].collision) {
         playerTile.src = "assets/player/back.png";
         player.location = player.location - gridColumns;
         UpdateGrid(player.location);
@@ -53,9 +52,7 @@ function Up() {
 }
 
 function Down() {
-    if(!tiles[player.location + gridColumns + gridColumns].perimeter &&
-        tiles[player.location + gridColumns].state === "remove"
-    ) {
+    if(!tiles[player.location + gridColumns].collision) {
         playerTile.src = "assets/player/front.png";
         player.location = player.location + gridColumns;
         UpdateGrid(player.location);
@@ -63,9 +60,7 @@ function Down() {
 }
 
 function Left() {
-    if(!tiles[player.location - 2].perimeter &&
-        tiles[player.location - 1].state === "remove"
-    ) {
+    if(!tiles[player.location - 1].collision) {
         playerTile.src = "assets/player/left.png";
         player.location = player.location - 1;
         UpdateGrid(player.location);
@@ -73,9 +68,7 @@ function Left() {
 }
 
 function Right() {
-    if(!tiles[player.location + 2].perimeter &&
-        tiles[player.location + 1].state === "remove"
-    ) {
+    if(!tiles[player.location + 1].collision) {
         playerTile.src = "assets/player/right.png";
         player.location = player.location + 1;
         UpdateGrid(player.location);

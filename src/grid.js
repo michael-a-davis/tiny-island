@@ -14,58 +14,66 @@ function GenerateIsland() {
             i < gridColumns ||
             i % gridColumns === 0 ||
             i % gridColumns === gridColumns - 1 ||
-            i > gridSize - 1 - gridColumns
+            i > gridSize - 1 - gridColumns ||
+            i === 1 + gridColumns ||
+            i === gridSize - gridColumns - 2 ||
+            i === gridSize - gridColumns - gridColumns + 1 ||
+            i === gridColumns + gridColumns - 2 ||
+            i < gridColumns * 2 ||
+            i % gridColumns - 1 === 0 ||
+            i % gridColumns === gridColumns - 2 ||
+            i > gridSize - 1 - gridColumns - gridColumns
         ) {
-            tiles.push(new Tile(i, "water", true, false));
+            tiles.push(new Tile(i, "water", true, false, true));
             continue;
         }
 
         //Shore tiles
-        if (i === 1 + gridColumns) {
-            tiles.push(new Tile(i, "water", false, "UL"));
+        if (i === gridColumns * 2 + 2) {
+            tiles.push(new Tile(i, "water", false, "UL", false));
             continue;
         }
-        if (i === gridSize - gridColumns - 2) {
-            tiles.push(new Tile(i, "water", false, "DR"));
+        if (i === gridSize - (gridColumns * 2) - 3) {
+            tiles.push(new Tile(i, "water", false, "DR", false));
             continue;
         }
-        if (i === gridSize - gridColumns - gridColumns + 1) {
-            tiles.push(new Tile(i, "water", false, "DL"));
+        if (i === gridSize - (gridColumns * 3) + 2) {
+            tiles.push(new Tile(i, "water", false, "DL", false));
             continue;
         }
-        if (i === gridColumns + gridColumns - 2) {
-            tiles.push(new Tile(i, "water", false, "UR"));
+        if (i === (gridColumns * 3) - 3) {
+            tiles.push(new Tile(i, "water", false, "UR", false));
             continue;
         }
-        if (i < gridColumns * 2) {
-            tiles.push(new Tile(i, "water", false, "U"));
+        if (i < gridColumns * 3) {
+            tiles.push(new Tile(i, "water", false, "U", false));
             continue;
         }
-        if (i % gridColumns - 1 === 0) {
-            tiles.push(new Tile(i, "water", false, "L"));
+        if (i % gridColumns - 2 === 0) {
+            tiles.push(new Tile(i, "water", false, "L", false));
             continue;
         }
-        if (i % gridColumns === gridColumns - 2) {
-            tiles.push(new Tile(i, "water", false, "R"));
+        if (i % gridColumns === gridColumns - 3) {
+            tiles.push(new Tile(i, "water", false, "R", false));
             continue;
         }
-        if (i > gridSize - 1 - gridColumns - gridColumns) {
-            tiles.push(new Tile(i, "water", false, "D"));
+        if (i > gridSize - 1 - (gridColumns * 3)) {
+            tiles.push(new Tile(i, "water", false, "D", false));
             continue;
         }
 
         //Internal tiles
         if (i === gridCenter) {
-            tiles.push(new Tile(i, "remove", false, false));
+            tiles.push(new Tile(i, "remove", false, false, false));
             continue;
         }
         let makeTree = Roll(1, treeFrequency);
         if (makeTree && treeCount < treeMax) {
-            tiles.push(new Tile(i, "tree", false, false));
+            tiles.push(new Tile(i, "tree", false, false, true));
             treeCount++;
         } 
         else {
-            tiles.push(new Tile(i, "remove", false, false));
+            tiles.push(new Tile(i, "remove", false, false, false));
         }
     }
 }
@@ -119,44 +127,40 @@ function UpdateGrid(id) {
 
     for (i = 0; i < range.length; i++) {
         const tile = document.getElementById(i);
-        if (tiles[range[i]].id === player.location) {
-            tile.src = "tiles/grass.png";
-            continue;
-        }
         if (tiles[range[i]].perimeter) {
-            tile.src = "tiles/water.png";
+            tile.src = "assets/tiles/water.png";
             continue;
         }
         switch(tiles[range[i]].shore) {
             case "UL":
-                tile.src = "tiles/corner-UL.png";
+                tile.src = "assets/tiles/corner-UL.png";
                 break;
             case "UR":
-                tile.src = "tiles/corner-UR.png";
+                tile.src = "assets/tiles/corner-UR.png";
                 break;
             case "DR":
-                tile.src = "tiles/corner-DR.png";
+                tile.src = "assets/tiles/corner-DR.png";
                 break;
             case "DL":
-                tile.src = "tiles/corner-DL.png";
+                tile.src = "assets/tiles/corner-DL.png";
                 break;
             case "U":
-                tile.src = "tiles/perimeter-U.png";
+                tile.src = "assets/tiles/perimeter-U.png";
                 break;
             case "L":
-                tile.src = "tiles/perimeter-L.png";
+                tile.src = "assets/tiles/perimeter-L.png";
                 break;
             case "R":
-                tile.src = "tiles/perimeter-R.png";
+                tile.src = "assets/tiles/perimeter-R.png";
                 break;
             case "D":
-                tile.src = "tiles/perimeter-D.png";
+                tile.src = "assets/tiles/perimeter-D.png";
                 break;
             default:
                 if (tiles[range[i]].state === "tree") {
-                    tile.src = "tiles/tree.png";
+                    tile.src = "assets/tiles/tree.png";
                 } else {
-                    tile.src = "tiles/grass.png";
+                    tile.src = "assets/tiles/grass.png";
                 }
                 break;
         }

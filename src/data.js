@@ -1,9 +1,10 @@
 class Tile {
-    constructor(id, state, perimeter, shore) {
+    constructor(id, state, perimeter, shore, collision) {
         this.id = id;
         this.state = state;
         this.perimeter = perimeter;
         this.shore = shore;
+        this.collision = collision;
     }
 }
 class Tool {
