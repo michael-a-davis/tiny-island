@@ -16,9 +16,10 @@ class Tool {
     }
 }
 class Player {
-    constructor(location, inventory) {
+    constructor(location, inventory, facing) {
         this.location = location;
         this.inventory = inventory;
+        this.facing = facing;
     }
 }
 
@@ -29,7 +30,7 @@ let currentTool = "path";
 let tiles = [];
 let gridSize = gridColumns ** 2;
 let gridCenter = (gridSize / 2) - 0.5;
-let player = new Player(gridCenter, {})
+let player = new Player(gridCenter, {}, "down");
 
 
 const toolBox = document.getElementById('toolBox');

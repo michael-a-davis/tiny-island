@@ -18,6 +18,11 @@ Planned features include:
 The current version of Tiny Island can be tested here: https://michael-a-davis.github.io/tiny-island/
 
 ## Release Notes
+### Alpha 1.0.6
+Added keyboard controls. W, A, S, and D for movement. The player now faces the direction of a button
+press regardless of whether or not he can be moved there. In addition, the player object now has a
+"facing" parameter to keep track of which direction he is facing at all times.
+
 ### Alpha 1.0.5
 Added a parameter to tiles called "collision" to check whether or not a player can walk into them,
 applied to both ocean tiles and tree tiles, and more to come. The controls then simply check whether
