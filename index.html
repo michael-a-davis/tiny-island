@@ -7,21 +7,56 @@
     <title>Tiny Island</title>
 </head>
 <body>
-    <!-- DOM -->
+    <div id="topBar">
+        <button class="button" id="hintButton">
+            <img src="assets/icons/bulb.svg" alt="Click to read the hint">
+        </button>
+    </div>
+
+    <div id="hintBox" class="hidden">
+        <p id="closeHint">X</p>
+        <p id="hintText">Try shaking trees with the "A" button.</p>
+    </div>
+
     <div id="grid">
         <div class="grid-layer" id="playerGrid"></div>
         <div class="grid-layer" id="islandGrid"></div>
     </div>
+
     <div id="controlsBox">
-        <div class="button-group" id="movementBox"></div>
-        <div class="button-group" id="toolBox"></div>
+        <div id="gameLog">
+            <p id="logText"></p>
+        </div>
+        <div class="button-group" id="movementBox">
+            <button class="button" id="upButton" aria-label="Up Button">
+                <img class="icon" src="assets/icons/arrow-up.svg"/>
+            </button>
+            <button class="button" id="downButton" aria-label="Down Button">
+                <img class="icon" src="assets/icons/arrow-down.svg"/>
+            </button>
+            <button class="button" id="leftButton" aria-label="Left Button">
+                <img class="icon" src="assets/icons/arrow-left.svg"/>
+            </button>
+            <button class="button" id="rightButton" aria-label="Right Button">
+                <img class="icon" src="assets/icons/arrow-right.svg"/>
+            </button>
+        </div>
+        <div class="button-group" id="buttonBox">
+            <button class="button" id="aButton" aria-label="A Button">
+                A
+            </button>
+            <button class="button" id="bButton" aria-label="B Button">
+                B
+            </button>
+        </div>
     </div>
 
     <!-- Scripts -->
     <script src="src/config.js"></script>
     <script src="src/data.js"></script>
     <script src="src/grid.js"></script>
-    <script src="src/movement.js"></script>
-    <script src="src/tools.js"></script>
+    <script src="src/controls.js"></script>
+    <script src="src/actions.js"></script>
+    <script src="src/main.js"></script>
 </body>
 </html>

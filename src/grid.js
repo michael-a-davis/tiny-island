@@ -1,8 +1,3 @@
-GenerateIsland();
-GenerateGrid();
-UpdateGrid(gridCenter);
-console.log(GenerateNeighborStateString(gridCenter));
-
 function GenerateIsland() {
     let treeCount = 0;
     let rockCount = 0;
@@ -97,7 +92,7 @@ function GenerateGrid() {
         const tile = document.createElement('img');
         tile.classList.add('tile');
         if (i === cameraCenter) {
-            tile.src = "assets/player/front.png";
+            tile.src = assets.player.down;
             tile.id = "playerTile";
         }
         playerGrid.appendChild(tile);
@@ -136,43 +131,43 @@ function UpdateGrid(id) {
     for (i = 0; i < range.length; i++) {
         const tile = document.getElementById(i);
         if (tiles[range[i]].perimeter) {
-            tile.src = "assets/tiles/water.png";
+            tile.src = assets.tiles.water;
             continue;
         }
         switch(tiles[range[i]].shore) {
             case "UL":
-                tile.src = "assets/tiles/corner-UL.png";
+                tile.src = assets.tiles.cornerUL;
                 break;
             case "UR":
-                tile.src = "assets/tiles/corner-UR.png";
+                tile.src = assets.tiles.cornerUR;
                 break;
             case "DR":
-                tile.src = "assets/tiles/corner-DR.png";
+                tile.src = assets.tiles.cornerDR;
                 break;
             case "DL":
-                tile.src = "assets/tiles/corner-DL.png";
+                tile.src = assets.tiles.cornerDL;
                 break;
             case "U":
-                tile.src = "assets/tiles/perimeter-U.png";
+                tile.src = assets.tiles.perimeterU
                 break;
             case "L":
-                tile.src = "assets/tiles/perimeter-L.png";
+                tile.src = assets.tiles.perimeterL;
                 break;
             case "R":
-                tile.src = "assets/tiles/perimeter-R.png";
+                tile.src = assets.tiles.perimeterR;
                 break;
             case "D":
-                tile.src = "assets/tiles/perimeter-D.png";
+                tile.src = assets.tiles.perimeterD;
                 break;
             default:
                 if (tiles[range[i]].state === "tree") {
-                    tile.src = "assets/tiles/tree.png";
+                    tile.src = assets.tiles.tree;
                 } 
                 else if (tiles[range[i]].state === "rock") {
-                    tile.src = "assets/tiles/rocks.png";
+                    tile.src = assets.tiles.rocks;
                 }
                 else if (tiles[range[i]].state === "remove") {
-                    tile.src = "assets/tiles/grass.png";
+                    tile.src = assets.tiles.grass;
                 }
                 break;
         }
@@ -211,4 +206,19 @@ function GenerateNeighborStateString(i) {
     let neighborStatesString = neighborStateArray.toString();
     let neighborStates = neighborStatesString.replace(/,/g, "");
     return neighborStates;
+}
+
+function FindNeighbor(direction, tile) {
+    switch(direction) {
+        case "up":
+            return tile - gridColumns;
+        case "down":
+            return tile + gridColumns;
+        case "left":
+            return tile - 1;
+        case "right":
+            return tile + 1;
+        default:
+            return null;
+    }
 }

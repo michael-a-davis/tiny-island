@@ -1,4 +1,10 @@
 # Release Notes
+
+### Alpha 1.2
+Pick and axe tools remain dormant in the architecture. Big changes to the UI. There are now A and
+B buttons, a game log, and a hint box to guide players. It should be shaping up into a more fleshed
+out game here very soon.
+
 ### Alpha 1.1.1
 Added a rock texture and a pick tool to mine them out of the ground.
 
