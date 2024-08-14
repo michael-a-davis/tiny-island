@@ -4,18 +4,6 @@
 }
 
 @media only screen and (min-width: 0px) {
-    /* Top Bar */
-    #topBar {
-        width: 100%;
-        height: 70px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        cursor: pointer;
-    }
-    #topBar img {
-        height: 50px;
-    }
 
     /* HINT BOX */
     #hintBox {
@@ -118,6 +106,7 @@
     /* - CONTROLS - */
     #controlsBox {
         display: grid;
+        justify-items: center;
         width: 100%;
         height: 30%;
         grid-template-columns: 1fr 1fr;
@@ -125,6 +114,7 @@
     #gameLog {
         grid-column: 1 / 3;
         height: 70px;
+        width: 100%;
         background-color: rgb(25, 25, 25);
         margin-bottom: 10%;
         color: white;
@@ -137,27 +127,25 @@
         width: 150px;
         height: 150px;
     }
-    #upButton {
+    #upButton, #bButton {
         grid-column: 2 / 3;
     }
-    #leftButton {
+    #leftButton, #aButton {
         grid-column: 1 / 2;
+        grid-row: 2;
     }
-    #rightButton {
+    #rightButton, #hintButton {
         grid-column: 3 / 4;
         grid-row: 2;
     }
-    #downButton {
+    #downButton, #craftButton {
         grid-column: 2 / 3;
         grid-row: 3 / 4;
     }
     #aButton {
-        grid-column: 2 / 3;
-        grid-row: 2;
         background-color: hsl(240, 60%, 33%);
     }
     #bButton {
-        grid-column: 3 / 4;
         background-color: hsl(0, 71%, 40%);
     }
     #aButton:hover {

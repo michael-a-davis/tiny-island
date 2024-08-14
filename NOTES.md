@@ -1,4 +1,6 @@
 # Release Notes
+### Alpha 1.2.3
+Some UI edits -- moved the hint and crafting buttons to the bottom and grouped with A and B buttons.
 
 ### Alpha 1.2.2
 Crafting menu has been added. No crafting functionality yet, but the menu displays your current
