@@ -1,5 +1,9 @@
 # Release Notes
 
+### Alpha 1.2.2
+Crafting menu has been added. No crafting functionality yet, but the menu displays your current
+inventory. An output menu will be added to craft items.
+
 ### Alpha 1.2.1
 Added ability to shake trees and occasionally receive sticks from doing so. Added a crafting button
 but no menu yet. Fixed a small bug where log text would stay on screen after performing an action.

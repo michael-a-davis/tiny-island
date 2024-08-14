@@ -22,7 +22,8 @@ let player = {
     location: gridCenter,
     facing: "down",
     inventory: {
-        sticks: 0
+        Sticks: 0,
+        Rocks: 0
     }
 }
 let currentAction;
@@ -71,20 +72,14 @@ const rightButton = document.getElementById('rightButton');
 const aButton = document.getElementById('aButton');
 const bButton = document.getElementById('bButton');
 const hintButton = document.getElementById('hintButton');
+const craftButton = document.getElementById('craftButton');
+const craftBox = document.getElementById('craftingMenu');
 const hintBox = document.getElementById('hintBox');
 const closeHint = document.getElementById('closeHint');
+const closeCraft = document.getElementById('closeCraft');
+const hintText = document.getElementById('hintText');
 const logText = document.getElementById('logText');
-
-function OpenHint() {
-    hintBox.classList.remove('hidden');
-}
-
-function CloseHint() {
-    hintBox.classList.add('hidden');
-}
-
-hintButton.addEventListener("click", function() {OpenHint()});
-closeHint.addEventListener ("click", function() {CloseHint()});
+const inventoryList = document.getElementById('inventoryList');
 
 
 //Universal functions

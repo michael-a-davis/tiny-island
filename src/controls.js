@@ -72,15 +72,26 @@ function Move(direction) {
 function APress() {
     switch(currentAction) {
         case "shakeTree":
-            let gotStick = Roll(1, 5);
+            let gotStick = Roll(1, 3);
             if (!gotStick) {
-                logText.innerHTML = "You shook the tree!";
+                logText.innerHTML = "You shook the tree, but nothing happened.";
                 break;
             }
             if (gotStick) {
-                player.inventory.sticks++;
-                logText.innerHTML = "You shook the tree, and got a stick! You now have " + player.inventory.sticks + " sticks.";
+                player.inventory.Sticks++;
+                logText.innerHTML = "You shook the tree, and got a stick! You now have " + player.inventory.Sticks + " sticks.";
                 console.log(player.inventory);
+                break;
+            }
+        case "grabRock":
+            let gotRock = Roll(1, 5);
+            if (!gotRock) {
+                logText.innerHTML = "You tried to break off a piece of rock, but you couldn't.";
+                break;
+            }
+            if (gotRock) {
+                player.inventory.Rocks++;
+                logText.innerHTML = "You found a rock! You now have " + player.inventory.Rocks + " rocks.";
                 break;
             }
         default:

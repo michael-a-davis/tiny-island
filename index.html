@@ -21,6 +21,25 @@
         <p id="hintText">Try shaking trees with the A button.</p>
     </div>
 
+    <div id="craftingMenu" class="hidden">
+        <div id="craftingHeader">
+            <p id="closeCraft">X</p>
+            <p>Crafting Menu</p>
+        </div>
+        <div class="crafting-column" id="inventoryColumn">
+            <p>Inventory:</p>
+            <ul id="inventoryList">
+            
+            </ul>
+        </div>
+        <div class="crafting-column" id="outputColumn">
+            <p>Craft:</p>
+            <ul id="possibleCrafts">
+
+            </ul>
+        </div>
+    </div>
+
     <div id="grid">
         <div class="grid-layer" id="playerGrid"></div>
         <div class="grid-layer" id="islandGrid"></div>
@@ -58,6 +77,7 @@
     <script src="src/config.js"></script>
     <script src="src/data.js"></script>
     <script src="src/grid.js"></script>
+    <script src="src/gui.js"></script>
     <script src="src/controls.js"></script>
     <script src="src/actions.js"></script>
     <script src="src/main.js"></script>
