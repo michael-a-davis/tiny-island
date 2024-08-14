@@ -41,6 +41,7 @@ function GenerateControls() {
 }
 
 function Move(direction) {
+    logText.innerHTML = "";
     switch(direction) {
         case "up":
             playerTile.src = assets.player.up;
@@ -64,15 +65,26 @@ function Move(direction) {
         return;
     }
     player.location = FindNeighbor(direction, player.location);
+    UpdateActions();
     UpdateGrid(player.location);
 }
 
 function APress() {
     switch(currentAction) {
         case "shakeTree":
-            logText.innerHTML = "You shook the tree!";
-            break;
+            let gotStick = Roll(1, 5);
+            if (!gotStick) {
+                logText.innerHTML = "You shook the tree!";
+                break;
+            }
+            if (gotStick) {
+                player.inventory.sticks++;
+                logText.innerHTML = "You shook the tree, and got a stick! You now have " + player.inventory.sticks + " sticks.";
+                console.log(player.inventory);
+                break;
+            }
         default:
             logText.innerHTML = "There's nothing to do here...";
+            break;
     }
 }

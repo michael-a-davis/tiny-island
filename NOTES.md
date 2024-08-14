@@ -1,5 +1,10 @@
 # Release Notes
 
+### Alpha 1.2.1
+Added ability to shake trees and occasionally receive sticks from doing so. Added a crafting button
+but no menu yet. Fixed a small bug where log text would stay on screen after performing an action.
+It now disappears once walking away.
+
 ### Alpha 1.2
 Pick and axe tools remain dormant in the architecture. Big changes to the UI. There are now A and
 B buttons, a game log, and a hint box to guide players. It should be shaping up into a more fleshed

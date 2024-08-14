@@ -21,6 +21,9 @@ let gridCenter = (gridSize / 2) - 0.5;
 let player = {
     location: gridCenter,
     facing: "down",
+    inventory: {
+        sticks: 0
+    }
 }
 let currentAction;
 
@@ -46,7 +49,8 @@ let assets = {
         arrowUp: "assets/icons/arrow-up.svg",
         arrowRight: "assets/icons/arrow-right.svg",
         axe: "assets/icons/axe.svg",
-        pick: "assets/icons/pick.svg"
+        pick: "assets/icons/pick.svg",
+        hammer: "assets/icons/hammer.svg"
     },
     player: {
         up: "assets/player/back.png",
