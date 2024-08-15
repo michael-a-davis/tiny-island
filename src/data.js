@@ -1,33 +1,3 @@
-// Class constructors
-class Tile {
-    constructor(id, state, perimeter, shore, collision) {
-        this.id = id;
-        this.state = state;
-        this.perimeter = perimeter;
-        this.shore = shore;
-        this.collision = collision;
-    }
-}
-
-//Grid variables
-let cameraColumns = 5;
-let cameraScope = cameraColumns ** 2;
-let cameraCenter = (cameraScope / 2) - 0.5
-let tiles = [];
-let gridSize = gridColumns ** 2;
-let gridCenter = (gridSize / 2) - 0.5;
-
-//Player variables
-let player = {
-    location: gridCenter,
-    facing: "down",
-    inventory: {
-        Sticks: 0,
-        Rocks: 0
-    }
-}
-let currentAction;
-
 //Asset links
 let assets = {
     tiles: {
@@ -71,6 +41,8 @@ const leftButton = document.getElementById('leftButton');
 const rightButton = document.getElementById('rightButton');
 const aButton = document.getElementById('aButton');
 const bButton = document.getElementById('bButton');
+const xButton = document.getElementById('xButton');
+const yButton = document.getElementById('yButton');
 const hintButton = document.getElementById('hintButton');
 const craftButton = document.getElementById('craftButton');
 const craftBox = document.getElementById('craftingMenu');
@@ -80,7 +52,7 @@ const closeCraft = document.getElementById('closeCraft');
 const hintText = document.getElementById('hintText');
 const logText = document.getElementById('logText');
 const inventoryList = document.getElementById('inventoryList');
-
+const craftList = document.getElementById('possibleCrafts');
 
 //Universal functions
 function Roll(min, max) {

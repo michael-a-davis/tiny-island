@@ -1,3 +1,20 @@
+class Tile {
+    constructor(id, state, perimeter, shore, collision) {
+        this.id = id;
+        this.state = state;
+        this.perimeter = perimeter;
+        this.shore = shore;
+        this.collision = collision;
+    }
+}
+
+let cameraColumns = 5;
+let cameraScope = cameraColumns ** 2;
+let cameraCenter = (cameraScope / 2) - 0.5
+let tiles = [];
+let gridSize = gridColumns ** 2;
+let gridCenter = (gridSize / 2) - 0.5;
+
 function GenerateIsland() {
     let treeCount = 0;
     let rockCount = 0;

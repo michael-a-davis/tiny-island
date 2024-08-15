@@ -18,6 +18,7 @@ function OpenCrafting() {
     craftBox.style.display = "grid";
     hintBox.classList.add('hidden');
     inventoryList.innerHTML = "";
+    craftList.innerHTML = "";
 
     for (const item in player.inventory) {
         if (player.inventory[item] === 0) {
@@ -26,7 +27,17 @@ function OpenCrafting() {
         const listItem = document.createElement('li');
         listItem.innerHTML = `${item}: ${player.inventory[item]}`;
         inventoryList.appendChild(listItem);
-      }
+    }
+
+    let craftables = GeneratePossibleCrafts();
+    
+    for (i = 0; i < craftables.length; i++) {
+        const button = document.createElement('button');
+        button.innerHTML = `${craftables[i]}`;
+        let craftable = craftables[i];
+        button.addEventListener("click", function() {Craft(craftable)});
+        craftList.appendChild(button);
+    }
       
 }
 

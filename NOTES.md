@@ -1,4 +1,9 @@
 # Release Notes
+
+### Alpha 1.2.4
+Some more UI updates. The hint button is now represented by a question mark, and a full set of face
+buttons have been added. The plan for now is to rework the crafting architecture and to get it functioning.
+
 ### Alpha 1.2.3
 Some UI edits -- moved the hint and crafting buttons to the bottom and grouped with A and B buttons.
 

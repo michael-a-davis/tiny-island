@@ -12,11 +12,17 @@ function GenerateControls() {
         if (this.event.keyCode == 65) {
             Move("left");
         }
-        if (this.event.keyCode == 75) {
+        if (this.event.keyCode == 74) {
             APress();
         }
-        if (this.event.keyCode == 79) {
+        if (this.event.keyCode == 73) {
             BPress();
+        }
+        if (this.event.keyCode == 76) {
+            XPress();
+        }
+        if (this.event.keyCode == 75) {
+            YPress();
         }
         console.log(player.facing);
     })
@@ -37,6 +43,12 @@ function GenerateControls() {
     })
     bButton.addEventListener("click", function() {
         BPress();
+    })
+    xButton.addEventListener("click", function() {
+        XPress();
+    })
+    yButton.addEventListener("click", function() {
+        YPress();
     })
 }
 
@@ -73,14 +85,19 @@ function APress() {
     switch(currentAction) {
         case "shakeTree":
             let gotStick = Roll(1, 3);
-            if (!gotStick) {
+            let gotSeed = Roll(1, 3);
+            if (!gotStick && !gotSeed || gotStick & gotSeed) {
                 logText.innerHTML = "You shook the tree, but nothing happened.";
                 break;
             }
-            if (gotStick) {
+            else if (!gotStick && gotSeed) {
+                player.inventory.Seeds++;
+                logText.innerHTML = "You shook the tree, and got a seed!";
+                break;
+            }
+            else if (gotStick && !gotSeed) {
                 player.inventory.Sticks++;
-                logText.innerHTML = "You shook the tree, and got a stick! You now have " + player.inventory.Sticks + " sticks.";
-                console.log(player.inventory);
+                logText.innerHTML = "You shook the tree, and got a stick!";
                 break;
             }
         case "grabRock":

@@ -4,6 +4,14 @@
 }
 
 @media only screen and (min-width: 0px) {
+    /* - TOP BAR - */
+    #topBar {
+        display: flex;
+        width: 100%;
+        height: 70px;
+        justify-content: flex-end;
+        align-items: center;
+    }
 
     /* HINT BOX */
     #hintBox {
@@ -102,62 +110,34 @@
         aspect-ratio: 1 / 1;
     }
 
-    
     /* - CONTROLS - */
     #controlsBox {
-        display: grid;
-        justify-items: center;
+        display: flex;
+        flex-flow: column;
         width: 100%;
-        height: 30%;
-        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-content: space-between;;
     }
     #gameLog {
         grid-column: 1 / 3;
         height: 70px;
-        width: 100%;
+        width: 90%;
         background-color: rgb(25, 25, 25);
         margin-bottom: 10%;
         color: white;
         padding: 0 10px;
     }
-    .button-group {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        width: 150px;
-        height: 150px;
-    }
-    #upButton, #bButton {
-        grid-column: 2 / 3;
-    }
-    #leftButton, #aButton {
-        grid-column: 1 / 2;
-        grid-row: 2;
-    }
-    #rightButton, #hintButton {
-        grid-column: 3 / 4;
-        grid-row: 2;
-    }
-    #downButton, #craftButton {
-        grid-column: 2 / 3;
-        grid-row: 3 / 4;
-    }
-    #aButton {
-        background-color: hsl(240, 60%, 33%);
-    }
-    #bButton {
-        background-color: hsl(0, 71%, 40%);
-    }
-    #aButton:hover {
-        background-color: hsl(240, 60%, 48%)
-    }
-    #bButton:hover {
-        background-color: hsl(0, 71%, 55%);
+    #buttonsBox {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: first baseline;
+        width: 100%;
     }
     .button {
         height: 50px;
         width: 50px;
         background-color: rgb(25, 25, 25);
+        font-weight: bold;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -169,15 +149,48 @@
         font-size: 25px;
     }
     .button:hover {
-        background-color: rgb(50, 50, 50);
+        background-color: rgb(60, 60, 60);
         cursor: pointer;
     }
     .button:active {
-        background-color: rgb(75, 75, 75);
+        background-color: rgb(80, 80, 80);
     }
     .icon {
         width: 30px;
         height: auto;
+    }
+    .button-group {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+    #upButton, #xButton {
+        grid-column: 2;
+        grid-row: 1;
+    }
+    #downButton, #aButton {
+        grid-column: 2;
+        grid-row: 3;
+    }
+    #leftButton, #yButton {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    #rightButton, #bButton {
+        grid-column: 3;
+        grid-row: 2;
+    }
+    #aButton {
+        color: rgb(65, 255, 65);
+    }
+    #bButton {
+        color: rgb(255, 67, 67);
+    }
+    #xButton {
+        color: rgb(82, 82, 255);
+    }
+    #yButton {
+        color: rgb(255, 255, 87);
     }
 }
 
