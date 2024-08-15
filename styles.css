@@ -114,7 +114,7 @@
     #controlsBox {
         display: flex;
         flex-flow: column;
-        width: 100%;
+        width: 90%;
         align-items: center;
         justify-content: space-between;;
     }
