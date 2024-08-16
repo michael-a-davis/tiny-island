@@ -131,6 +131,16 @@ function BPress() {
     }
 }
 
+function XPress() {
+    switch(xAction) {
+        case "useTool":
+            UseTool();
+            break;
+        default:
+            break;
+    }
+}
+
 /* --- MENUS --- */
 function ToggleCrafting() {
     if (isCrafting) {
@@ -165,6 +175,10 @@ function OpenCrafting() {
     craftBox.classList.remove('hidden');
     craftBox.style.display = "grid";
     hintBox.classList.add('hidden');
+    UpdateCraftingMenu();
+}
+
+function UpdateCraftingMenu() {
     inventoryList.innerHTML = "";
     craftList.innerHTML = "";
 
@@ -180,7 +194,11 @@ function OpenCrafting() {
     let craftables = GetCraftableItems();
     for (const craftable of craftables) {
         const button = document.createElement('button');
-        button.innerHTML = craftable;
+        button.innerHTML = craftable.name;
+        button.classList.add('craft-button');
+        button.addEventListener("click", function() {
+            Craft(craftable);
+        })
         craftList.appendChild(button);
     }
 }

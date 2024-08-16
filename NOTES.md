@@ -1,5 +1,10 @@
 # Release Notes
 
+### Alpha 1.2.7
+Fishing pole is now fully craftable and auto-equips to the X button. Architecture for checking whether
+you are in a valid fishing location has been implemented. I plan to flesh out the fishing feature so
+that one may obtain copper to build better tools. More crafting features shall be implemented.
+
 ### Alpha 1.2.6
 Some more slight UI adjustments. Added a few actions. Shaking the tree now produces sticks, string, and leaves.
 Searching the sand, you can find worms. Next update should be the crafting upate.

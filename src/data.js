@@ -38,7 +38,8 @@ let assets = {
         arrowRight: "assets/icons/arrow-right.svg",
         axe: "assets/icons/axe.svg",
         pick: "assets/icons/pick.svg",
-        hammer: "assets/icons/hammer.svg"
+        hammer: "assets/icons/hammer.svg",
+        fishing: "assets/icons/fishing.svg"
     },
     player: {
         up: "assets/player/back.png",
@@ -47,32 +48,25 @@ let assets = {
         right: "assets/player/right.png"
     }
 }
+let hints = [
+    "Try shaking trees with the A button.",
+    "Try searching the coasts with the A button."
+]
 let cameraColumns = 5;
 let cameraScope = cameraColumns ** 2;
 let cameraCenter = (cameraScope / 2) - 0.5
 let tiles = [];
 let gridSize = gridColumns ** 2;
 let gridCenter = (gridSize / 2) - 0.5;
+let currentTool;
+let inventory = {};
 let player = {
     location: gridCenter,
     facing: "down"
 }
-let inventory = {};
 let items = [
     new Item(
-        "Stick",
-        false,
-        null,
-        "basic"
-    ),
-    new Item(
-        "Leaf",
-        false,
-        null,
-        "basic"
-    ),
-    new Item(
-        "Crappy Fishing Pole",
+        "Fishing Pole",
         true,
         {
             sticks: 3,
@@ -80,15 +74,6 @@ let items = [
             worms: 1
         },
         "tool"
-    ),
-    new Item(
-        "Leaf Tent",
-        true,
-        {
-            sticks: 8,
-            leaves: 8
-        },
-        "house"
     )
 ]
 const islandGrid = document.getElementById('islandGrid');
@@ -120,4 +105,8 @@ function Roll(min, max) {
     } else {
         return false;
     }
+}
+
+function RollBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }

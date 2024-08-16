@@ -21,6 +21,17 @@ function DetermineFacingTree() {
     }
 }
 
+function DetermineFacingOcean() {
+    if (tiles[FindNeighbor("up", player.location)].perimeter && player.facing === "up" ||
+        tiles[FindNeighbor("down", player.location)].perimeter && player.facing === "down" ||
+        tiles[FindNeighbor("left", player.location)].perimeter && player.facing === "left" ||
+        tiles[FindNeighbor("right", player.location)].perimeter && player.facing === "right") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function DetermineOnCoast() {
     if (tiles[player.location].shore) {
         return true;
@@ -31,27 +42,17 @@ function DetermineOnCoast() {
 
 
 function ShakeTree() {
-    gotStick = Roll(1, stickChance);
-    gotLeaf = Roll(1, leafChance);
-    gotString = Roll(1, stringChance);
+    let odds = RollBetween(1, 100);
+    let gotSomething = Roll(1, 2);
 
-    if (gotStick) {
-        logText.innerHTML = "You shook the tree, and got a stick!";
-        if (!inventory.sticks) {
-            inventory.sticks = 1;
-        } else {
-            inventory.sticks++;
-        }
+    hintText.innerHTML = hints[1];
+
+    if (!gotSomething) {
+        logText.innerHTML = "You shook the tree, but nothing happened.";
         return;
-    } else if (gotLeaf) {
-        logText.innerHTML = "You shook the tree, and got a BIG leaf!";
-        if (!inventory.leaves) {
-            inventory.leaves = 1;
-        } else {
-            inventory.leaves++;
-        }
-        return;
-    } else if (gotString) {
+    }
+
+    if (odds >= 75) {
         logText.innerHTML = "You shook the tree, and a spider came out! You got its string!";
         if (!inventory.string) {
             inventory.string = 1;
@@ -59,9 +60,23 @@ function ShakeTree() {
             inventory.string++;
         }
         return;
+    } else if (odds >= 50) {
+        logText.innerHTML = "You shook the tree, and got a BIG leaf!";
+        if (!inventory.leaves) {
+            inventory.leaves = 1;
+        } else {
+            inventory.leaves++;
+        }
+        return;
     }
     else {
-        logText.innerHTML = "You shook the tree, but nothing happened."
+        logText.innerHTML = "You shook the tree, and got a stick!";
+        if (!inventory.sticks) {
+            inventory.sticks = 1;
+        } else {
+            inventory.sticks++;
+        }
+        return;
     }
 }
 
@@ -77,5 +92,19 @@ function SearchSand() {
         }
     } else {
         logText.innerHTML = "You play in the sand, but find nothing.";
+    }
+}
+
+function UseTool() {
+    console.log(currentTool);
+    switch(currentTool) {
+        case "Fishing Pole":
+            let isFacingOcean = DetermineFacingOcean();
+            if (!isFacingOcean) {
+                logText.innerHTML = "You can't fish here, there's no water!";
+            } else {
+                logText.innerHTML = "You CAN fish here, there IS water!";
+            }
+            break;
     }
 }
