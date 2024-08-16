@@ -111,6 +111,9 @@ function APress() {
         case "shakeTree":
             ShakeTree();
             break;
+        case "searchSand":
+            SearchSand();
+            break;
         default:
             logText.innerHTML = "There's nothing to do here...";
             break;

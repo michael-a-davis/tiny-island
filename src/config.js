@@ -7,3 +7,5 @@ let rockFrequency = 7;
 
 let leafChance = 3;
 let stickChance = 2;
+let wormChance = 4;
+let stringChance = 4;

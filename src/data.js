@@ -76,6 +76,8 @@ let items = [
         true,
         {
             sticks: 3,
+            string: 3,
+            worms: 1
         },
         "tool"
     ),

@@ -1,5 +1,9 @@
 # Release Notes
 
+### Alpha 1.2.6
+Some more slight UI adjustments. Added a few actions. Shaking the tree now produces sticks, string, and leaves.
+Searching the sand, you can find worms. Next update should be the crafting upate.
+
 ### Alpha 1.2.5
 Some slight UI adjustments after testing of the previous version proved a little broken. It's completely
 broken for desktop currently, but I am focused on mobile development for now. A lot of this update was
