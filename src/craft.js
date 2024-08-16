@@ -1,12 +1,13 @@
-function GeneratePossibleCrafts() {
-    let possibleCrafts = [];
-    if (player.inventory.Sticks >= 3 && player.inventory.Rocks >= 3) {
-        possibleCrafts.push("Axe");
-        possibleCrafts.push("Pick");
+function GetCraftableItems() {
+    let craftables = [];
+    for (const item of items) {
+        if (!item.craftable) {
+            continue;
+        }
+        if ((item.cost.sticks <= inventory.sticks || !item.cost.sticks) &&
+            (item.cost.leaves <= inventory.leaves || !item.cost.leaves)) {
+            craftables.push(item.name);
+        }
     }
-    return possibleCrafts;
-}
-
-function Craft(item) {
-    player.inventory[item] = item;
+    return craftables;
 }

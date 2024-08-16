@@ -1,4 +1,21 @@
-//Asset links
+class Tile {
+    constructor(id, state, perimeter, shore, collision) {
+        this.id = id;
+        this.state = state;
+        this.perimeter = perimeter;
+        this.shore = shore;
+        this.collision = collision;
+    }
+}
+class Item {
+    constructor(name, craftable, cost, type) {
+        this.name = name;
+        this.craftable = craftable;
+        this.cost = cost;
+        this.type = type;
+    }
+}
+
 let assets = {
     tiles: {
         grass: "assets/tiles/grass.png",
@@ -30,8 +47,48 @@ let assets = {
         right: "assets/player/right.png"
     }
 }
-
-//DOM element variables
+let cameraColumns = 5;
+let cameraScope = cameraColumns ** 2;
+let cameraCenter = (cameraScope / 2) - 0.5
+let tiles = [];
+let gridSize = gridColumns ** 2;
+let gridCenter = (gridSize / 2) - 0.5;
+let player = {
+    location: gridCenter,
+    facing: "down"
+}
+let inventory = {};
+let items = [
+    new Item(
+        "Stick",
+        false,
+        null,
+        "basic"
+    ),
+    new Item(
+        "Leaf",
+        false,
+        null,
+        "basic"
+    ),
+    new Item(
+        "Crappy Fishing Pole",
+        true,
+        {
+            sticks: 3,
+        },
+        "tool"
+    ),
+    new Item(
+        "Leaf Tent",
+        true,
+        {
+            sticks: 8,
+            leaves: 8
+        },
+        "house"
+    )
+]
 const islandGrid = document.getElementById('islandGrid');
 const playerGrid = document.getElementById('playerGrid');
 const controlsBox = document.getElementById('controlsBox');
@@ -54,7 +111,6 @@ const logText = document.getElementById('logText');
 const inventoryList = document.getElementById('inventoryList');
 const craftList = document.getElementById('possibleCrafts');
 
-//Universal functions
 function Roll(min, max) {
     let roll = Math.floor(Math.random() * (max - min + 1) + min);
     if (roll === max) {

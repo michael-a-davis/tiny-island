@@ -1,20 +1,44 @@
 function UpdateActions() {
-    let neighborStates = GenerateNeighborStateString(player.location);
-
-    if (neighborStates.charAt(0) === "T" && player.facing === "up" ||
-        neighborStates.charAt(2) === "T" && player.facing === "right" ||
-        neighborStates.charAt(4) === "T" && player.facing === "down" ||
-        neighborStates.charAt(6) === "T" && player.facing === "left") {
-            currentAction = "shakeTree";
-        }
-    
-    else if (neighborStates.charAt(0) === "R" && player.facing === "up" ||
-             neighborStates.charAt(2) === "R" && player.facing === "right" ||
-             neighborStates.charAt(4) === "R" && player.facing === "down" ||
-             neighborStates.charAt(6) === "R" && player.facing === "left") {
-        currentAction = "grabRock";
+    let facingTree = DetermineFacingTree();
+    if (facingTree) {
+        aAction = "shakeTree";
+    } else {
+        aAction = null;
     }
-    else {
-        currentAction = null;
+}
+
+function DetermineFacingTree() {
+    if (tiles[FindNeighbor("up", player.location)].state === "tree" && player.facing === "up" ||
+        tiles[FindNeighbor("down", player.location)].state === "tree" && player.facing === "down" ||
+        tiles[FindNeighbor("left", player.location)].state === "tree" && player.facing === "left" ||
+        tiles[FindNeighbor("right", player.location)].state === "tree" && player.facing === "right") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function ShakeTree() {
+    gotStick = Roll(1, stickChance);
+    gotLeaf = Roll(1, leafChance);
+
+    if (gotStick && gotLeaf || !gotStick && !gotLeaf) {
+        logText.innerHTML = "You shook the tree, but nothing happened.";
+        return;
+    } else if (gotStick) {
+        logText.innerHTML = "You shook the tree, and got a stick!";
+        if (!inventory.sticks) {
+            inventory.sticks = 1;
+        } else {
+            inventory.sticks++;
+        }
+    } else if (gotLeaf) {
+        logText.innerHTML = "You shook the tree, and got a BIG leaf!";
+        if (!inventory.leaves) {
+            inventory.leaves = 1;
+        } else {
+            inventory.leaves++;
+        }
     }
 }

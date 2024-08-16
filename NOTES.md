@@ -1,5 +1,11 @@
 # Release Notes
 
+### Alpha 1.2.5
+Some slight UI adjustments after testing of the previous version proved a little broken. It's completely
+broken for desktop currently, but I am focused on mobile development for now. A lot of this update was
+pure clean up and restructuring of the code - A reorganizing update if you will. The ideas are starting
+to come together now. I expect an Alpha 1.3 very soon.
+
 ### Alpha 1.2.4
 Some more UI updates. The hint button is now represented by a question mark, and a full set of face
 buttons have been added. The plan for now is to rework the crafting architecture and to get it functioning.

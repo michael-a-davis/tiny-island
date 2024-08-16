@@ -1,20 +1,3 @@
-class Tile {
-    constructor(id, state, perimeter, shore, collision) {
-        this.id = id;
-        this.state = state;
-        this.perimeter = perimeter;
-        this.shore = shore;
-        this.collision = collision;
-    }
-}
-
-let cameraColumns = 5;
-let cameraScope = cameraColumns ** 2;
-let cameraCenter = (cameraScope / 2) - 0.5
-let tiles = [];
-let gridSize = gridColumns ** 2;
-let gridCenter = (gridSize / 2) - 0.5;
-
 function GenerateIsland() {
     let treeCount = 0;
     let rockCount = 0;
@@ -189,40 +172,6 @@ function UpdateGrid(id) {
                 break;
         }
     }
-}
-
-function GenerateNeighborStateString(i) {
-    //Generates neighbor state array
-    let neighbors = [
-        i - gridColumns, //Up
-        i - gridColumns + 1, //UpRight
-        i + 1, //Right
-        i + gridColumns + 1, //DownRight
-        i + gridColumns, //Down
-        i + gridColumns - 1, //DownLeft
-        i - 1, //Left
-        i - gridColumns - 1 //UpLeft
-    ]
-    let neighborStateArray = [];
-    for (j = 0; j < neighbors.length; j++) {
-        switch(tiles[neighbors[j]].state) {
-            case "remove":
-                neighborStateArray.push("O");
-                break;
-            case "tree":
-                neighborStateArray.push("T");
-                break;
-            case "water":
-                neighborStateArray.push("W");
-                break;
-            case "rock":
-                neighborStateArray.push("R");
-                break;
-        }
-    }
-    let neighborStatesString = neighborStateArray.toString();
-    let neighborStates = neighborStatesString.replace(/,/g, "");
-    return neighborStates;
 }
 
 function FindNeighbor(direction, tile) {

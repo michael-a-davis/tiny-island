@@ -1,3 +1,10 @@
+let isCrafting = false;
+let isHint = false;
+let aAction;
+let bAction = "closeMenu";
+let xAction;
+let yAction;
+
 function GenerateControls() {
     window.addEventListener("keydown", function() {
         if (this.event.keyCode == 87) {
@@ -23,6 +30,12 @@ function GenerateControls() {
         }
         if (this.event.keyCode == 75) {
             YPress();
+        }
+        if (this.event.keyCode == 72) {
+            ToggleHint();
+        }
+        if (this.event.keyCode == 69) {
+            ToggleCrafting();
         }
         console.log(player.facing);
     })
@@ -50,6 +63,18 @@ function GenerateControls() {
     yButton.addEventListener("click", function() {
         YPress();
     })
+    hintButton.addEventListener("click", function() {
+        ToggleHint()
+    });
+    closeHint.addEventListener ("click", function() {
+        CloseHint()
+    });
+    craftButton.addEventListener("click", function() {
+        ToggleCrafting()
+    });
+    closeCraft.addEventListener("click", function() {
+        CloseCrafting()
+    });
 }
 
 function Move(direction) {
@@ -68,51 +93,97 @@ function Move(direction) {
             playerTile.src = assets.player.right;
             break;
         default:
-            console.log("invalid");
             break;
     }
     player.facing = direction;
-    UpdateActions();
-    if (tiles[FindNeighbor(direction, player.location)].collision) {
+    if (!tiles[FindNeighbor(direction, player.location)].collision) {
+        player.location = FindNeighbor(direction, player.location);
+        UpdateActions();
+        UpdateGrid(player.location);
+    } else {
+        UpdateActions();
         return;
     }
-    player.location = FindNeighbor(direction, player.location);
-    UpdateActions();
-    UpdateGrid(player.location);
 }
 
 function APress() {
-    switch(currentAction) {
+    switch(aAction) {
         case "shakeTree":
-            let gotStick = Roll(1, 3);
-            let gotSeed = Roll(1, 3);
-            if (!gotStick && !gotSeed || gotStick & gotSeed) {
-                logText.innerHTML = "You shook the tree, but nothing happened.";
-                break;
-            }
-            else if (!gotStick && gotSeed) {
-                player.inventory.Seeds++;
-                logText.innerHTML = "You shook the tree, and got a seed!";
-                break;
-            }
-            else if (gotStick && !gotSeed) {
-                player.inventory.Sticks++;
-                logText.innerHTML = "You shook the tree, and got a stick!";
-                break;
-            }
-        case "grabRock":
-            let gotRock = Roll(1, 5);
-            if (!gotRock) {
-                logText.innerHTML = "You tried to break off a piece of rock, but you couldn't.";
-                break;
-            }
-            if (gotRock) {
-                player.inventory.Rocks++;
-                logText.innerHTML = "You found a rock! You now have " + player.inventory.Rocks + " rocks.";
-                break;
-            }
+            ShakeTree();
+            break;
         default:
             logText.innerHTML = "There's nothing to do here...";
             break;
     }
+}
+
+function BPress() {
+    switch(bAction) {
+        case "closeMenu":
+            CloseCrafting();
+            CloseHint();
+            break;
+        default:
+            break;
+    }
+}
+
+/* --- MENUS --- */
+function ToggleCrafting() {
+    if (isCrafting) {
+        CloseCrafting();
+    } else {
+        OpenCrafting();
+    }
+}
+
+function ToggleHint() {
+    if (isHint) {
+        CloseHint();
+    } else {
+        OpenHint();
+    }
+}
+
+function OpenHint() {
+    isHint = true;
+    hintBox.classList.remove('hidden');
+    craftBox.classList.add('hidden');
+    craftBox.style.display = "none";
+}
+
+function CloseHint() {
+    isHint = false;
+    hintBox.classList.add('hidden');
+}
+
+function OpenCrafting() {
+    isCrafting = true;
+    craftBox.classList.remove('hidden');
+    craftBox.style.display = "grid";
+    hintBox.classList.add('hidden');
+    inventoryList.innerHTML = "";
+    craftList.innerHTML = "";
+
+    for (const item in inventory) {
+        if (inventory[item] === 0) {
+            continue;
+        }
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `${item.charAt(0).toUpperCase() + item.slice(1)}: ${inventory[item]}`;
+        inventoryList.appendChild(listItem);
+    }
+    
+    let craftables = GetCraftableItems();
+    for (const craftable of craftables) {
+        const button = document.createElement('button');
+        button.innerHTML = craftable;
+        craftList.appendChild(button);
+    }
+}
+
+function CloseCrafting() {
+    isCrafting = false;
+    craftBox.classList.add('hidden');
+    craftBox.style.display = "none";
 }
