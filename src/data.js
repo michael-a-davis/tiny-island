@@ -8,11 +8,15 @@ class Tile {
     }
 }
 class Item {
-    constructor(name, craftable, cost, type) {
+    constructor(name, type, usedToCraft, craftable, placeable, stackable, quantity, cost) {
         this.name = name;
-        this.craftable = craftable;
-        this.cost = cost;
         this.type = type;
+        this.usedToCraft = usedToCraft;
+        this.craftable = craftable;
+        this.placeable = placeable;
+        this.stackable = stackable;
+        this.quantity = quantity;
+        this.cost = cost;
     }
 }
 
@@ -65,16 +69,16 @@ let player = {
     facing: "down"
 }
 let items = [
-    new Item(
-        "Fishing Pole",
-        true,
-        {
-            sticks: 3,
-            string: 3,
-            worms: 1
-        },
-        "tool"
-    )
+    new Item("sticks", "basic", true, false, false, true, 1, null),
+    new Item("string", "basic", true, false, false, true, 1, null),
+    new Item("leaves", "basic", true, false, false, true, 1, null),
+    new Item("worms", "basic", true, false, false, true, 1, null),
+    new Item("Fishing Pole", "tool", false, true, false, false, 1, {
+        sticks: 3,
+        string: 3,
+        worms: 1
+    }),
+    new Item("copper", "basic", true, false, false, true, 1, null)
 ]
 const islandGrid = document.getElementById('islandGrid');
 const playerGrid = document.getElementById('playerGrid');

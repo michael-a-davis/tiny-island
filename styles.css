@@ -16,6 +16,7 @@
     /* HINT BOX */
     #hintBox {
         background: rgb(25, 25, 25, 0.8);
+        border: 1px solid white;
         color: white;
         z-index: 5;
         padding: 20px;

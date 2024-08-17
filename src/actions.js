@@ -55,27 +55,30 @@ function ShakeTree() {
     if (odds >= 75) {
         logText.innerHTML = "You shook the tree, and a spider came out! You got its string!";
         if (!inventory.string) {
-            inventory.string = 1;
+            inventory.string = items[1];
         } else {
-            inventory.string++;
+            inventory.string.quantity++;
         }
+        console.log(inventory);
         return;
     } else if (odds >= 50) {
         logText.innerHTML = "You shook the tree, and got a BIG leaf!";
         if (!inventory.leaves) {
-            inventory.leaves = 1;
+            inventory.leaves = items[2];
         } else {
-            inventory.leaves++;
+            inventory.leaves.quantity++;
         }
+        console.log(inventory);
         return;
     }
     else {
         logText.innerHTML = "You shook the tree, and got a stick!";
         if (!inventory.sticks) {
-            inventory.sticks = 1;
+            inventory.sticks = items[0];
         } else {
-            inventory.sticks++;
+            inventory.sticks.quantity++;
         }
+        console.log(inventory);
         return;
     }
 }
@@ -86,9 +89,9 @@ function SearchSand() {
     if (gotWorm) {
         logText.innerHTML = "WOAH! You found a worm, creeping and crawling through the sand!";
         if (!inventory.worms) {
-            inventory.worms = 1;
+            inventory.worms = items[3];
         } else {
-            inventory.worms++;
+            inventory.worms.quantity++;
         }
     } else {
         logText.innerHTML = "You play in the sand, but find nothing.";
@@ -102,8 +105,24 @@ function UseTool() {
             let isFacingOcean = DetermineFacingOcean();
             if (!isFacingOcean) {
                 logText.innerHTML = "You can't fish here, there's no water!";
-            } else {
-                logText.innerHTML = "You CAN fish here, there IS water!";
+                break;
+            }
+            let odds = RollBetween(1, 100);
+            let gotSomething = Roll(1, 2);
+            if (!gotSomething) {
+                logText.innerHTML = "You cast your line... But caught nothing."
+                break;
+            }
+            if (odds > 85) {
+                logText.innerHTML = "You cast your line... And you caught... a copper nugget?!"
+                if (!inventory.copper) {
+                    inventory.copper = items[5];
+                } else {
+                    inventory.copper.quantity++;
+                }
+            }
+            else {
+                logText.innerHTML = "TRY AGAIN LOSER!";
             }
             break;
     }

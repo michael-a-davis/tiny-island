@@ -4,31 +4,45 @@ function GetCraftableItems() {
         if (!item.craftable) {
             continue;
         }
-        if ((item.cost.sticks <= inventory.sticks || !item.cost.sticks) &&
-            (item.cost.leaves <= inventory.leaves || !item.cost.leaves) &&
-            (item.cost.worms <= inventory.worms || !item.cost.worms) &&
-            (item.cost.string <= inventory.string || !item.cost.string)) {
+
+        let canCraftNow;
+        for (const key in item.cost) {
+            if (!inventory[key] || item.cost[key] > inventory[key].quantity) {
+                canCraftNow = false;
+                break;
+            }
+            if (item.cost[key] <= inventory[key].quantity) {
+                canCraftNow = true;
+            }
+        }
+
+        if (canCraftNow) {
             craftables.push(item);
         }
     }
     return craftables;
 }
 
+function GetItemsUsedToCraft() {
+    let crafters = []
+    for (const key in inventory) {
+        if (inventory[key].usedToCraft) {
+            crafters.push(inventory[key]);
+        }
+    }
+    console.log(crafters);
+    return crafters;
+}
+
 function Craft(item) {
     if (!inventory[item.name]) {
         inventory[item.name] = 1;
     } else {
-        inventory[item.name]++;
+        inventory[item.name].quantity++;
     }
 
-    if (item.cost.sticks) {
-        inventory.sticks -= item.cost.sticks;
-    }
-    if (item.cost.string) {
-        inventory.string -= item.cost.string;
-    }
-    if (item.cost.worms) {
-        inventory.worms -= item.cost.worms;
+    for (const key in item.cost) {
+        inventory[key].quantity -= item.cost[key];
     }
 
     if (item.type === "tool") {

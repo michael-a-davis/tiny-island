@@ -1,5 +1,10 @@
 # Release Notes
 
+### Alpha 1.2.8
+Likely the last update before Alpha 1.3. This update has focused primarily on scalability. Some
+changes to the architecture to account for more items, more crafting recipes, and a wider
+scope of tools and things to do. Copper nuggets can now be found through fishing.
+
 ### Alpha 1.2.7
 Fishing pole is now fully craftable and auto-equips to the X button. Architecture for checking whether
 you are in a valid fishing location has been implemented. I plan to flesh out the fishing feature so

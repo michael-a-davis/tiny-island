@@ -182,12 +182,13 @@ function UpdateCraftingMenu() {
     inventoryList.innerHTML = "";
     craftList.innerHTML = "";
 
-    for (const item in inventory) {
-        if (inventory[item] === 0) {
+    let crafters = GetItemsUsedToCraft();
+    for (const crafter of crafters) {
+        if (inventory[crafter.name].quantity === 0) {
             continue;
         }
         const listItem = document.createElement('li');
-        listItem.innerHTML = `${item.charAt(0).toUpperCase() + item.slice(1)}: ${inventory[item]}`;
+        listItem.innerHTML = `${crafter.name.charAt(0).toUpperCase() + crafter.name.slice(1)}: ${inventory[crafter.name].quantity}`;
         inventoryList.appendChild(listItem);
     }
     
