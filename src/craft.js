@@ -36,7 +36,7 @@ function GetItemsUsedToCraft() {
 
 function Craft(item) {
     if (!inventory[item.name]) {
-        inventory[item.name] = 1;
+        inventory[item.name] = item;
     } else {
         inventory[item.name].quantity++;
     }
@@ -47,8 +47,20 @@ function Craft(item) {
 
     if (item.type === "tool") {
         currentTool = item.name;
-        logText.innerHTML = "The " + item.name + " is now equpped to the X button.";
-        xAction = "useTool";
+        let toolCount = 0;
+        for (const key in inventory) {
+            if (inventory[key].type === "tool") {
+                toolCount++;
+            }
+        }
+        if (toolCount < 2) {
+            logText.innerHTML = "The " + item.name + " is now equipped to the X button.";
+            xAction = "useTool";
+        }
+        else {
+            logText.innerHTML = "The " + item.name + " is now equipped to the X button. Press Y to swap tools."
+            yAction = "swapTool";
+        }
     }
 
     UpdateCraftingMenu();

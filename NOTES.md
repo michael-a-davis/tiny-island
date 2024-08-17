@@ -1,5 +1,12 @@
 # Release Notes
 
+### Alpha 1.3
+This newest release has expanded upon the crafting options, though merely slightly. The Y button
+now swaps between three available tools: the fishing pole, the pick, and the axe. Use the pick
+to break rocks and the axe to cut down trees. This will give you logs and rocks -- which will
+open up more crafting possibilites. The 1.3 update will be all about expanding the crafting
+mechanics.
+
 ### Alpha 1.2.8
 Likely the last update before Alpha 1.3. This update has focused primarily on scalability. Some
 changes to the architecture to account for more items, more crafting recipes, and a wider

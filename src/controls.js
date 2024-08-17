@@ -3,7 +3,7 @@ let isHint = false;
 let aAction;
 let bAction = "closeMenu";
 let xAction;
-let yAction;
+let yAction = "swapTool";
 
 function GenerateControls() {
     window.addEventListener("keydown", function() {
@@ -37,7 +37,6 @@ function GenerateControls() {
         if (this.event.keyCode == 69) {
             ToggleCrafting();
         }
-        console.log(player.facing);
     })
     upButton.addEventListener("click", function() {
         Move("up");
@@ -135,6 +134,16 @@ function XPress() {
     switch(xAction) {
         case "useTool":
             UseTool();
+            break;
+        default:
+            break;
+    }
+}
+
+function YPress() {
+    switch(yAction) {
+        case "swapTool":
+            SwapTool();
             break;
         default:
             break;

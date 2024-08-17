@@ -78,7 +78,17 @@ let items = [
         string: 3,
         worms: 1
     }),
-    new Item("copper", "basic", true, false, false, true, 1, null)
+    new Item("copper", "basic", true, false, false, true, 1, null),
+    new Item("Copper Axe", "tool", false, true, false, false, 1, {
+        sticks: 3,
+        copper: 3
+    }),
+    new Item("Copper Pick", "tool", false, true, false, false, 1, {
+        sticks: 3,
+        copper: 3
+    }),
+    new Item("logs", "basic", true, false, false, true, 1, null),
+    new Item("stones", "basic", true, false, false, true, 1, null)
 ]
 const islandGrid = document.getElementById('islandGrid');
 const playerGrid = document.getElementById('playerGrid');
