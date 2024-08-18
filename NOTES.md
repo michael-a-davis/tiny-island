@@ -1,5 +1,9 @@
 # Release Notes
 
+### Alpha 1.3.1
+Added a quick splash screen to include some music a friend of mine made for the game. I think
+it adds a lot personally. More crafting materials to come!
+
 ### Alpha 1.3
 This newest release has expanded upon the crafting options, though merely slightly. The Y button
 now swaps between three available tools: the fishing pole, the pick, and the axe. Use the pick

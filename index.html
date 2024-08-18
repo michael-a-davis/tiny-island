@@ -7,6 +7,14 @@
     <title>Tiny Island</title>
 </head>
 <body>
+    <div id="splashScreen">
+        <h1>Welcome to Tiny Island</h1>
+        <p>Designed & Developed by Michael A Davis<br>Music by Jet Intelligence</p>
+        <button id="startButton">Start</button>
+    </div>
+
+    <audio id="bgm" src="/audio/sort-isle.wav" autplay loop></audio>
+
     <div id="topBar">
         <button class="button" id="hintButton" aria-label="Hint button">
             ?
@@ -80,6 +88,10 @@
             </div>
         </div>
     </div>
+
+    <!-- Music -->
+    <audio src="/audio/sort-isle.wav" autoplay id="audio">
+    </audio>
 
     <!-- Scripts -->
     <script src="src/config.js"></script>

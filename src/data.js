@@ -88,8 +88,12 @@ let items = [
         copper: 3
     }),
     new Item("logs", "basic", true, false, false, true, 1, null),
-    new Item("stones", "basic", true, false, false, true, 1, null)
+    new Item("stones", "basic", true, false, false, true, 1, null),
+    new Item("saplings", "basic", false, false, true, true, 1, null)
 ]
+const splashScreen = document.getElementById('splashScreen');
+const startButton = document.getElementById('startButton');
+const bgm = document.getElementById('bgm');
 const islandGrid = document.getElementById('islandGrid');
 const playerGrid = document.getElementById('playerGrid');
 const controlsBox = document.getElementById('controlsBox');
