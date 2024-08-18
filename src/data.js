@@ -52,10 +52,6 @@ let assets = {
         right: "assets/player/right.png"
     }
 }
-let hints = [
-    "Try shaking trees with the A button.",
-    "Try searching the coasts with the A button."
-]
 let cameraColumns = 5;
 let cameraScope = cameraColumns ** 2;
 let cameraCenter = (cameraScope / 2) - 0.5
@@ -91,7 +87,7 @@ let items = [
     new Item("stones", "basic", true, false, false, true, 1, null),
     new Item("saplings", "basic", false, false, true, true, 1, null)
 ]
-const splashScreen = document.getElementById('splashScreen');
+const splashScreen = document.getElementById('startScreen');
 const startButton = document.getElementById('startButton');
 const bgm = document.getElementById('bgm');
 const islandGrid = document.getElementById('islandGrid');
@@ -115,6 +111,9 @@ const hintText = document.getElementById('hintText');
 const logText = document.getElementById('logText');
 const inventoryList = document.getElementById('inventoryList');
 const craftList = document.getElementById('possibleCrafts');
+const menuButton = document.getElementById('menuButton');
+const optionsMenu = document.getElementById('optionsMenu');
+const musicCheck = document.getElementById('musicCheck');
 
 function Roll(min, max) {
     let roll = Math.floor(Math.random() * (max - min + 1) + min);

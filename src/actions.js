@@ -1,3 +1,6 @@
+let haveShakenTree = false;
+let hasFishedBefore = false;
+
 function UpdateActions() {
     let facingTree = DetermineFacing("tree");
     let onCoast = DetermineOnCoast();
@@ -33,7 +36,10 @@ function ShakeTree() {
     let odds = RollBetween(1, 100);
     let gotSomething = Roll(1, 2);
 
-    hintText.innerHTML = hints[1];
+    if (!haveShakenTree) {
+        hintText.innerHTML = hints[2];
+    }
+    haveShakenTree = true;
 
     if (!gotSomething) {
         logText.innerHTML = "You shook the tree, but nothing happened.";
@@ -87,7 +93,6 @@ function SearchSand() {
 }
 
 function UseTool() {
-    console.log(currentTool);
     switch(currentTool) {
         case "Fishing Pole":
             let isFacingOcean = DetermineFacing("water");
@@ -95,6 +100,10 @@ function UseTool() {
                 logText.innerHTML = "You can't fish here, there's no water!";
                 break;
             }
+            if (!hasFishedBefore) {
+                UpdateHint();
+            }
+            hasFishedBefore = true;
             let odds = RollBetween(1, 100);
             let gotSomething = Roll(1, 2);
             if (!gotSomething) {

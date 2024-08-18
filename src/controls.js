@@ -1,5 +1,6 @@
 let isCrafting = false;
 let isHint = false;
+let isMenu = false;
 let aAction;
 let bAction = "closeMenu";
 let xAction;
@@ -63,17 +64,14 @@ function GenerateControls() {
         YPress();
     })
     hintButton.addEventListener("click", function() {
-        ToggleHint()
-    });
-    closeHint.addEventListener ("click", function() {
-        CloseHint()
+        ToggleHint();
     });
     craftButton.addEventListener("click", function() {
-        ToggleCrafting()
+        ToggleCrafting();
     });
-    closeCraft.addEventListener("click", function() {
-        CloseCrafting()
-    });
+    menuButton.addEventListener("click", function() {
+        ToggleMenu();
+    })
 }
 
 function Move(direction) {
@@ -124,6 +122,7 @@ function BPress() {
         case "closeMenu":
             CloseCrafting();
             CloseHint();
+            CloseMenu();
             break;
         default:
             break;
@@ -148,73 +147,4 @@ function YPress() {
         default:
             break;
     }
-}
-
-/* --- MENUS --- */
-function ToggleCrafting() {
-    if (isCrafting) {
-        CloseCrafting();
-    } else {
-        OpenCrafting();
-    }
-}
-
-function ToggleHint() {
-    if (isHint) {
-        CloseHint();
-    } else {
-        OpenHint();
-    }
-}
-
-function OpenHint() {
-    isHint = true;
-    hintBox.classList.remove('hidden');
-    craftBox.classList.add('hidden');
-    craftBox.style.display = "none";
-}
-
-function CloseHint() {
-    isHint = false;
-    hintBox.classList.add('hidden');
-}
-
-function OpenCrafting() {
-    isCrafting = true;
-    craftBox.classList.remove('hidden');
-    craftBox.style.display = "grid";
-    hintBox.classList.add('hidden');
-    UpdateCraftingMenu();
-}
-
-function UpdateCraftingMenu() {
-    inventoryList.innerHTML = "";
-    craftList.innerHTML = "";
-
-    let crafters = GetItemsUsedToCraft();
-    for (const crafter of crafters) {
-        if (inventory[crafter.name].quantity === 0) {
-            continue;
-        }
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `${crafter.name.charAt(0).toUpperCase() + crafter.name.slice(1)}: ${inventory[crafter.name].quantity}`;
-        inventoryList.appendChild(listItem);
-    }
-    
-    let craftables = GetCraftableItems();
-    for (const craftable of craftables) {
-        const button = document.createElement('button');
-        button.innerHTML = craftable.name;
-        button.classList.add('craft-button');
-        button.addEventListener("click", function() {
-            Craft(craftable);
-        })
-        craftList.appendChild(button);
-    }
-}
-
-function CloseCrafting() {
-    isCrafting = false;
-    craftBox.classList.add('hidden');
-    craftBox.style.display = "none";
 }

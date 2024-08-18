@@ -6,42 +6,61 @@
     <link rel="stylesheet" href="styles.css">
     <title>Tiny Island</title>
 </head>
-<body>
-    <div id="splashScreen">
-        <h1>Welcome to Tiny Island</h1>
-        <p>Designed & Developed by Michael A Davis<br>Music by Jet Intelligence</p>
-        <button id="startButton">Start</button>
-    </div>
-
-    <audio id="bgm" src="audio/sort-isle.wav" autplay loop></audio>
-
-    <div id="topBar">
-        <button class="button" id="hintButton" aria-label="Hint button">
-            ?
-        </button>
-    </div>
-
-    <div id="hintBox" class="hidden">
-        <p id="closeHint">X</p>
-        <p id="hintText">Try shaking trees with the A button.</p>
-    </div>
-
-    <div id="craftingMenu" class="hidden">
-        <div id="craftingHeader">
-            <p id="closeCraft">X</p>
-            <p>Crafting Menu</p>
+<body id="body">
+    <!-- Start Screen -->
+    <div id="startScreen">
+        <div id="logo">
+            <img src="assets/logo.svg" alt="Tiny Island" decoding="async" width="400" height="auto"/>
+            <h1>Version Alpha 1.3.2</h1>
         </div>
+        <button id="startButton">Start</button>
+        <div id="text">
+            <p>
+                Designed & Developed by Michael A Davis
+                <br>
+                Music by Jet Intelligence
+            </p>
+            <a href="https://github.com/michael-a-davis/tiny-island" target="_blank">
+                <img src="assets/socials/github.svg" alt="Github logo" decoding="async" width=50 height="50">
+            </a>
+        </div>
+    </div>
+
+    <!-- Top Bar-->
+    <div id="topBar">
+        <button class="button" id="menuButton" aria-label="Menu Button">
+            <img src="assets/icons/menu.svg" class="icon" alt="menu icon" decoding="async" width="40px" height="40px"/>
+        </button>
+        <button class="button" id="hintButton" aria-label="Hint button">?</button>
+    </div>
+
+    <!-- Menus -->
+    <div id="hintBox" class="menu">
+        <h2>HINT:</h2>
+        <p id="hintText">Did you know you can close menus with the B button?</p>
+    </div>
+
+    <div id="craftingMenu" class="hidden menu">
+        <h2>Crafting Menu</h2>
         <div class="crafting-column" id="inventoryColumn">
             <p>Inventory:</p>
-            <ul id="inventoryList">
-            
-            </ul>
+            <ul id="inventoryList"></ul>
         </div>
         <div class="crafting-column" id="outputColumn">
             <p>Craft:</p>
             <ul id="possibleCrafts">
-
             </ul>
+        </div>
+    </div>
+
+    <div id="optionsMenu" class="hidden menu">
+        <h2>Options</h2>
+        <div class="option-group">
+            <p>Music:</p>
+            <label class="switch">
+                <input type="checkbox" id="musicCheck" checked>
+                <span class="slider"></span>
+            </label>
         </div>
     </div>
 
@@ -90,13 +109,13 @@
     </div>
 
     <!-- Music -->
-    <audio src="/audio/sort-isle.wav" autoplay id="audio">
-    </audio>
+    <audio src="audio/sort-isle.wav" id="bgm" loop></audio>
 
     <!-- Scripts -->
     <script src="src/config.js"></script>
     <script src="src/data.js"></script>
     <script src="src/grid.js"></script>
+    <script src="src/gui.js"></script>
     <script src="src/controls.js"></script>
     <script src="src/actions.js"></script>
     <script src="src/craft.js"></script>

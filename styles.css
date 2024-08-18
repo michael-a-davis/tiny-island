@@ -1,235 +1,318 @@
+/* -- FONTS -- */
 @font-face {
     font-family: Pixel;
     src: url(fonts/PixeloidSans-mLxMm.ttf);
 }
 
-@media only screen and (min-width: 0px) {
-    /* - SPLASH SCREEN - */
-    #splashScreen {
-        position: absolute;
-        z-index: 999;
-        height: 100%;
-        width: 90%;
-        top: 0;
-        left: 0;
-        padding: 0 5%;
-        background-color: green;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+/* -- ANIMATIONS -- */
+@keyframes fallDown {
+    0% {
+        transform: translate(0px, -500px);
     }
-    #splashScreen button {
-        font-size: larger;
-        padding: 5px 20px;
-        color: white;
-        background-color: black;
-    }
-    /* - TOP BAR - */
-    #topBar {
-        display: flex;
-        width: 90%;
-        height: 70px;
-        justify-content: flex-end;
-        align-items: center;
-    }
-
-    /* HINT BOX */
-    #hintBox {
-        background: rgb(25, 25, 25, 0.8);
-        border: 1px solid white;
-        color: white;
-        z-index: 5;
-        padding: 20px;
-        font-size: larger;
-    }
-    #closeHint {
-        font-size: 24px;
-        cursor: pointer;
-    }
-    .hidden {
-        display: none;
-    }
-
-    /* - CRAFTING MENU -*/
-    #craftingMenu {
-        background-color: rgb(25, 25, 25, 0.8);
-        height: 50svh;
-        width: 80svw;
-        z-index: 5;
-        text-align: center;
-        color: white;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 4fr;
-    }
-    #craftingHeader {
-        display: flex;
-        flex-flow: row-reverse;
-        justify-content: space-around;
-        align-items: center;
-        grid-column: 1 / 3;
-        border: 1px solid white;
-    }
-    #closeCraft {
-        cursor: pointer;
-    }
-    .crafting-column {
-        border: 1px solid white;
-        padding: 2%;
-    }
-    #inventoryColumn {
-        grid-column: 1 / 2;
-    }
-    #outputColumn {
-        grid-column: 2 / 3;
-    }
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    /* BODY STYLES */
-    body {
-        height: 98svh;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0;
-        padding: 0;
-        font-family: Pixel, Arial, Helvetica, sans-serif;
-        background: rgb(67, 166, 67);
-    }
-    
-    /* - GRID - */
-    .grid-layer {
-        width: 100%;
-        height: auto;
-        max-width: 400px;
-        display: grid;
-        justify-items: center;
-        position: absolute;
-        left: 50%;
-        top: 70px;
-        transform: translate(-50%, 0);
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-    }
-    #islandGrid {
-        z-index: 0;
-    }
-    #playerGrid {
-        z-index: 1;
-    }
-    .tile {
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        width: 100%;
-        aspect-ratio: 1 / 1;
-    }
-
-    /* - CONTROLS - */
-    #controlsBox {
-        display: flex;
-        flex-flow: column;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;;
-    }
-    #gameLog {
-        grid-column: 1 / 3;
-        height: 70px;
-        width: 90%;
-        background-color: rgb(25, 25, 25);
-        margin-bottom: 20px;
-        color: white;
-        padding: 0 10px;
-    }
-    #buttonsBox {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: first baseline;
-        width: 100%;
-    }
-    .button {
-        height: 50px;
-        width: 50px;
-        background-color: rgb(25, 25, 25);
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 20px;
-        border: 2px solid gray;
-        transition: 150ms;
-        box-sizing: border-box;
-        color: white;
-        font-size: 25px;
-    }
-    .button:hover {
-        background-color: rgb(60, 60, 60);
-        cursor: pointer;
-    }
-    .button:active {
-        background-color: rgb(80, 80, 80);
-    }
-    .icon {
-        width: 30px;
-        height: auto;
-    }
-    .button-group {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-    }
-    #upButton, #xButton {
-        grid-column: 2;
-        grid-row: 1;
-    }
-    #downButton, #aButton {
-        grid-column: 2;
-        grid-row: 3;
-    }
-    #leftButton, #yButton {
-        grid-column: 1;
-        grid-row: 2;
-    }
-    #rightButton, #bButton {
-        grid-column: 3;
-        grid-row: 2;
-    }
-    #aButton {
-        color: rgb(65, 255, 65);
-    }
-    #bButton {
-        color: rgb(255, 67, 67);
-    }
-    #xButton {
-        color: rgb(82, 166, 255);
-    }
-    #yButton {
-        color: rgb(255, 255, 87);
+    100% {
+        transform: translate(0px, 0px);
     }
 }
 
-@media only screen and (min-width: 768px) {
-    body {
-        flex-direction: row;
-    }
-    .grid-layer {
-        left: 50%;
-        top: 50%;
-        transform: translate(-25%, -50%);
-    }
-    #controlsBox {
-        height: 80svh;
-        flex-direction: column-reverse;
-        justify-content: space-evenly;
-    }
+/* -- BODY STYLES -- */
+body {
+    height: 98svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-family: Pixel, Arial, Helvetica, sans-serif;
+    background: rgb(67, 166, 67);
+}
+
+/* -- START SCREEN -- */
+#startScreen {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    overflow: hidden;
+    background: linear-gradient(
+        #34B4FC 60%,
+        green 0%
+    );
+    font-family: Pixel, Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+}
+#startScreen h1 {
+    font-size: 1.2rem;
+}
+#logo {
+    color: #4B080C;
+    animation: fallDown 1.5s;
+}
+#logo img {
+    width: clamp(0px, 90%, 400px);
+}
+#text {
+    color: white;
+    line-height: 2;
+}
+#startButton {
+    position: relative;
+    background-color: #4B080C;
+    color: white;
+    border: none;
+    font-family: Pixel, Arial, Helvetica, sans-serif;
+    font-size: larger;
+    padding: 10px 20px;
+    transition: 200ms;
+}
+#startButton:hover {
+    background-color: hsl(356, 81%, 36%);
+    cursor: pointer;
+}
+#startButton:before, #startButton:after {
+    content: '';
+	position: absolute;
+	left: -2px;
+	top: -2px;
+	background: hsl(356, 81%, 56%);
+	background-size: 400%;
+	width: 0px;
+	height: 0px;
+	z-index: -1;
+    transition: 200ms;
+}
+#startButton:hover:before, #startButton:hover:after {
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	z-index: -1;
+	animation: steam 20s linear infinite;
+}
+
+/* -- TOP BAR -- */
+#topBar {
+    display: flex;
+    width: 90%;
+    height: 70px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* -- MENUS -- */
+.menu {
+    position: absolute;
+    z-index: 5;
+    background-color: rgb(25, 25, 25, 0.8);
+    width: 90%;
+    padding: 20px;
+    color: white;
+    font-size: larger;
+    text-align: center;
+}
+#hintBox, #optionsMenu {
+    top: 25%;
+}
+#craftingMenu {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 4fr;
+}
+#craftingMenu h2 {
+    grid-column: 1 / 3;
+}
+.crafting-column {
+    border: 1px solid white;
+    height: 50svh;
+}
+#inventoryColumn {
+    grid-column: 1 / 2;
+}
+#outputColumn {
+    grid-column: 2 / 3;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+.craft-button {
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    font-family: Pixel, Arial, Helvetica, sans-serif;
+    border: 1px solid white;
+    transition: 200ms;
+}
+.craft-button:hover {
+    background-color: hsl(0, 0%, 20%);
+    cursor: pointer;
+}
+.option-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+.switch input { 
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgb(25, 25, 25);
+-webkit-transition: .4s;
+transition: .4s;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+input:checked + .slider {
+background-color: #34B4FC;
+}
+input:focus + .slider {
+box-shadow: 0 0 1px #34B4FC;
+}
+input:checked + .slider:before {
+-webkit-transform: translateX(26px);
+-ms-transform: translateX(26px);
+transform: translateX(26px);
+}
+.hidden {
+    display: none;
+}
+
+/* - GRID - */
+.grid-layer {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    display: grid;
+    justify-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -80%);
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+#islandGrid {
+    z-index: 0;
+}
+#playerGrid {
+    z-index: 1;
+}
+.tile {
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+/* - CONTROLS - */
+#controlsBox {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;;
+}
+#gameLog {
+    grid-column: 1 / 3;
+    height: 70px;
+    width: 90%;
+    background-color: rgb(25, 25, 25);
+    margin-bottom: 20px;
+    color: white;
+    padding: 0 10px;
+}
+#buttonsBox {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: first baseline;
+    width: 100%;
+}
+.button {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(25, 25, 25);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    border: 2px solid gray;
+    transition: 150ms;
+    box-sizing: border-box;
+    color: white;
+    font-size: 25px;
+}
+.button:hover {
+    background-color: rgb(60, 60, 60);
+    cursor: pointer;
+}
+.button:active {
+    background-color: rgb(80, 80, 80);
+}
+.icon {
+    width: 30px;
+    height: auto;
+}
+.button-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+#upButton, #xButton {
+    grid-column: 2;
+    grid-row: 1;
+}
+#downButton, #aButton {
+    grid-column: 2;
+    grid-row: 3;
+}
+#leftButton, #yButton {
+    grid-column: 1;
+    grid-row: 2;
+}
+#rightButton, #bButton {
+    grid-column: 3;
+    grid-row: 2;
+}
+#aButton {
+    color: rgb(65, 255, 65);
+}
+#bButton {
+    color: rgb(255, 67, 67);
+}
+#xButton {
+    color: rgb(82, 197, 255);
+}
+#yButton {
+    color: rgb(255, 255, 87);
 }

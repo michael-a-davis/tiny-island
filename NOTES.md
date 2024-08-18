@@ -1,4 +1,10 @@
 # Release Notes
+### Alpha 1.3.2
+Made the splash screen better, and have introduced a logo for the game. An options menu has been
+added to mute the music. Major updates to the CSS file. It's far more structured now. The menus
+are cleaner and the crafting buttons have been styled. An updated and responsive hint system has
+been implemented to check where the user currently is in game progress and skip to the most logical
+next hint.
 
 ### Alpha 1.3.1
 Added a quick splash screen to include some music a friend of mine made for the game. I think

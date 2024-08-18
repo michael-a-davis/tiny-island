@@ -7,4 +7,3 @@ GenerateIsland();
 GenerateGrid();
 UpdateGrid(gridCenter);
 GenerateControls();
-
