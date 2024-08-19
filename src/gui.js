@@ -1,12 +1,3 @@
-let hints = [
-    "Did you know you can close menus with the B button?",
-    "Nice work. Now try shaking trees with the A button.",
-    "Try searching the coasts with the A button.",
-    "Keep fishing... you might find something precious.",
-    "You'll need to make some tools at some point."
-]
-let hasOpenedHint = false;
-
 function UpdateHint() {
     for (i = 0; i < hints.length; i++) {
         if (hintText.innerHTML === hints[i]) {
@@ -74,12 +65,20 @@ function OpenCrafting() {
 }
 
 function UpdateCraftingMenu() {
+    //Clears the HTML
     inventoryList.innerHTML = "";
     craftList.innerHTML = "";
+    possibleXoptions.innerHTML = "";
+    possibleYoptions.innerHTML = "";
 
-    let crafters = GetItemsUsedToCraft();
+    //Displays inventory
+    let crafters = GetFromInventoryOfType("basic");
     for (const crafter of crafters) {
         if (inventory[crafter.name].quantity === 0) {
+            delete inventory[crafter.name];
+            continue;
+        }
+        if (inventory[crafter.name].type === "tool" || inventory[crafter.name].type === "placeable") {
             continue;
         }
         const listItem = document.createElement('li');
@@ -87,6 +86,7 @@ function UpdateCraftingMenu() {
         inventoryList.appendChild(listItem);
     }
     
+    //Displays craftable items
     let craftables = GetCraftableItems();
     for (const craftable of craftables) {
         const button = document.createElement('button');
@@ -96,6 +96,44 @@ function UpdateCraftingMenu() {
             Craft(craftable);
         })
         craftList.appendChild(button);
+    }
+
+    //Displays X Assignemnt Buttons
+    let tools = GetFromInventoryOfType('tool');
+    for (i = 0; i < tools.length; i++) {
+        const button = document.createElement('button');
+        button.classList.add('assign-button');
+        let toolName = tools[i].name;
+        if (toolName === currentTool) {
+            button.classList.add('assigned');
+        }
+        button.addEventListener('click', function() {
+            currentTool = toolName;
+            UpdateCraftingMenu();
+        })
+        button.innerHTML = tools[i].name;
+        possibleXoptions.append(button);
+    }
+
+    //Displays Y Assignment Buttons
+    let placeables = GetFromInventoryOfType("placeable");
+    for (const placeable of placeables) {
+        if (inventory[placeable.name].quantity === 0) {
+            delete inventory[placeable.name];
+            continue;
+        }
+        const button = document.createElement('button');
+        button.classList.add('assign-button');
+        let placeableName = placeable.name;
+        if (placeableName === currentPlaceable) {
+            button.classList.add('assigned');
+        }
+        button.addEventListener('click', function() {
+            currentPlaceable = placeableName;
+            UpdateCraftingMenu();
+        })
+        button.innerHTML = placeable.quantity + " " + placeableName;
+        possibleYoptions.append(button);
     }
 }
 

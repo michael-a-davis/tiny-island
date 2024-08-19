@@ -1,11 +1,3 @@
-let isCrafting = false;
-let isHint = false;
-let isMenu = false;
-let aAction;
-let bAction = "closeMenu";
-let xAction;
-let yAction = "swapTool";
-
 function GenerateControls() {
     window.addEventListener("keydown", function() {
         if (this.event.keyCode == 87) {
@@ -141,8 +133,8 @@ function XPress() {
 
 function YPress() {
     switch(yAction) {
-        case "swapTool":
-            SwapTool();
+        case "usePlaceable":
+            UsePlaceable();
             break;
         default:
             break;

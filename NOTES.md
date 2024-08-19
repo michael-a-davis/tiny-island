@@ -1,4 +1,11 @@
 # Release Notes
+
+### Alpha 1.3.3
+More updates for the UI and controls. I needed to expand my range of options as I wanted to include
+some kind of architecture for placing items in the world. Tools are now swapped in the crafting
+menu, and the Y button now places saplings. More craftable items are to come, as the necessary
+code to turn all the ideas into a reality are finally coming together.
+
 ### Alpha 1.3.2
 Made the splash screen better, and have introduced a logo for the game. An options menu has been
 added to mute the music. Major updates to the CSS file. It's far more structured now. The menus

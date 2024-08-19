@@ -1,4 +1,5 @@
 function GenerateIsland() {
+    tiles = [];
     let treeCount = 0;
     let rockCount = 0;
     for (i = 0; i < gridSize; i++) {
@@ -165,6 +166,9 @@ function UpdateGrid(id) {
                 } 
                 else if (tiles[range[i]].state === "rock") {
                     tile.src = assets.tiles.rocks;
+                }
+                else if (tiles[range[i]].state === "sapling") {
+                    tile.src = assets.tiles.sapling;
                 }
                 else if (tiles[range[i]].state === "remove") {
                     tile.src = assets.tiles.grass;

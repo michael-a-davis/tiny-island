@@ -1,92 +1,4 @@
-class Tile {
-    constructor(id, state, perimeter, shore, collision) {
-        this.id = id;
-        this.state = state;
-        this.perimeter = perimeter;
-        this.shore = shore;
-        this.collision = collision;
-    }
-}
-class Item {
-    constructor(name, type, usedToCraft, craftable, placeable, stackable, quantity, cost) {
-        this.name = name;
-        this.type = type;
-        this.usedToCraft = usedToCraft;
-        this.craftable = craftable;
-        this.placeable = placeable;
-        this.stackable = stackable;
-        this.quantity = quantity;
-        this.cost = cost;
-    }
-}
-
-let assets = {
-    tiles: {
-        grass: "assets/tiles/grass.png",
-        rocks: "assets/tiles/rocks.png",
-        tree: "assets/tiles/tree.png",
-        water: "assets/tiles/water.png",
-        cornerDL: "assets/tiles/corner-DL.png",
-        cornerDR: "assets/tiles/corner-DR.png",
-        cornerUL: "assets/tiles/corner-UL.png",
-        cornerUR: "assets/tiles/corner-UR.png",
-        perimeterD: "assets/tiles/perimeter-D.png",
-        perimeterL: "assets/tiles/perimeter-L.png",
-        perimeterR: "assets/tiles/perimeter-R.png",
-        perimeterU: "assets/tiles/perimeter-U.png"
-    },
-    icons: {
-        arrowDown: "assets/icons/arrow-down.svg",
-        arrowLeft: "assets/icons/arrow-left.svg",
-        arrowUp: "assets/icons/arrow-up.svg",
-        arrowRight: "assets/icons/arrow-right.svg",
-        axe: "assets/icons/axe.svg",
-        pick: "assets/icons/pick.svg",
-        hammer: "assets/icons/hammer.svg",
-        fishing: "assets/icons/fishing.svg"
-    },
-    player: {
-        up: "assets/player/back.png",
-        down: "assets/player/front.png",
-        left: "assets/player/left.png",
-        right: "assets/player/right.png"
-    }
-}
-let cameraColumns = 5;
-let cameraScope = cameraColumns ** 2;
-let cameraCenter = (cameraScope / 2) - 0.5
-let tiles = [];
-let gridSize = gridColumns ** 2;
-let gridCenter = (gridSize / 2) - 0.5;
-let currentTool;
-let inventory = {};
-let player = {
-    location: gridCenter,
-    facing: "down"
-}
-let items = [
-    new Item("sticks", "basic", true, false, false, true, 1, null),
-    new Item("string", "basic", true, false, false, true, 1, null),
-    new Item("leaves", "basic", true, false, false, true, 1, null),
-    new Item("worms", "basic", true, false, false, true, 1, null),
-    new Item("Fishing Pole", "tool", false, true, false, false, 1, {
-        sticks: 3,
-        string: 3,
-        worms: 1
-    }),
-    new Item("copper", "basic", true, false, false, true, 1, null),
-    new Item("Copper Axe", "tool", false, true, false, false, 1, {
-        sticks: 3,
-        copper: 3
-    }),
-    new Item("Copper Pick", "tool", false, true, false, false, 1, {
-        sticks: 3,
-        copper: 3
-    }),
-    new Item("logs", "basic", true, false, false, true, 1, null),
-    new Item("stones", "basic", true, false, false, true, 1, null),
-    new Item("saplings", "basic", false, false, true, true, 1, null)
-]
+//DOM elements
 const splashScreen = document.getElementById('startScreen');
 const startButton = document.getElementById('startButton');
 const bgm = document.getElementById('bgm');
@@ -111,10 +23,128 @@ const hintText = document.getElementById('hintText');
 const logText = document.getElementById('logText');
 const inventoryList = document.getElementById('inventoryList');
 const craftList = document.getElementById('possibleCrafts');
+const possibleXoptions = document.getElementById('possibleXoptions');
+const possibleYoptions = document.getElementById('possibleYoptions');
 const menuButton = document.getElementById('menuButton');
 const optionsMenu = document.getElementById('optionsMenu');
 const musicCheck = document.getElementById('musicCheck');
+const saveButton = document.getElementById('saveButton');
 
+//Asset links
+let assets = {
+    tiles: {
+        grass: "assets/tiles/grass.png",
+        rocks: "assets/tiles/rocks.png",
+        tree: "assets/tiles/tree.png",
+        water: "assets/tiles/water.png",
+        cornerDL: "assets/tiles/corner-DL.png",
+        cornerDR: "assets/tiles/corner-DR.png",
+        cornerUL: "assets/tiles/corner-UL.png",
+        cornerUR: "assets/tiles/corner-UR.png",
+        perimeterD: "assets/tiles/perimeter-D.png",
+        perimeterL: "assets/tiles/perimeter-L.png",
+        perimeterR: "assets/tiles/perimeter-R.png",
+        perimeterU: "assets/tiles/perimeter-U.png",
+        sapling: "assets/tiles/sapling.png"
+    },
+    icons: {
+        arrowDown: "assets/icons/arrow-down.svg",
+        arrowLeft: "assets/icons/arrow-left.svg",
+        arrowUp: "assets/icons/arrow-up.svg",
+        arrowRight: "assets/icons/arrow-right.svg",
+        axe: "assets/icons/axe.svg",
+        pick: "assets/icons/pick.svg",
+        hammer: "assets/icons/hammer.svg",
+        fishing: "assets/icons/fishing.svg"
+    },
+    player: {
+        up: "assets/player/back.png",
+        down: "assets/player/front.png",
+        left: "assets/player/left.png",
+        right: "assets/player/right.png"
+    }
+}
+
+//Object class constructors
+class Tile {
+    constructor(id, state, perimeter, shore, collision) {
+        this.id = id;
+        this.state = state;
+        this.perimeter = perimeter;
+        this.shore = shore;
+        this.collision = collision;
+    }
+}
+class Item {
+    constructor(name, type, craftable, quantity, cost) {
+        this.name = name;
+        this.type = type;
+        this.craftable = craftable;
+        this.quantity = quantity;
+        this.cost = cost;
+    }
+}
+
+//Items list
+let items = [
+    new Item("sticks", "basic", false, 1, null),
+    new Item("string", "basic", false, 1, null),
+    new Item("leaves", "basic", false, 1, null),
+    new Item("worms", "basic", false, 1, null),
+    new Item("Fishing Pole", "tool", true, 1, {
+        sticks: 3,
+        string: 3,
+        worms: 1
+    }),
+    new Item("copper", "basic", false, 1, null),
+    new Item("Copper Axe", "tool", true, 1, {
+        sticks: 3,
+        copper: 3
+    }),
+    new Item("Copper Pick", "tool", true, 1, {
+        sticks: 3,
+        copper: 3
+    }),
+    new Item("logs", "basic", false, 1, null),
+    new Item("stones", "basic", false, 1, null),
+    new Item("Saplings", "placeable", false, 1, null)
+]
+
+//Hints list
+let hints = [
+    "Did you know you can close menus with the B button?",
+    "Nice work. Now try shaking trees with the A button.",
+    "Try searching the coasts with the A button.",
+    "Keep fishing... you might find something precious.",
+    "You'll need to make tools at some point."
+]
+
+//Misc variable initialization
+let cameraColumns = 5;
+let cameraScope = cameraColumns ** 2;
+let cameraCenter = (cameraScope / 2) - 0.5
+let tiles = [];
+let gridSize = gridColumns ** 2;
+let gridCenter = (gridSize / 2) - 0.5;
+let currentTool;
+let currentPlaceable;
+let haveShakenTree = false;
+let hasFishedBefore = false;
+let isCrafting = false;
+let isHint = false;
+let isMenu = false;
+let aAction;
+let bAction = "closeMenu";
+let xAction;
+let yAction;
+let hasOpenedHint = false;
+let inventory = {};
+let player = {
+    location: gridCenter,
+    facing: "down"
+}
+
+//Roll functions
 function Roll(min, max) {
     let roll = Math.floor(Math.random() * (max - min + 1) + min);
     if (roll === max) {

@@ -23,23 +23,18 @@ function GetCraftableItems() {
     return craftables;
 }
 
-function GetItemsUsedToCraft() {
-    let crafters = []
+function GetFromInventoryOfType(type) {
+    let array = [];
     for (const key in inventory) {
-        if (inventory[key].usedToCraft) {
-            crafters.push(inventory[key]);
+        if (inventory[key].type === type) {
+            array.push(inventory[key]);
         }
     }
-    console.log(crafters);
-    return crafters;
+    return array;
 }
 
 function Craft(item) {
-    if (!inventory[item.name]) {
-        inventory[item.name] = item;
-    } else {
-        inventory[item.name].quantity++;
-    }
+    AddToInventory(item.name);
 
     for (const key in item.cost) {
         inventory[key].quantity -= item.cost[key];
@@ -58,7 +53,7 @@ function Craft(item) {
             xAction = "useTool";
         }
         else {
-            logText.innerHTML = "The " + item.name + " is now equipped to the X button. Press Y to swap tools."
+            logText.innerHTML = "The " + item.name + " is now equipped to the X button. Swap tools in the crafting menu."
             yAction = "swapTool";
         }
     }
