@@ -11,17 +11,17 @@
     <div id="startScreen">
         <div id="logo">
             <img src="assets/logo.svg" alt="Tiny Island" decoding="async" width="400" height="auto"/>
-            <h1>Version Alpha 1.3.2</h1>
+            <h1>Version Alpha 1.3.3</h1>
         </div>
         <button id="startButton">Start</button>
         <div id="text">
             <p>
-                Designed & Developed by Michael A Davis
+                Developed by Michael A Davis
                 <br>
                 Music by Jet Intelligence
             </p>
             <a href="https://github.com/michael-a-davis/tiny-island" target="_blank">
-                <img src="assets/socials/github.svg" alt="Github logo" decoding="async" width=50 height="50">
+                <img src="assets/socials/github.svg" alt="Github logo" decoding="async" width="30" height="30">
             </a>
         </div>
     </div>
@@ -41,15 +41,22 @@
     </div>
 
     <div id="craftingMenu" class="hidden menu">
-        <h2>Crafting Menu</h2>
         <div class="crafting-column" id="inventoryColumn">
             <p>Inventory:</p>
             <ul id="inventoryList"></ul>
         </div>
         <div class="crafting-column" id="outputColumn">
             <p>Craft:</p>
-            <ul id="possibleCrafts">
-            </ul>
+            <ul id="possibleCrafts"></ul>
+        </div>
+        <div class="assign-row" id="xAssignRow">
+            <p>Assign to X:</p>
+            <div id="possibleXoptions">
+            </div>
+        </div>
+        <div class="assign-row" id="yAssignRow">
+            <p>Assign to Y:</p>
+            <div id="possibleYoptions"></div>
         </div>
     </div>
 
@@ -63,7 +70,7 @@
             </label>
         </div>
         <div class="option-group">
-            <button class="craft-button">Save Game</button>
+            <button class="craft-button" id="saveButton">Save Game</button>
         </div>
     </div>
 
