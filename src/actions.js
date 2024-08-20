@@ -79,18 +79,30 @@ function AddByTool(state) {
     if (player.facing === "up") {
         tiles[FindNeighbor("up", player.location)].state = state;
         tiles[FindNeighbor("up", player.location)].collision = true;
+        if (state === "sapling") {
+            SaplingGrows(FindNeighbor("up", player.location));
+        }
     }
     if (player.facing === "down") {
         tiles[FindNeighbor("down", player.location)].state = state;
         tiles[FindNeighbor("down", player.location)].collision = true;
+        if (state === "sapling") {
+            SaplingGrows(FindNeighbor("down", player.location));
+        }
     }
     if (player.facing === "right") {
         tiles[FindNeighbor("right", player.location)].state = state;
         tiles[FindNeighbor("right", player.location)].collision = true;
+        if (state === "sapling") {
+            SaplingGrows(FindNeighbor("right", player.location));
+        }
     }
     if (player.facing === "left") {
         tiles[FindNeighbor("left", player.location)].state = state;
         tiles[FindNeighbor("left", player.location)].collision = true;
+        if (state === "sapling") {
+            SaplingGrows(FindNeighbor("left", player.location));
+        }
     }
 }
 
@@ -104,7 +116,8 @@ function AddToInventory(item) {
     }
     if (!inventory[item]) {
         inventory[item] = items[itemIndex];
-    } else {
+    }
+    else {
         inventory[item].quantity++;
     }
 }
@@ -130,9 +143,15 @@ function ShakeTree() {
         AddToInventory('string');
         return;
     } 
-    else if (odds > leafChance) {
-        logText.innerHTML = "You shook the tree, and got a BIG leaf!";
-        AddToInventory('leaves');
+    else if (odds > saplingChance) {
+        if (!haveGotSapling) {
+            logText.innerHTML = "You shook the tree, and got a sapling! You can plant it with Y."
+            haveGotSapling = true;
+        } else {
+            logText.innerHTML = "You shook the tree, and got a sapling!";
+        }
+        currentPlaceable = "Saplings";
+        AddToInventory('Saplings');
         return;
     }
     else {
@@ -185,18 +204,8 @@ function UseAxe() {
     }
     RemoveByTool();
     UpdateGrid(player.location);
-    let gotLog = Roll(1, 2);
-    if (gotLog) {
-        logText.innerHTML = "You cut down the tree, and got a log!";
-        AddToInventory('logs');
-        return;
-    }
-    else {
-        logText.innerHTML = "You cut down the tree, and got a sapling! You can plant them with Y.";
-        AddToInventory('Saplings');
-        currentPlaceable = "Saplings";
-        yAction = "usePlaceable";
-    }
+    logText.innerHTML = "You cut down the tree, and got a log!";
+    AddToInventory('logs');
 }
 
 function UsePick() {
@@ -220,11 +229,20 @@ function PlantSapling() {
     AddByTool("sapling");
     UpdateGrid(player.location);
     inventory.Saplings.quantity--;
-    if (inventory.Saplings.quantity === 0) {
-        delete inventory.Saplings;
+    if (inventory.Saplings.quantity <= 0) {
         logText.innerHTML = "You planted your last sapling!";
-        currentPlaceable = null;
+        currentPlaceable = 0;
     } else {
         logText.innerHTML = "You planted a sapling!";
     }
+}
+
+function SaplingGrows(saplingLocation) {
+    let maxSpeed = treeGrowMax * 60000;
+    let minSpeed = treeGrowMin * 60000;
+    let speed = RollBetween(minSpeed, maxSpeed);
+    setTimeout(() => {
+        tiles[saplingLocation].state = "tree";
+        UpdateGrid(player.location);
+    }, speed);
 }

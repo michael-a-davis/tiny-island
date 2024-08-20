@@ -119,7 +119,6 @@ function UpdateCraftingMenu() {
     let placeables = GetFromInventoryOfType("placeable");
     for (const placeable of placeables) {
         if (inventory[placeable.name].quantity === 0) {
-            delete inventory[placeable.name];
             continue;
         }
         const button = document.createElement('button');

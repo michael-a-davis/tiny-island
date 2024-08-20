@@ -1,5 +1,15 @@
 # Release Notes
 
+### Alpha 1.3.4
+Had to fix a bug with the saplings. They kept dipping into the negatives after planting all of them
+and would let you endlessly plant them. I managed to solve that problem, and now, they also actually
+become trees. A min and max speed for tree growth has been added, and the saplings become trees at
+a random speed between that range. I've removed the leaves as they are useless and replaced them
+with saplings. Cutting down trees with the axe now simply gives you logs.
+
+So we actually ended up with *less* items in this update. But I promise, the next few will add a 
+bunch of items to the game!
+
 ### Alpha 1.3.3
 More updates for the UI and controls. I needed to expand my range of options as I wanted to include
 some kind of architecture for placing items in the world. Tools are now swapped in the crafting

@@ -48,13 +48,12 @@ function Craft(item) {
                 toolCount++;
             }
         }
-        if (toolCount < 2) {
-            logText.innerHTML = "The " + item.name + " is now equipped to the X button.";
+        if (!toolCount === 2) {
+            logText.innerHTML = "The " + item.name + " is now equipped to X.";
             xAction = "useTool";
         }
         else {
-            logText.innerHTML = "The " + item.name + " is now equipped to the X button. Swap tools in the crafting menu."
-            yAction = "swapTool";
+            logText.innerHTML = "The " + item.name + " is now equipped to X. Swap tools in the crafting menu.";
         }
     }
 

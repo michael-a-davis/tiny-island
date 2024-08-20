@@ -89,7 +89,6 @@ class Item {
 let items = [
     new Item("sticks", "basic", false, 1, null),
     new Item("string", "basic", false, 1, null),
-    new Item("leaves", "basic", false, 1, null),
     new Item("worms", "basic", false, 1, null),
     new Item("Fishing Pole", "tool", true, 1, {
         sticks: 3,
@@ -129,16 +128,15 @@ let gridCenter = (gridSize / 2) - 0.5;
 let currentTool;
 let currentPlaceable;
 let haveShakenTree = false;
+let haveGotSapling = false;
 let hasFishedBefore = false;
 let isCrafting = false;
-let isHint = false;
+let isHint = true;
 let isMenu = false;
 let aAction;
-let bAction = "closeMenu";
-let xAction;
-let yAction;
 let hasOpenedHint = false;
-let inventory = {};
+let inventory = {
+};
 let player = {
     location: gridCenter,
     facing: "down"

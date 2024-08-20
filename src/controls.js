@@ -16,13 +16,15 @@ function GenerateControls() {
             APress();
         }
         if (this.event.keyCode == 73) {
-            BPress();
+            CloseCrafting();
+            CloseHint();
+            CloseMenu();
         }
         if (this.event.keyCode == 76) {
-            XPress();
+            UseTool();
         }
         if (this.event.keyCode == 75) {
-            YPress();
+            UsePlaceable();
         }
         if (this.event.keyCode == 72) {
             ToggleHint();
@@ -47,13 +49,15 @@ function GenerateControls() {
         APress();
     })
     bButton.addEventListener("click", function() {
-        BPress();
+        CloseCrafting();
+        CloseHint();
+        CloseMenu();
     })
     xButton.addEventListener("click", function() {
-        XPress();
+        UseTool();
     })
     yButton.addEventListener("click", function() {
-        YPress();
+        UsePlaceable();
     })
     hintButton.addEventListener("click", function() {
         ToggleHint();
@@ -105,38 +109,6 @@ function APress() {
             break;
         default:
             logText.innerHTML = "There's nothing to do here...";
-            break;
-    }
-}
-
-function BPress() {
-    switch(bAction) {
-        case "closeMenu":
-            CloseCrafting();
-            CloseHint();
-            CloseMenu();
-            break;
-        default:
-            break;
-    }
-}
-
-function XPress() {
-    switch(xAction) {
-        case "useTool":
-            UseTool();
-            break;
-        default:
-            break;
-    }
-}
-
-function YPress() {
-    switch(yAction) {
-        case "usePlaceable":
-            UsePlaceable();
-            break;
-        default:
             break;
     }
 }
