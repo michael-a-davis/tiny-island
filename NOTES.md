@@ -2,7 +2,8 @@
 
 ### Alpha 1.3.5
 Added a crafting workbench that is the only way to craft now. Removable with the axe and placeable
-with Y.
+with Y. Changed the options menu to a gear and the crafting menu is now an inventory menu with the
+hamburger symbol.
 
 ### Alpha 1.3.4
 Had to fix a bug with the saplings. They kept dipping into the negatives after planting all of them
