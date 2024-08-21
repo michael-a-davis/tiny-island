@@ -1,5 +1,9 @@
 # Release Notes
 
+### Alpha 1.3.5
+Added a crafting workbench that is the only way to craft now. Removable with the axe and placeable
+with Y.
+
 ### Alpha 1.3.4
 Had to fix a bug with the saplings. They kept dipping into the negatives after planting all of them
 and would let you endlessly plant them. I managed to solve that problem, and now, they also actually

@@ -2,6 +2,7 @@
 const splashScreen = document.getElementById('startScreen');
 const startButton = document.getElementById('startButton');
 const bgm = document.getElementById('bgm');
+const clickSound = document.getElementById('clickSound');
 const islandGrid = document.getElementById('islandGrid');
 const playerGrid = document.getElementById('playerGrid');
 const controlsBox = document.getElementById('controlsBox');
@@ -14,20 +15,21 @@ const bButton = document.getElementById('bButton');
 const xButton = document.getElementById('xButton');
 const yButton = document.getElementById('yButton');
 const hintButton = document.getElementById('hintButton');
-const craftButton = document.getElementById('craftButton');
+const inventoryButton = document.getElementById('inventoryButton');
+const inventoryBox = document.getElementById('inventoryMenu');
 const craftBox = document.getElementById('craftingMenu');
 const hintBox = document.getElementById('hintBox');
-const closeHint = document.getElementById('closeHint');
-const closeCraft = document.getElementById('closeCraft');
 const hintText = document.getElementById('hintText');
 const logText = document.getElementById('logText');
-const inventoryList = document.getElementById('inventoryList');
+const inventoryList0 = document.getElementById('inventoryList0');
+const inventoryList1 = document.getElementById('inventoryList1');
 const craftList = document.getElementById('possibleCrafts');
 const possibleXoptions = document.getElementById('possibleXoptions');
 const possibleYoptions = document.getElementById('possibleYoptions');
 const menuButton = document.getElementById('menuButton');
 const optionsMenu = document.getElementById('optionsMenu');
 const musicCheck = document.getElementById('musicCheck');
+const clickCheck = document.getElementById('clickCheck');
 const saveButton = document.getElementById('saveButton');
 
 //Asset links
@@ -45,7 +47,8 @@ let assets = {
         perimeterL: "assets/tiles/perimeter-L.png",
         perimeterR: "assets/tiles/perimeter-R.png",
         perimeterU: "assets/tiles/perimeter-U.png",
-        sapling: "assets/tiles/sapling.png"
+        sapling: "assets/tiles/sapling.png",
+        crappyWorkbench: "assets/tiles/crappy-workbench.png"
     },
     icons: {
         arrowDown: "assets/icons/arrow-down.svg",
@@ -106,7 +109,8 @@ let items = [
     }),
     new Item("logs", "basic", false, 1, null),
     new Item("stones", "basic", false, 1, null),
-    new Item("Saplings", "placeable", false, 1, null)
+    new Item("Saplings", "placeable", false, 1, null),
+    new Item("Workbench", "placeable", false, 1, null)
 ]
 
 //Hints list
@@ -133,6 +137,8 @@ let hasFishedBefore = false;
 let isCrafting = false;
 let isHint = true;
 let isMenu = false;
+let isInventory = false;
+let workBenchPlaced = false;
 let aAction;
 let hasOpenedHint = false;
 let inventory = {

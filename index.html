@@ -11,7 +11,7 @@
     <div id="startScreen">
         <div id="logo">
             <img src="assets/logo.svg" alt="Tiny Island" decoding="async" width="400" height="auto"/>
-            <h1>Version Alpha 1.3.4</h1>
+            <h1>Version Alpha 1.3.5</h1>
         </div>
         <button id="startButton">Start</button>
         <div id="text">
@@ -29,25 +29,35 @@
     <!-- Top Bar-->
     <div id="topBar">
         <button class="button" id="menuButton" aria-label="Menu Button">
-            <img src="assets/icons/menu.svg" class="icon" alt="menu icon" decoding="async" width="40px" height="40px"/>
+            <img src="assets/icons/cog.svg" class="icon" alt="menu icon" decoding="async" width="40px" height="40px"/>
         </button>
         <button class="button" id="hintButton" aria-label="Hint button">?</button>
     </div>
 
-    <!-- Menus -->
+    <!-- Hint Box -->
     <div id="hintBox" class="menu">
         <h2>HINT:</h2>
         <p id="hintText">Did you know you can close menus with the B button?</p>
     </div>
 
+    <!-- Crafting Menu-->
     <div id="craftingMenu" class="hidden menu">
+        <h2>Crafting</h2>
         <div class="crafting-column" id="inventoryColumn">
             <p>Inventory:</p>
-            <ul id="inventoryList"></ul>
+            <ul id="inventoryList0"></ul>
         </div>
         <div class="crafting-column" id="outputColumn">
             <p>Craft:</p>
             <ul id="possibleCrafts"></ul>
+        </div>
+    </div>
+
+    <!-- Inventory Menu -->
+    <div id="inventoryMenu" class="hidden menu">
+        <h2>Inventory</h2>
+        <div id="inventoryColumn" class="crafting-column">
+            <ul id="inventoryList1"></ul>
         </div>
         <div class="assign-row" id="xAssignRow">
             <p>Assign to X:</p>
@@ -60,6 +70,8 @@
         </div>
     </div>
 
+
+    <!-- Options Menu-->
     <div id="optionsMenu" class="hidden menu">
         <h2>Options</h2>
         <div class="option-group">
@@ -70,15 +82,24 @@
             </label>
         </div>
         <div class="option-group">
+            <p>Button Clicks:</p>
+            <label class="switch">
+                <input type="checkbox" id="clickCheck" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="option-group">
             <button class="craft-button" id="saveButton">Save Game</button>
         </div>
     </div>
 
+    <!-- Grid -->
     <div id="grid">
         <div class="grid-layer" id="playerGrid"></div>
         <div class="grid-layer" id="islandGrid"></div>
     </div>
 
+    <!-- Controls -->
     <div id="controlsBox">
         <div id="gameLog">
             <p id="logText"></p>
@@ -98,8 +119,8 @@
                     <img  class="icon" src="assets/icons/arrow-right.svg" alt="Left arrow" width="40px" height="40px">
                 </button>
             </div>
-            <button class="button" id="craftButton" aria-label="Craft button">
-                <img  class="icon" src="assets/icons/hammer.svg" alt="Left arrow" width="40px" height="40px">
+            <button class="button" id="inventoryButton" aria-label="Craft button">
+                <img  class="icon" src="assets/icons/menu.svg" alt="Left arrow" width="40px" height="40px">
             </button>
             <div class="button-group">
                 <button class="button" id="aButton" aria-label="A button">
@@ -120,6 +141,7 @@
 
     <!-- Music -->
     <audio src="audio/sort-isle.wav" id="bgm" loop></audio>
+    <audio src="audio/click.WAV" id="clickSound"></audio>
 
     <!-- Scripts -->
     <script src="src/config.js"></script>

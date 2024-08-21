@@ -2,11 +2,17 @@
 function UpdateActions() {
     let facingTree = DetermineFacing("tree");
     let onCoast = DetermineOnCoast();
-    if (facingTree) {
+    let facingBench = DetermineFacing("workbench0");
+    if (facingBench) {
+        aAction = "toggleCrafting"
+    }
+    else if (facingTree) {
         aAction = "shakeTree";
-    } else if (onCoast) {
+    } 
+    else if (onCoast) {
         aAction = "searchSand";
-    } else {
+    } 
+    else {
         aAction = null;
     }
 }
@@ -51,6 +57,8 @@ function UsePlaceable() {
         case "Saplings":
             PlantSapling();
             break;
+        case "Workbench":
+            PlaceWorkBench();
         default:
             break;
     }
@@ -198,14 +206,22 @@ function UseFishingPole() {
 
 function UseAxe() {
     let isFacingTree = DetermineFacing("tree");
-    if (!isFacingTree) {
+    let isFacingBench = DetermineFacing("workbench0");
+    if (!isFacingTree && !isFacingBench) {
         logText.innerHTML = "You swing your axe, but hit nothing...";
         return;
     }
     RemoveByTool();
     UpdateGrid(player.location);
-    logText.innerHTML = "You cut down the tree, and got a log!";
-    AddToInventory('logs');
+    if (isFacingTree) {
+        logText.innerHTML = "You cut down the tree, and got a log!";
+        AddToInventory('logs');
+    }
+    else if (isFacingBench) {
+        logText.innerHTML = "You picked up the crappy workbench! Place it with Y.";
+        currentPlaceable = "Workbench";
+        AddToInventory('Workbench');
+    }
 }
 
 function UsePick() {
@@ -245,4 +261,21 @@ function SaplingGrows(saplingLocation) {
         tiles[saplingLocation].state = "tree";
         UpdateGrid(player.location);
     }, speed);
+}
+
+function PlaceWorkBench() {
+    let isFacingEmpty = DetermineFacing("remove");
+    if (!isFacingEmpty) {
+        logText.innerHTML = "You can't place that here...";
+        return;
+    }
+    AddByTool("workbench0");
+    UpdateGrid(player.location);
+    inventory.Workbench.quantity--;
+    if (inventory.Workbench.quantity <= 0) {
+        logText.innerHTML = "You placed the workbench!";
+        currentPlaceable = 0;
+    } else {
+        logText.innerHTML = "You planted a sapling!";
+    }
 }

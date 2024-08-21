@@ -64,6 +64,12 @@ function GenerateIsland() {
             tiles.push(new Tile(i, "remove", false, false, false));
             continue;
         }
+        let isWorkBench = Roll(1, 100);
+        if (!workBenchPlaced && (isWorkBench || i === (gridSize * 3 - 3))) {
+            tiles.push(new Tile(i, "workbench0", false, false, true));
+            workBenchPlaced = true;
+            continue;
+        }
         let makeTree = Roll(1, treeFrequency);
         let makeRocks = Roll(1, rockFrequency);
         if (makeTree && treeCount < treeMax) {
@@ -169,6 +175,9 @@ function UpdateGrid(id) {
                 }
                 else if (tiles[range[i]].state === "sapling") {
                     tile.src = assets.tiles.sapling;
+                }
+                else if (tiles[range[i]].state === "workbench0") {
+                    tile.src = assets.tiles.crappyWorkbench;
                 }
                 else if (tiles[range[i]].state === "remove") {
                     tile.src = assets.tiles.grass;

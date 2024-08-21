@@ -15,6 +15,14 @@ musicCheck.addEventListener("change", function() {
     }
 })
 
+clickCheck.addEventListener("change", function() {
+    if (clickCheck.checked) {
+        clickSound.muted = false;
+    } else {
+        clickSound.muted = true;
+    }
+})
+
 function ToggleCrafting() {
     if (isCrafting) {
         CloseCrafting();
@@ -31,6 +39,14 @@ function ToggleHint() {
     }
 }
 
+function ToggleInventory() {
+    if (isInventory) {
+        CloseInventory();
+    } else {
+        OpenInventory();
+    }
+}
+
 function ToggleMenu() {
     if (isMenu) {
         CloseMenu();
@@ -43,6 +59,7 @@ function OpenHint() {
     isHint = true;
     CloseMenu();
     CloseCrafting();
+    CloseInventory();
     hintBox.classList.remove('hidden');
 }
 
@@ -55,10 +72,25 @@ function CloseHint() {
     }
 }
 
+function OpenInventory() {
+    isInventory = true;
+    CloseHint();
+    CloseMenu();
+    CloseCrafting();
+    inventoryBox.classList.remove('hidden');
+    UpdateCraftingMenu();
+}
+
+function CloseInventory() {
+    isInventory = false;
+    inventoryBox.classList.add('hidden')
+}
+
 function OpenCrafting() {
     isCrafting = true;
     CloseHint();
     CloseMenu();
+    CloseInventory();
     craftBox.classList.remove('hidden');
     craftBox.style.display = "grid";
     UpdateCraftingMenu();
@@ -66,24 +98,32 @@ function OpenCrafting() {
 
 function UpdateCraftingMenu() {
     //Clears the HTML
-    inventoryList.innerHTML = "";
+    inventoryList0.innerHTML = "";
+    inventoryList1.innerHTML = "";
     craftList.innerHTML = "";
     possibleXoptions.innerHTML = "";
     possibleYoptions.innerHTML = "";
 
     //Displays inventory
     let crafters = GetFromInventoryOfType("basic");
-    for (const crafter of crafters) {
-        if (inventory[crafter.name].quantity === 0) {
-            delete inventory[crafter.name];
-            continue;
+    for (i = 0; i < 2; i++) {
+        for (const crafter of crafters) {
+            if (inventory[crafter.name].quantity === 0) {
+                delete inventory[crafter.name];
+                continue;
+            }
+            if (inventory[crafter.name].type === "tool" || inventory[crafter.name].type === "placeable") {
+                continue;
+            }
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `${crafter.name.charAt(0).toUpperCase() + crafter.name.slice(1)}: ${inventory[crafter.name].quantity}`;
+            if (i === 0) {
+                inventoryList0.appendChild(listItem);
+            }
+            else {
+                inventoryList1.appendChild(listItem);
+            }
         }
-        if (inventory[crafter.name].type === "tool" || inventory[crafter.name].type === "placeable") {
-            continue;
-        }
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `${crafter.name.charAt(0).toUpperCase() + crafter.name.slice(1)}: ${inventory[crafter.name].quantity}`;
-        inventoryList.appendChild(listItem);
     }
     
     //Displays craftable items
@@ -146,6 +186,7 @@ function OpenMenu() {
     isMenu = true;
     CloseCrafting();
     CloseHint();
+    CloseInventory();
     optionsMenu.classList.remove('hidden');
 }
 

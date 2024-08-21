@@ -53,7 +53,7 @@ function Craft(item) {
             xAction = "useTool";
         }
         else {
-            logText.innerHTML = "The " + item.name + " is now equipped to X. Swap tools in the crafting menu.";
+            logText.innerHTML = "The " + item.name + " is now equipped to X. Swap tools in the menu.";
         }
     }
 
