@@ -1,5 +1,11 @@
 # Release Notes
 
+### Alpha 1.3.6
+A new expanded crafting tree and items list. Not sure I'm happy with it yet -- I may reverse the
+decision on chisels and saws. Axes and Picks are more intuitive, and get the game going faster.
+I may have to rethink this idea a little bit. What is the game? We will find out as I explore
+more options.
+
 ### Alpha 1.3.5
 Added a crafting workbench that is the only way to craft now. Removable with the axe and placeable
 with Y. Changed the options menu to a gear and the crafting menu is now an inventory menu with the

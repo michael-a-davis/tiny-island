@@ -38,14 +38,23 @@ function DetermineOnCoast() {
 
 function UseTool() {
     switch(currentTool) {
-        case "Fishing Pole":
+        case "crappy_Fishing_Pole":
             UseFishingPole();
             break;
-        case "Copper Axe":
+        case "copper_Saw":
+            UseSaw();
+            break;
+        case "copper_Chisel":
+            UseChisel();
+            break;
+        case "copper_Axe":
             UseAxe();
             break;
-        case "Copper Pick":
+        case "copper_Pick":
             UsePick();
+            break;
+        case "workbench_Upgrade":
+            UpgradeBench();
             break;
         default:
             break;
@@ -54,10 +63,10 @@ function UseTool() {
 
 function UsePlaceable() {
     switch(currentPlaceable) {
-        case "Saplings":
+        case "saplings":
             PlantSapling();
             break;
-        case "Workbench":
+        case "workbench":
             PlaceWorkBench();
         default:
             break;
@@ -112,6 +121,7 @@ function AddByTool(state) {
             SaplingGrows(FindNeighbor("left", player.location));
         }
     }
+    UpdateActions();
 }
 
 function AddToInventory(item) {
@@ -158,8 +168,8 @@ function ShakeTree() {
         } else {
             logText.innerHTML = "You shook the tree, and got a sapling!";
         }
-        currentPlaceable = "Saplings";
-        AddToInventory('Saplings');
+        currentPlaceable = "saplings";
+        AddToInventory('saplings');
         return;
     }
     else {
@@ -204,6 +214,44 @@ function UseFishingPole() {
     }
 }
 
+function CheckDurability() {
+    let toolUsed = FindItemInInventory(currentTool);
+    toolUsed.durability--;
+    if (toolUsed.durability === 0) {
+        logText.innerHTML = logText.innerHTML + " Uh oh, your " + ConvertName(toolUsed) + " broke!";
+        toolUsed.quantity--;
+        currentTool = null;
+    }
+}
+
+function UseChisel() {
+    let isFacingRock = DetermineFacing("rock");
+    if (!isFacingRock) {
+        logText.innerHTML = "There's nothing to chisel here...";
+        return;
+    }
+    logText.innerHTML = "You chiseled off a piece of the rock, and got a stone!";
+    AddToInventory('stones');
+    CheckDurability();
+
+}
+
+function UseSaw() {
+    let isFacingTree = DetermineFacing("tree");
+    let isFacingBench = DetermineFacing("workbench0");
+    if (!isFacingTree) {
+        logText.innerHTML = "There's nothing to saw here...";
+        return;
+    }
+    if (isFacingBench) {
+        logText.innerHTML = "I don't think it's a good idea to saw your workbench in half...";
+        return;
+    }
+    logText.innerHTML = "You sawed a log off the tree!";
+    AddToInventory('logs');
+    CheckDurability();
+}
+
 function UseAxe() {
     let isFacingTree = DetermineFacing("tree");
     let isFacingBench = DetermineFacing("workbench0");
@@ -219,9 +267,10 @@ function UseAxe() {
     }
     else if (isFacingBench) {
         logText.innerHTML = "You picked up the crappy workbench! Place it with Y.";
-        currentPlaceable = "Workbench";
-        AddToInventory('Workbench');
+        currentPlaceable = "workbench";
+        AddToInventory('workbench');
     }
+    CheckDurability();
 }
 
 function UsePick() {
@@ -234,6 +283,7 @@ function UsePick() {
     logText.innerHTML = "You swung at the rock, and got a chunk of stone!";
     AddToInventory('stones');
     UpdateGrid(player.location);
+    CheckDurability();
 }
 
 function PlantSapling() {
@@ -244,8 +294,8 @@ function PlantSapling() {
     }
     AddByTool("sapling");
     UpdateGrid(player.location);
-    inventory.Saplings.quantity--;
-    if (inventory.Saplings.quantity <= 0) {
+    inventory.saplings.quantity--;
+    if (inventory.saplings.quantity <= 0) {
         logText.innerHTML = "You planted your last sapling!";
         currentPlaceable = 0;
     } else {
@@ -271,11 +321,19 @@ function PlaceWorkBench() {
     }
     AddByTool("workbench0");
     UpdateGrid(player.location);
-    inventory.Workbench.quantity--;
-    if (inventory.Workbench.quantity <= 0) {
+    inventory.workbench.quantity--;
+    if (inventory.workbench.quantity === 0) {
         logText.innerHTML = "You placed the workbench!";
-        currentPlaceable = 0;
-    } else {
-        logText.innerHTML = "You planted a sapling!";
+        currentPlaceable = null;
     }
+}
+
+function UpgradeBench() {
+    let isFacingBench = DetermineFacing("workbench0");
+    if (!isFacingBench) {
+        logText.innerHTML = "There's no bench to upgrade here...";
+        return;
+    }
+    logText.innerHTML = "You upgraded the work bench!";
+    workbenchTier++;
 }

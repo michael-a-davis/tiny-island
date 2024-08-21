@@ -105,14 +105,11 @@ function UpdateCraftingMenu() {
     possibleYoptions.innerHTML = "";
 
     //Displays inventory
-    let crafters = GetFromInventoryOfType("basic");
+    let crafters = GetFromInventoryOfType(BasicItem);
     for (i = 0; i < 2; i++) {
         for (const crafter of crafters) {
             if (inventory[crafter.name].quantity === 0) {
                 delete inventory[crafter.name];
-                continue;
-            }
-            if (inventory[crafter.name].type === "tool" || inventory[crafter.name].type === "placeable") {
                 continue;
             }
             const listItem = document.createElement('li');
@@ -130,7 +127,8 @@ function UpdateCraftingMenu() {
     let craftables = GetCraftableItems();
     for (const craftable of craftables) {
         const button = document.createElement('button');
-        button.innerHTML = craftable.name;
+        let craftableName = ConvertName(craftable);
+        button.innerHTML = craftableName;
         button.classList.add('craft-button');
         button.addEventListener("click", function() {
             Craft(craftable);
@@ -139,11 +137,15 @@ function UpdateCraftingMenu() {
     }
 
     //Displays X Assignemnt Buttons
-    let tools = GetFromInventoryOfType('tool');
+    let tools = GetFromInventoryOfType(Tool);
     for (i = 0; i < tools.length; i++) {
+        if (tools[i].quantity === 0) {
+            continue;
+        }
         const button = document.createElement('button');
         button.classList.add('assign-button');
         let toolName = tools[i].name;
+        button.innerHTML = ConvertName(tools[i]);
         if (toolName === currentTool) {
             button.classList.add('assigned');
         }
@@ -151,12 +153,12 @@ function UpdateCraftingMenu() {
             currentTool = toolName;
             UpdateCraftingMenu();
         })
-        button.innerHTML = tools[i].name;
+        button.innerHTML = ConvertName(tools[i]);
         possibleXoptions.append(button);
     }
 
     //Displays Y Assignment Buttons
-    let placeables = GetFromInventoryOfType("placeable");
+    let placeables = GetFromInventoryOfType(Placeable);
     for (const placeable of placeables) {
         if (inventory[placeable.name].quantity === 0) {
             continue;
@@ -171,7 +173,7 @@ function UpdateCraftingMenu() {
             currentPlaceable = placeableName;
             UpdateCraftingMenu();
         })
-        button.innerHTML = placeable.quantity + " " + placeableName;
+        button.innerHTML = `${inventory[placeable.name].quantity} ` + ConvertName(placeable);
         possibleYoptions.append(button);
     }
 }

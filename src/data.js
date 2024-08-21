@@ -78,11 +78,24 @@ class Tile {
         this.collision = collision;
     }
 }
-class Item {
-    constructor(name, type, craftable, quantity, cost) {
+class BasicItem {
+    constructor(name, quantity) {
         this.name = name;
-        this.type = type;
-        this.craftable = craftable;
+        this.quantity = quantity;
+    }
+}
+class Tool {
+    constructor(name, tier, durability, quantity, cost) {
+        this.name = name;
+        this.tier = tier;
+        this.durability = durability;
+        this.quantity = quantity;
+        this.cost = cost;
+    }
+}
+class Placeable {
+    constructor(name, quantity, cost) {
+        this.name = name;
         this.quantity = quantity;
         this.cost = cost;
     }
@@ -90,27 +103,20 @@ class Item {
 
 //Items list
 let items = [
-    new Item("sticks", "basic", false, 1, null),
-    new Item("string", "basic", false, 1, null),
-    new Item("worms", "basic", false, 1, null),
-    new Item("Fishing Pole", "tool", true, 1, {
-        sticks: 3,
-        string: 3,
-        worms: 1
-    }),
-    new Item("copper", "basic", false, 1, null),
-    new Item("Copper Axe", "tool", true, 1, {
-        sticks: 3,
-        copper: 3
-    }),
-    new Item("Copper Pick", "tool", true, 1, {
-        sticks: 3,
-        copper: 3
-    }),
-    new Item("logs", "basic", false, 1, null),
-    new Item("stones", "basic", false, 1, null),
-    new Item("Saplings", "placeable", false, 1, null),
-    new Item("Workbench", "placeable", false, 1, null)
+    new BasicItem("sticks", 1),
+    new BasicItem("string", 1),
+    new BasicItem("worms", 1),
+    new Tool("crappy_Fishing_Pole", 0, 20, 1, {sticks: 3, string: 3, worms: 1}),
+    new BasicItem("copper", 1),
+    new Tool("copper_Saw", 0, 20, 1, {sticks: 1, copper: 1}),
+    new Tool("copper_Chisel", 0, 20, 1, {sticks: 1, copper: 1}),
+    new Tool("copper_Axe", 1, 20, 1, {sticks: 3, copper: 3}),
+    new Tool("copper_Pick", 1, 20, 1, {sticks: 3, copper: 3}),
+    new BasicItem("logs", 1),
+    new BasicItem("stones", 1),
+    new Placeable("saplings", 1, null),
+    new Placeable("workbench", 1, null),
+    new Tool("workbench_Upgrade", 0, null, 1, {logs: 10, stones: 10, copper_Chisel: 1, copper_Saw: 1})
 ]
 
 //Hints list
@@ -131,6 +137,7 @@ let gridSize = gridColumns ** 2;
 let gridCenter = (gridSize / 2) - 0.5;
 let currentTool;
 let currentPlaceable;
+let workbenchTier = 0;
 let haveShakenTree = false;
 let haveGotSapling = false;
 let hasFishedBefore = false;
@@ -138,7 +145,6 @@ let isCrafting = false;
 let isHint = true;
 let isMenu = false;
 let isInventory = false;
-let workBenchPlaced = false;
 let aAction;
 let hasOpenedHint = false;
 let inventory = {
@@ -160,4 +166,9 @@ function Roll(min, max) {
 
 function RollBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function ConvertName(obj) {
+    let objName = obj.name.replace(/_/g, ' ');
+    return `${objName.charAt(0).toUpperCase() + objName.slice(1)}`;
 }

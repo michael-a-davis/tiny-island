@@ -64,12 +64,6 @@ function GenerateIsland() {
             tiles.push(new Tile(i, "remove", false, false, false));
             continue;
         }
-        let isWorkBench = Roll(1, 100);
-        if (!workBenchPlaced && (isWorkBench || i === (gridSize - gridColumns * 3 - 3))) {
-            tiles.push(new Tile(i, "workbench0", false, false, true));
-            workBenchPlaced = true;
-            continue;
-        }
         let makeTree = Roll(1, treeFrequency);
         let makeRocks = Roll(1, rockFrequency);
         if (makeTree && treeCount < treeMax) {
@@ -84,6 +78,18 @@ function GenerateIsland() {
         }
         else {
             tiles.push(new Tile(i, "remove", false, false, false));
+        }
+    }
+    let workBenchPlaced = false;
+    while (!workBenchPlaced) {
+        for (i = 0; i < tiles.length; i++) {
+            let isWorkBench = Roll(1, 70);
+            if (tiles[i].state === "remove" && !workBenchPlaced && isWorkBench) {
+                tiles[i].state = "workbench0";
+                tiles[i].collision = true;
+                workBenchPlaced = true;
+                break;
+            }
         }
     }
 }

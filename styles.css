@@ -136,7 +136,7 @@ body {
     position: absolute;
     z-index: 5;
     background-color: var(--menublack);
-    width: 90%;
+    width: 99%;
     padding: 20px;
     color: white;
     text-align: center;
@@ -158,6 +158,9 @@ body {
 .crafting-column {
     border: 1px solid white;
     height: 40svh;
+}
+.short {
+    height: 20svh;
 }
 #inventoryColumn {
     grid-column: 1 / 2;
