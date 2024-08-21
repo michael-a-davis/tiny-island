@@ -65,7 +65,7 @@ function GenerateIsland() {
             continue;
         }
         let isWorkBench = Roll(1, 100);
-        if (!workBenchPlaced && (isWorkBench || i === (gridSize * 3 - 3))) {
+        if (!workBenchPlaced && (isWorkBench || i === (gridSize - gridColumns * 3 - 3))) {
             tiles.push(new Tile(i, "workbench0", false, false, true));
             workBenchPlaced = true;
             continue;
