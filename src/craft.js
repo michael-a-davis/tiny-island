@@ -1,21 +1,19 @@
 function GetCraftableItems() {
     let craftables = [];
-    for (const item of items) {
-        if (item instanceof Tool && workbenchTier >= item.tier) {
-            console.log(item);
+    for (const item in inventory) {
+        if (inventory[item] instanceof Tool && workbenchTier >= inventory[item].tier) {
             let canCraftNow;
-            for (const key in item.cost) {
-                if (!inventory[key] || item.cost[key] > inventory[key].quantity) {
+            for (const key in inventory[item].cost) {
+                if (inventory[key].quantity < inventory[item].cost[key]) {
                     canCraftNow = false;
                     break;
                 }
-                else if (item.cost[key] <= inventory[key].quantity) {
+                if (inventory[item].cost[key] <= inventory[key].quantity) {
                     canCraftNow = true;
                 }
             }
-
             if (canCraftNow) {
-                craftables.push(item);
+                craftables.push(inventory[item]);
             }
         }
     }
@@ -25,7 +23,7 @@ function GetCraftableItems() {
 function GetFromInventoryOfType(objectClass) {
     let array = [];
     for (const key in inventory) {
-        if (inventory[key] instanceof objectClass) {
+        if (inventory[key] instanceof objectClass && inventory[key].quantity > 0) {
             array.push(inventory[key]);
         }
     }
@@ -65,5 +63,4 @@ function Craft(item) {
     }
 
     UpdateCraftingMenu();
-    console.log(inventory);
 }

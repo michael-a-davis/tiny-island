@@ -1,5 +1,25 @@
 # Release Notes
 
+### Alpha 1.4
+This newest update comes with a lot of changes. The crafting tree is beginning to be honed now.
+Fishing actually lets you catch fish instead of the game log calling you names. Copper is rarer,
+but now you only need one to truly get away with upgrading the workbench. Upgrading the bench
+allows you to craft stone tools (the classic axes and stones), and an expansion of these tools
+is to come.
+
+In addition to these changes, a lot of the internal code has been updated as well. The player now
+spawns on the coasts of the island. The items array and inventory object have been condensed into
+one reference, and everything is handled now by quantity as opposed to presence. Much simpler this
+way, and keeps the code more concise.
+
+The function that generates the island now assigns X and Y coordinates to each tile in the grid,
+where the origin lies at the center of the map. I plan to include an option for players to toggle
+their coordinates at any given time, as well as potential biome additions in the future.
+
+Finally, some fun additions have been added. In the options menu, players can select a theme for
+the GUI, as well as a brightness level for the actual game. These were added purely for my own
+entertainment, and I think they bring a nice touch to the overall experience.
+
 ### Alpha 1.3.6
 A new expanded crafting tree and items list. Not sure I'm happy with it yet -- I may reverse the
 decision on chisels and saws. Axes and Picks are more intuitive, and get the game going faster.

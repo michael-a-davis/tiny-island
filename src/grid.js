@@ -21,65 +21,78 @@ function GenerateIsland() {
             i % gridColumns === gridColumns - 2 ||
             i > gridSize - 1 - gridColumns - gridColumns
         ) {
-            tiles.push(new Tile(i, "water", true, false, true));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", true, false, true));
             continue;
         }
 
         //Shore tiles
         if (i === gridColumns * 2 + 2) {
-            tiles.push(new Tile(i, "water", false, "UL", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "UL", false));
             continue;
         }
         if (i === gridSize - (gridColumns * 2) - 3) {
-            tiles.push(new Tile(i, "water", false, "DR", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "DR", false));
             continue;
         }
         if (i === gridSize - (gridColumns * 3) + 2) {
-            tiles.push(new Tile(i, "water", false, "DL", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "DL", false));
             continue;
         }
         if (i === (gridColumns * 3) - 3) {
-            tiles.push(new Tile(i, "water", false, "UR", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "UR", false));
             continue;
         }
         if (i < gridColumns * 3) {
-            tiles.push(new Tile(i, "water", false, "U", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "U", false));
             continue;
         }
         if (i % gridColumns - 2 === 0) {
-            tiles.push(new Tile(i, "water", false, "L", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "L", false));
             continue;
         }
         if (i % gridColumns === gridColumns - 3) {
-            tiles.push(new Tile(i, "water", false, "R", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "R", false));
             continue;
         }
         if (i > gridSize - 1 - (gridColumns * 3)) {
-            tiles.push(new Tile(i, "water", false, "D", false));
+            tiles.push(new Tile(i, {x: 0, y: 0}, "field", "water", false, "D", false));
             continue;
         }
+        tiles.push(new Tile(i, {x: 0, y: 0}, "field", "remove", false, false, false));
+    }
 
-        //Internal tiles
-        if (i === gridCenter) {
-            tiles.push(new Tile(i, "remove", false, false, false));
+    let id = 0;
+    for (i = 0; i < gridColumns; i++) {
+        for (j = 0; j < gridColumns; j++) {
+            tiles[id].coords.y = widthCenter - i;
+            tiles[id].coords.x = j - widthCenter;
+            id++;
+        }
+    }
+
+    for (i = 0; i < tiles.length; i++) {
+        if (tiles[i].state === "water") {
             continue;
         }
         let makeTree = Roll(1, treeFrequency);
         let makeRocks = Roll(1, rockFrequency);
         if (makeTree && treeCount < treeMax) {
-            tiles.push(new Tile(i, "tree", false, false, true));
+            tiles[i].state = "tree";
+            tiles[i].collision = true;
             treeCount++;
             continue;
         }
         if (makeRocks && rockCount < rockMax) {
-            tiles.push(new Tile(i, "rock", false, false, true));
+            tiles[i].state = "rock";
+            tiles[i].collision = true;
             rockCount++;
             continue;
         }
         else {
-            tiles.push(new Tile(i, "remove", false, false, false));
+            tiles[i].state = "remove";
         }
     }
+
     let workBenchPlaced = false;
     while (!workBenchPlaced) {
         for (i = 0; i < tiles.length; i++) {
@@ -105,7 +118,7 @@ function GenerateGrid() {
         const tile = document.createElement('img');
         tile.classList.add('tile');
         if (i === cameraCenter) {
-            tile.src = assets.player.down;
+            tile.src = assets.player.up;
             tile.id = "playerTile";
         }
         playerGrid.appendChild(tile);
@@ -147,48 +160,51 @@ function UpdateGrid(id) {
             tile.src = assets.tiles.water;
             continue;
         }
-        switch(tiles[range[i]].shore) {
-            case "UL":
-                tile.src = assets.tiles.cornerUL;
-                break;
-            case "UR":
-                tile.src = assets.tiles.cornerUR;
-                break;
-            case "DR":
-                tile.src = assets.tiles.cornerDR;
-                break;
-            case "DL":
-                tile.src = assets.tiles.cornerDL;
-                break;
-            case "U":
-                tile.src = assets.tiles.perimeterU
-                break;
-            case "L":
-                tile.src = assets.tiles.perimeterL;
-                break;
-            case "R":
-                tile.src = assets.tiles.perimeterR;
-                break;
-            case "D":
-                tile.src = assets.tiles.perimeterD;
-                break;
-            default:
-                if (tiles[range[i]].state === "tree") {
-                    tile.src = assets.tiles.tree;
-                } 
-                else if (tiles[range[i]].state === "rock") {
-                    tile.src = assets.tiles.rocks;
-                }
-                else if (tiles[range[i]].state === "sapling") {
-                    tile.src = assets.tiles.sapling;
-                }
-                else if (tiles[range[i]].state === "workbench0") {
-                    tile.src = assets.tiles.crappyWorkbench;
-                }
-                else if (tiles[range[i]].state === "remove") {
-                    tile.src = assets.tiles.grass;
-                }
-                break;
+        if (tiles[range[i]].shore) {
+            switch(tiles[range[i]].shore) {
+                case "UL":
+                    tile.src = assets.tiles.cornerUL;
+                    break;
+                case "UR":
+                    tile.src = assets.tiles.cornerUR;
+                    break;
+                case "DR":
+                    tile.src = assets.tiles.cornerDR;
+                    break;
+                case "DL":
+                    tile.src = assets.tiles.cornerDL;
+                    break;
+                case "U":
+                    tile.src = assets.tiles.perimeterU
+                    break;
+                case "L":
+                    tile.src = assets.tiles.perimeterL;
+                    break;
+                case "R":
+                    tile.src = assets.tiles.perimeterR;
+                    break;
+                case "D":
+                    tile.src = assets.tiles.perimeterD;
+                    break;
+                default:
+                    break;
+            }
+            continue;
+        }
+        if (tiles[range[i]].state === "tree") {
+            tile.src = assets.tiles.tree;
+        } 
+        else if (tiles[range[i]].state === "rock") {
+            tile.src = assets.tiles.rocks;
+        }
+        else if (tiles[range[i]].state === "sapling") {
+            tile.src = assets.tiles.sapling;
+        }
+        else if (tiles[range[i]].state === "workbench0") {
+            tile.src = assets.tiles.crappyWorkbench;
+        }
+        else if (tiles[range[i]].state === "remove") {
+            tile.src = assets.tiles.grass;
         }
     }
 }

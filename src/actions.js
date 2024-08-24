@@ -41,19 +41,16 @@ function UseTool() {
         case "crappy_Fishing_Pole":
             UseFishingPole();
             break;
-        case "copper_Saw":
-            UseSaw();
-            break;
         case "copper_Chisel":
             UseChisel();
             break;
-        case "copper_Axe":
+        case "stone_Axe":
             UseAxe();
             break;
-        case "copper_Pick":
+        case "stone_Pick":
             UsePick();
             break;
-        case "workbench_Upgrade":
+        case "workbench_Upgrade_Tier_1":
             UpgradeBench();
             break;
         default:
@@ -125,18 +122,13 @@ function AddByTool(state) {
 }
 
 function AddToInventory(item) {
-    let itemIndex;
-    for (i = 0; i < items.length; i++) {
-        if (item === items[i].name) {
-            itemIndex = i;
-            break;
+    for (const object in inventory) {
+        if (item === inventory[object].name) {
+            inventory[object].quantity++;
+            if (inventory[object] instanceof Tool) {
+                inventory[object].durability = 20;
+            }
         }
-    }
-    if (!inventory[item]) {
-        inventory[item] = items[itemIndex];
-    }
-    else {
-        inventory[item].quantity++;
     }
 }
 
@@ -148,7 +140,6 @@ function ShakeTree() {
     if (!haveShakenTree) {
         hintText.innerHTML = hints[2];
     }
-
     haveShakenTree = true;
 
     if (!gotSomething) {
@@ -181,6 +172,11 @@ function ShakeTree() {
 function SearchSand() {
     let odds = RollBetween(1, 100);
 
+    if (!haveSearchedCoasts) {
+        hintText.innerHTML = hints[3];
+        haveSearchedCoasts = true;
+    }
+
     if (odds > wormChance) {
         logText.innerHTML = "WOAH! You found a worm, creeping and crawling through the sand!";
         AddToInventory('worms');
@@ -196,22 +192,32 @@ function UseFishingPole() {
         return;
     }
     if (!hasFishedBefore) {
-        UpdateHint();
+        hintText.innerHTML = hints[4];
+        hasFishedBefore = true;
     }
-    hasFishedBefore = true;
     let odds = RollBetween(1, 100);
     let gotSomething = Roll(1, 2);
     if (!gotSomething) {
-        logText.innerHTML = "You cast your line... But caught nothing."
+        logText.innerHTML = "You cast your line... But you didn't catch anything.";
         return;
     }
-    if (odds > 85) {
-        logText.innerHTML = "You cast your line... And you caught... a copper nugget?!"
+    if (odds > 90) {
+        logText.innerHTML = "You cast your line... And you caught... a copper nugget?!";
         AddToInventory('copper');
     }
-    else {
-        logText.innerHTML = "TRY AGAIN LOSER!";
+    else if (odds > 70) {
+        logText.innerHTML = "You casat your line... And you caught a clownfish!";
+        AddToInventory('clownfish');
     }
+    else if (odds > 40) {
+        logText.innerHTML = "You cast your line... and you caught a salmon!";
+        AddToInventory('salmon');
+    }
+    else {
+        logText.innerHTML = "You cast your line... and you caught a bass!";
+        AddToInventory('bass');
+    }
+    CheckDurability();
 }
 
 function CheckDurability() {
@@ -221,6 +227,10 @@ function CheckDurability() {
         logText.innerHTML = logText.innerHTML + " Uh oh, your " + ConvertName(toolUsed) + " broke!";
         toolUsed.quantity--;
         currentTool = null;
+        if (!toolHasBroken) {
+            hintText.innerHTML = hints[5];
+            toolHasBroken = true;
+        }
     }
 }
 
@@ -230,26 +240,15 @@ function UseChisel() {
         logText.innerHTML = "There's nothing to chisel here...";
         return;
     }
-    logText.innerHTML = "You chiseled off a piece of the rock, and got a stone!";
-    AddToInventory('stones');
-    CheckDurability();
-
-}
-
-function UseSaw() {
-    let isFacingTree = DetermineFacing("tree");
-    let isFacingBench = DetermineFacing("workbench0");
-    if (!isFacingTree) {
-        logText.innerHTML = "There's nothing to saw here...";
-        return;
+    let gotStones = Roll(1, 2);
+    if (gotStones) {
+        logText.innerHTML = "You chiseled at the rocks, and got a stone!";
+        AddToInventory('stones');
+        CheckDurability();
+    } else {
+        logText.innerHTML = "You chiseled at the rocks, and it's beginning to crack...";
+        CheckDurability();
     }
-    if (isFacingBench) {
-        logText.innerHTML = "I don't think it's a good idea to saw your workbench in half...";
-        return;
-    }
-    logText.innerHTML = "You sawed a log off the tree!";
-    AddToInventory('logs');
-    CheckDurability();
 }
 
 function UseAxe() {
@@ -297,7 +296,7 @@ function PlantSapling() {
     inventory.saplings.quantity--;
     if (inventory.saplings.quantity <= 0) {
         logText.innerHTML = "You planted your last sapling!";
-        currentPlaceable = 0;
+        currentPlaceable = null;
     } else {
         logText.innerHTML = "You planted a sapling!";
     }
@@ -335,5 +334,6 @@ function UpgradeBench() {
         return;
     }
     logText.innerHTML = "You upgraded the work bench!";
+    inventory.workbench_Upgrade_Tier_1.quantity--;
     workbenchTier++;
 }

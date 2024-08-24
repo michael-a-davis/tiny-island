@@ -1,12 +1,3 @@
-function UpdateHint() {
-    for (i = 0; i < hints.length; i++) {
-        if (hintText.innerHTML === hints[i]) {
-            hintText.innerHTML = hints[i + 1];
-            return;
-        }
-    }
-}
-
 musicCheck.addEventListener("change", function() {
     if (musicCheck.checked) {
         bgm.muted = false;
@@ -21,6 +12,22 @@ clickCheck.addEventListener("change", function() {
     } else {
         clickSound.muted = true;
     }
+})
+
+themeSelect.addEventListener("change", function() {
+    const options = document.getElementsByClassName('theme-option');
+    for (i = 0; i < options.length; i++) {
+        if (!options[i].selected) {
+            body.classList.remove(options[i].value);
+            continue;
+        }
+        body.classList.add(options[i].value);
+    }
+})
+
+brightnessSlider.addEventListener("mouseup", function() {
+    let value = 100 - brightnessSlider.value;
+    brightness.style.opacity = `${value}%`;
 })
 
 function ToggleCrafting() {
@@ -67,7 +74,7 @@ function CloseHint() {
     isHint = false;
     hintBox.classList.add('hidden');
     if (!hasOpenedHint) {
-        UpdateHint();
+        hintText.innerHTML = hints[1];
         hasOpenedHint = true;
     }
 }
@@ -78,12 +85,14 @@ function OpenInventory() {
     CloseMenu();
     CloseCrafting();
     inventoryBox.classList.remove('hidden');
+    inventoryBox.style.display = "grid";
     UpdateCraftingMenu();
 }
 
 function CloseInventory() {
     isInventory = false;
-    inventoryBox.classList.add('hidden')
+    inventoryBox.classList.add('hidden');
+    inventoryBox.style.display = "none";
 }
 
 function OpenCrafting() {
@@ -108,10 +117,6 @@ function UpdateCraftingMenu() {
     let crafters = GetFromInventoryOfType(BasicItem);
     for (i = 0; i < 2; i++) {
         for (const crafter of crafters) {
-            if (inventory[crafter.name].quantity === 0) {
-                delete inventory[crafter.name];
-                continue;
-            }
             const listItem = document.createElement('li');
             listItem.innerHTML = `${crafter.name.charAt(0).toUpperCase() + crafter.name.slice(1)}: ${inventory[crafter.name].quantity}`;
             if (i === 0) {

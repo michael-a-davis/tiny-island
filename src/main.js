@@ -4,5 +4,5 @@ startButton.addEventListener('click', function() {
 })
 GenerateIsland();
 GenerateGrid();
-UpdateGrid(gridCenter);
+UpdateGrid(player.location);
 GenerateControls();
