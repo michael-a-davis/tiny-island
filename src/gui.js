@@ -25,7 +25,7 @@ themeSelect.addEventListener("change", function() {
     }
 })
 
-brightnessSlider.addEventListener("mouseup", function() {
+brightnessSlider.addEventListener("input", function() {
     let value = 100 - brightnessSlider.value;
     brightness.style.opacity = `${value}%`;
 })
