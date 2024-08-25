@@ -25,11 +25,6 @@ themeSelect.addEventListener("change", function() {
     }
 })
 
-brightnessSlider.addEventListener("input", function() {
-    let value = 100 - brightnessSlider.value;
-    brightness.style.opacity = `${value}%`;
-})
-
 function ToggleCrafting() {
     if (isCrafting) {
         CloseCrafting();
@@ -118,7 +113,8 @@ function UpdateCraftingMenu() {
     for (i = 0; i < 2; i++) {
         for (const crafter of crafters) {
             const listItem = document.createElement('li');
-            listItem.innerHTML = `${crafter.name.charAt(0).toUpperCase() + crafter.name.slice(1)}: ${inventory[crafter.name].quantity}`;
+            let newName = ConvertName(crafter);
+            listItem.innerHTML = `${newName}: ${inventory[crafter.name].quantity}`;
             if (i === 0) {
                 inventoryList0.appendChild(listItem);
             }

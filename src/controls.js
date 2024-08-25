@@ -43,6 +43,10 @@ function GenerateControls() {
             ToggleInventory();
             clickSound.play();
         }
+        if (this.event.keyCode == 79) {
+            ToggleMenu();
+            clickSound.play();
+        }
     })
     upButton.addEventListener("click", function() {
         Move("up");
@@ -132,6 +136,9 @@ function APress() {
             break;
         case "toggleCrafting":
             ToggleCrafting();
+            break;
+        case "pickUpBrick":
+            PickUpBrick();
             break;
         default:
             logText.innerHTML = "There's nothing to do here...";

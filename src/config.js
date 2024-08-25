@@ -9,3 +9,6 @@ let wormChance = 75;
 
 let treeGrowMin = 0.2; //in minutes
 let treeGrowMax = 2 //in minutes
+
+let brickDryMax = 1;
+let brickDryMin = 0.2;

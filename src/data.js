@@ -32,9 +32,8 @@ const optionsMenu = document.getElementById('optionsMenu');
 const musicCheck = document.getElementById('musicCheck');
 const clickCheck = document.getElementById('clickCheck');
 const saveButton = document.getElementById('saveButton');
-const brightness = document.getElementById('brightness');
-const brightnessSlider = document.getElementById('brightnessSlider');
 const themeSelect = document.getElementById('themeSelect');
+const timeFilter = document.getElementById('time');
 
 //Asset links
 let assets = {
@@ -53,6 +52,9 @@ let assets = {
         perimeterU: "assets/tiles/perimeter-U.png",
         sapling: "assets/tiles/sapling.png",
         crappyWorkbench: "assets/tiles/crappy-workbench.png",
+        hole: "assets/tiles/hole.png",
+        brickWet: "assets/tiles/brick-wet.png",
+        brickDry: "assets/tiles/brick-dry.png"
     },
     icons: {
         arrowDown: "assets/icons/arrow-down.svg",
@@ -112,23 +114,29 @@ let inventory = {
     sticks: new BasicItem("sticks", 0),
     string: new BasicItem("string", 0),
     saplings: new Placeable("saplings", 0, null),
+    fire_Plough: new Tool("fire_Plough", 0, 15, 0, {sticks: 5, string: 5}),
     worms: new BasicItem("worms", 0),
-    crappy_Fishing_Pole: new Tool("crappy_Fishing_Pole", 0, 20, 0, {sticks: 3, string: 3, worms: 1}),
+    crappy_Fishing_Pole: new Tool("crappy_Fishing_Pole", 0, 15, 0, {sticks: 3, string: 3, worms: 1}),
     bass: new BasicItem("bass", 0),
     salmon: new BasicItem("salmon", 0),
     clownfish: new BasicItem("clownfish", 0),
     rubber_Tire: new BasicItem("rubber_Tire", 0),
     copper: new BasicItem("copper", 0),
-    copper_Chisel: new Tool("copper_Chisel", 0, 20, 0, {sticks: 1, copper: 1}),
+    copper_Chisel: new Tool("copper_Chisel", 0, 15, 0, {sticks: 1, copper: 1}),
+    copper_Spade: new Tool("copper_Spade", 0, 15, 0, {sticks: 2, copper: 2}),
     stones:  new BasicItem("stones", 0),
+    wet_Clay: new BasicItem("wet_Clay", 0),
+    wet_Clay_Bricks: new Placeable("wet_Clay_Bricks", 0, {wet_Clay: 2}),
+    bricks: new BasicItem("bricks", 0),
     workbench: new Placeable("workbench", 0, null),
     workbench_Upgrade_Tier_1: new Tool("workbench_Upgrade_Tier_1", 0, null, 0, {sticks: 10, stones: 10, copper_Chisel: 1, string: 5}),
-    stone_Axe: new Tool("stone_Axe", 1, 20, 0, {sticks: 3, stones: 5}),
-    stone_Pick: new Tool("stone_Pick", 1, 20, 0, {sticks: 3, stones: 5}),
+    stone_Spade: new Tool("stone_Spade", 1, 30, 0, {sticks: 2, stones: 2}),
+    stone_Chisel: new Tool("stone_Chisel", 1, 30, 0, {sticks: 1, stones: 1}),
+    stone_Axe: new Tool("stone_Axe", 1, 30, 0, {sticks: 3, stones: 5}),
+    stone_Pick: new Tool("stone_Pick", 1, 30, 0, {sticks: 3, stones: 5}),
     logs: new BasicItem("logs", 0),
     iron: new BasicItem("iron", 0),
-    gold: new BasicItem("gold", 0),
-    
+    gold: new BasicItem("gold", 0)
 }
 let workbenchTier = 0;
 
@@ -159,6 +167,8 @@ let widthCenter = (gridColumns / 2) - 0.5;
 let playerStart = gridSize - gridColumns - gridColumns - widthCenter - (Math.floor(widthCenter / 2));
 let currentTool;
 let currentPlaceable;
+let toolCount = 0;
+let placeableCount = 0;
 let haveGotSapling = false;
 let isCrafting = false;
 let isHint = true;
@@ -170,7 +180,7 @@ let player = {
     facing: "up"
 }
 
-//Roll functions
+//Universal functions
 function Roll(min, max) {
     let roll = Math.floor(Math.random() * (max - min + 1) + min);
     if (roll === max) {

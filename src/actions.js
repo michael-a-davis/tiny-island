@@ -1,8 +1,9 @@
 //Action processing
 function UpdateActions() {
     let facingTree = DetermineFacing("tree");
-    let onCoast = DetermineOnCoast();
+    let onCoast = DetermineOn("coast");
     let facingBench = DetermineFacing("workbench0");
+    let onDryBrick = DetermineOn('brick-dry');
     if (facingBench) {
         aAction = "toggleCrafting"
     }
@@ -12,6 +13,9 @@ function UpdateActions() {
     else if (onCoast) {
         aAction = "searchSand";
     } 
+    else if (onDryBrick) {
+        aAction = "pickUpBrick";
+    }
     else {
         aAction = null;
     }
@@ -28,6 +32,24 @@ function DetermineFacing(object) {
     }
 }
 
+function DetermineOn(state) {
+    if (state === "coast") {
+        if (tiles[player.location].shore) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        if (tiles[player.location].state === state) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 function DetermineOnCoast() {
     if (tiles[player.location].shore) {
         return true;
@@ -39,10 +61,16 @@ function DetermineOnCoast() {
 function UseTool() {
     switch(currentTool) {
         case "crappy_Fishing_Pole":
+        case "fishing_Pole":
             UseFishingPole();
             break;
         case "copper_Chisel":
+        case "stone_Chisel":
             UseChisel();
+            break;
+        case "copper_Spade":
+        case "stone_Spade":
+            UseSpade();
             break;
         case "stone_Axe":
             UseAxe();
@@ -65,6 +93,8 @@ function UsePlaceable() {
             break;
         case "workbench":
             PlaceWorkBench();
+        case "wet_Clay_Bricks":
+            PlaceWetBricks();
         default:
             break;
     }
@@ -89,34 +119,23 @@ function RemoveByTool() {
     }
 }
 
-function AddByTool(state) {
-    if (player.facing === "up") {
-        tiles[FindNeighbor("up", player.location)].state = state;
-        tiles[FindNeighbor("up", player.location)].collision = true;
-        if (state === "sapling") {
-            SaplingGrows(FindNeighbor("up", player.location));
-        }
-    }
-    if (player.facing === "down") {
-        tiles[FindNeighbor("down", player.location)].state = state;
-        tiles[FindNeighbor("down", player.location)].collision = true;
-        if (state === "sapling") {
-            SaplingGrows(FindNeighbor("down", player.location));
-        }
-    }
-    if (player.facing === "right") {
-        tiles[FindNeighbor("right", player.location)].state = state;
-        tiles[FindNeighbor("right", player.location)].collision = true;
-        if (state === "sapling") {
-            SaplingGrows(FindNeighbor("right", player.location));
-        }
-    }
-    if (player.facing === "left") {
-        tiles[FindNeighbor("left", player.location)].state = state;
-        tiles[FindNeighbor("left", player.location)].collision = true;
-        if (state === "sapling") {
-            SaplingGrows(FindNeighbor("left", player.location));
-        }
+function AddByTool(direction, state) {
+    let tile = tiles[FindNeighbor(direction, player.location)];
+    tile.state = state;
+    switch(state) {
+        case "sapling":
+            SaplingGrows(tile.id);
+            tile.collision = true;
+            break;
+        case "brick-wet":
+            BrickDries(tile.id);
+            break;
+        case "workbench0":
+            tile.collision = true;
+            break;
+        default:
+            break;
+
     }
     UpdateActions();
 }
@@ -125,9 +144,6 @@ function AddToInventory(item) {
     for (const object in inventory) {
         if (item === inventory[object].name) {
             inventory[object].quantity++;
-            if (inventory[object] instanceof Tool) {
-                inventory[object].durability = 20;
-            }
         }
     }
 }
@@ -154,7 +170,7 @@ function ShakeTree() {
     } 
     else if (odds > saplingChance) {
         if (!haveGotSapling) {
-            logText.innerHTML = "You shook the tree, and got a sapling! You can plant it with Y."
+            logText.innerHTML = "You shook the tree, and got a sapling! Maybe you can plant them somehow?"
             haveGotSapling = true;
         } else {
             logText.innerHTML = "You shook the tree, and got a sapling!";
@@ -198,15 +214,15 @@ function UseFishingPole() {
     let odds = RollBetween(1, 100);
     let gotSomething = Roll(1, 2);
     if (!gotSomething) {
-        logText.innerHTML = "You cast your line... But you didn't catch anything.";
+        logText.innerHTML = "You cast your line... but you didn't catch anything.";
         return;
     }
     if (odds > 90) {
-        logText.innerHTML = "You cast your line... And you caught... a copper nugget?!";
+        logText.innerHTML = "You cast your line... and you caught... a copper nugget?!";
         AddToInventory('copper');
     }
     else if (odds > 70) {
-        logText.innerHTML = "You casat your line... And you caught a clownfish!";
+        logText.innerHTML = "You cast your line... and you caught a clownfish!";
         AddToInventory('clownfish');
     }
     else if (odds > 40) {
@@ -226,6 +242,23 @@ function CheckDurability() {
     if (toolUsed.durability === 0) {
         logText.innerHTML = logText.innerHTML + " Uh oh, your " + ConvertName(toolUsed) + " broke!";
         toolUsed.quantity--;
+        switch(toolUsed.tier) {
+            case 0:
+                toolUsed.durability = 15;
+                break;
+            case 1:
+                toolUsed.durability = 30;
+                break;
+            case 2:
+                toolUsed.durability = 60;
+                break;
+            case 3:
+                toolUsed.durability = 120;
+                break;
+            case 4:
+                toolUsed.durability = 250;
+                break;
+        }
         currentTool = null;
         if (!toolHasBroken) {
             hintText.innerHTML = hints[5];
@@ -248,6 +281,30 @@ function UseChisel() {
     } else {
         logText.innerHTML = "You chiseled at the rocks, and it's beginning to crack...";
         CheckDurability();
+    }
+}
+
+function UseSpade() {
+    let isFacingEmpty = DetermineFacing("remove");
+    let onCoast = DetermineOnCoast();
+    if (isFacingEmpty) {
+        AddByTool(player.facing, 'hole');
+        UpdateGrid(player.location);
+        logText.innerHTML = "You dug a small hole in the ground!";
+        CheckDurability();
+    }
+    else if (onCoast) {
+        let gotClay = Roll(1, 3);
+        if (gotClay) {
+            logText.innerHTML = "You dug in the sand, and found some wet clay!";
+            AddToInventory('wet_Clay');
+        } else {
+            logText.innerHTML = "You dug in the sand, but didn't find anything.";
+        }
+        CheckDurability();
+    }
+    else {
+        logText.innerHTML = "You can't dig here...";
     }
 }
 
@@ -286,12 +343,12 @@ function UsePick() {
 }
 
 function PlantSapling() {
-    let isFacingEmpty = DetermineFacing("remove");
-    if (!isFacingEmpty) {
+    let isFacingHole = DetermineFacing("hole");
+    if (!isFacingHole) {
         logText.innerHTML = "You can't plant that here...";
         return;
     }
-    AddByTool("sapling");
+    AddByTool(player.facing, "sapling");
     UpdateGrid(player.location);
     inventory.saplings.quantity--;
     if (inventory.saplings.quantity <= 0) {
@@ -318,7 +375,7 @@ function PlaceWorkBench() {
         logText.innerHTML = "You can't place that here...";
         return;
     }
-    AddByTool("workbench0");
+    AddByTool(player.facing, "workbench0");
     UpdateGrid(player.location);
     inventory.workbench.quantity--;
     if (inventory.workbench.quantity === 0) {
@@ -336,4 +393,39 @@ function UpgradeBench() {
     logText.innerHTML = "You upgraded the work bench!";
     inventory.workbench_Upgrade_Tier_1.quantity--;
     workbenchTier++;
+}
+
+function PlaceWetBricks() {
+    let isFacingEmpty = DetermineFacing("remove");
+    if (!isFacingEmpty) {
+        logText.innerHTML = "You can't place that here...";
+        return;
+    }
+    AddByTool(player.facing, 'brick-wet');
+    UpdateGrid(player.location);
+    inventory.wet_Clay_Bricks.quantity--;
+    if (inventory.wet_Clay_Bricks.quantity === 0) {
+        logText.innerHTML = "You've placed your last wet brick!";
+        currentPlaceable = null;
+    }
+    else {
+        logText.innerHTML = "You placed a wet brick! I wonder if it will dry?";
+    }
+}
+
+function BrickDries(brickLocation) {
+    let maxSpeed = brickDryMax * 60000;
+    let minSpeed = brickDryMin * 60000;
+    let speed = RollBetween(minSpeed, maxSpeed);
+    setTimeout(() => {
+        tiles[brickLocation].state = "brick-dry";
+        UpdateGrid(player.location);
+    }, speed);
+}
+
+function PickUpBrick() {
+    tiles[player.location].state = "remove";
+    AddToInventory('bricks');
+    UpdateGrid(player.location);
+    logText.innerHTML = "You picked up the brick!"
 }

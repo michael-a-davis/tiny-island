@@ -1,5 +1,11 @@
 # Release Notes
 
+### Alpha 1.4.1
+This update has expanded the crafting and introduced a new placeable item, the wet brick. It's
+crafted from clay found by using the new tool, the spade, on the beaches. The wet brick dries
+over time much like the sapling grows, and can be picked up once dried. I plan to use bricks as
+part of many future crafting recipes.
+
 ### Alpha 1.4
 This newest update comes with a lot of changes. The crafting tree is beginning to be honed now.
 Fishing actually lets you catch fish instead of the game log calling you names. Copper is rarer,

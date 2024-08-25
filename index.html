@@ -11,7 +11,7 @@
     <div id="startScreen">
         <div id="logo">
             <img src="assets/logo.svg" alt="Tiny Island" decoding="async" width="400" height="auto"/>
-            <h1>Version Alpha 1.4</h1>
+            <h1>Version Alpha 1.4.1</h1>
         </div>
         <div id="startButtonBox">
             <button class="start-button" id="startButton">Start Game</button>
@@ -87,10 +87,6 @@
             </label>
         </div>
         <div class="option-group">
-            <p>Brightness:</p>
-            <input type="range" min="0" max="100" value="100" id="brightnessSlider">
-        </div>
-        <div class="option-group">
             <p>Theme:</p>
             <label class="switch">
                 <select name="theme" id="themeSelect">
@@ -106,7 +102,7 @@
     <div id="grid">
         <div class="grid-layer" id="playerGrid"></div>
         <div class="grid-layer" id="islandGrid"></div>
-        <div id="brightness"></div>
+        <div class="grid-layer" id="time"></div>
     </div>
 
     <!-- Controls -->

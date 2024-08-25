@@ -191,20 +191,31 @@ function UpdateGrid(id) {
             }
             continue;
         }
-        if (tiles[range[i]].state === "tree") {
-            tile.src = assets.tiles.tree;
-        } 
-        else if (tiles[range[i]].state === "rock") {
-            tile.src = assets.tiles.rocks;
-        }
-        else if (tiles[range[i]].state === "sapling") {
-            tile.src = assets.tiles.sapling;
-        }
-        else if (tiles[range[i]].state === "workbench0") {
-            tile.src = assets.tiles.crappyWorkbench;
-        }
-        else if (tiles[range[i]].state === "remove") {
-            tile.src = assets.tiles.grass;
+        switch(tiles[range[i]].state){
+            case "tree":
+                tile.src = assets.tiles.tree;
+                break;
+            case "hole":
+                tile.src = assets.tiles.hole;
+                break;
+            case "rock":
+                tile.src = assets.tiles.rocks;
+                break;
+            case "sapling":
+                tile.src = assets.tiles.sapling;
+                break;
+            case "workbench0":
+                tile.src = assets.tiles.crappyWorkbench;
+                break;
+            case "brick-wet":
+                tile.src = assets.tiles.brickWet;
+                break;
+            case "brick-dry":
+                tile.src = assets.tiles.brickDry;
+                break;
+            case "remove":
+                tile.src = assets.tiles.grass;
+                break;
         }
     }
 }
