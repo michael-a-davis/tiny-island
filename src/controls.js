@@ -1,4 +1,31 @@
 function GenerateControls() {
+    musicCheck.addEventListener("change", function() {
+        if (musicCheck.checked) {
+            bgm.muted = false;
+        } else {
+            bgm.muted = true;
+        }
+    })
+    
+    clickCheck.addEventListener("change", function() {
+        if (clickCheck.checked) {
+            clickSound.muted = false;
+        } else {
+            clickSound.muted = true;
+        }
+    })
+    
+    themeSelect.addEventListener("change", function() {
+        const options = document.getElementsByClassName('theme-option');
+        for (i = 0; i < options.length; i++) {
+            if (!options[i].selected) {
+                body.classList.remove(options[i].value);
+                continue;
+            }
+            body.classList.add(options[i].value);
+        }
+    })
+
     window.addEventListener("keydown", function() {
         if (this.event.keyCode == 87) {
             Move("up");
@@ -87,11 +114,11 @@ function GenerateControls() {
         ToggleHint();
         clickSound.play();
     });
-    inventoryButton.addEventListener("click", function() {
+    menuButton.addEventListener("click", function() {
         ToggleInventory();
         clickSound.play();
     });
-    menuButton.addEventListener("click", function() {
+    optionsButton.addEventListener("click", function() {
         ToggleMenu();
         clickSound.play();
     })

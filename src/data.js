@@ -1,42 +1,24 @@
-//DOM elements
-const body = document.getElementById('body');
-const splashScreen = document.getElementById('startScreen');
-const startButton = document.getElementById('startButton');
-const bgm = document.getElementById('bgm');
-const clickSound = document.getElementById('clickSound');
-const islandGrid = document.getElementById('islandGrid');
-const playerGrid = document.getElementById('playerGrid');
-const controlsBox = document.getElementById('controlsBox');
-const upButton = document.getElementById('upButton');
-const downButton = document.getElementById('downButton');
-const leftButton = document.getElementById('leftButton');
-const rightButton = document.getElementById('rightButton');
-const aButton = document.getElementById('aButton');
-const bButton = document.getElementById('bButton');
-const xButton = document.getElementById('xButton');
-const yButton = document.getElementById('yButton');
-const hintButton = document.getElementById('hintButton');
-const inventoryButton = document.getElementById('inventoryButton');
-const inventoryBox = document.getElementById('inventoryMenu');
-const craftBox = document.getElementById('craftingMenu');
-const hintBox = document.getElementById('hintBox');
-const hintText = document.getElementById('hintText');
-const logText = document.getElementById('logText');
-const inventoryList0 = document.getElementById('inventoryList0');
-const inventoryList1 = document.getElementById('inventoryList1');
-const craftList = document.getElementById('possibleCrafts');
-const possibleXoptions = document.getElementById('possibleXoptions');
-const possibleYoptions = document.getElementById('possibleYoptions');
-const menuButton = document.getElementById('menuButton');
-const optionsMenu = document.getElementById('optionsMenu');
-const musicCheck = document.getElementById('musicCheck');
-const clickCheck = document.getElementById('clickCheck');
-const saveButton = document.getElementById('saveButton');
-const themeSelect = document.getElementById('themeSelect');
-const timeFilter = document.getElementById('time');
-
 //Asset links
 let assets = {
+    icons: {
+        arrowUp: "assets/icons/arrow-up.svg",
+        arrowRight: "assets/icons/arrow-right.svg",
+        arrowDown: "assets/icons/arrow-down.svg",
+        arrowLeft: "assets/icons/arrow-left.svg",
+        menu: "assets/icons/menu.svg",
+        options: "assets/icons/cog.svg",
+        logo: "assets/icons/logo.svg"
+    },
+    audio: {
+        sortIsle: "assets/audio/sort-isle.mp3",
+        clickNoise: "assets/audio/click.mp3"
+    },
+    player: {
+        up: "assets/player/back.png",
+        down: "assets/player/front.png",
+        left: "assets/player/left.png",
+        right: "assets/player/right.png"
+    },
     tiles: {
         grass: "assets/tiles/grass.png",
         rocks: "assets/tiles/rocks.png",
@@ -52,27 +34,39 @@ let assets = {
         perimeterU: "assets/tiles/perimeter-U.png",
         sapling: "assets/tiles/sapling.png",
         crappyWorkbench: "assets/tiles/crappy-workbench.png",
+        decentWorkbench: "assets/tiles/workbench1.png",
         hole: "assets/tiles/hole.png",
         brickWet: "assets/tiles/brick-wet.png",
-        brickDry: "assets/tiles/brick-dry.png"
-    },
-    icons: {
-        arrowDown: "assets/icons/arrow-down.svg",
-        arrowLeft: "assets/icons/arrow-left.svg",
-        arrowUp: "assets/icons/arrow-up.svg",
-        arrowRight: "assets/icons/arrow-right.svg",
-        axe: "assets/icons/axe.svg",
-        pick: "assets/icons/pick.svg",
-        hammer: "assets/icons/hammer.svg",
-        fishing: "assets/icons/fishing.svg"
-    },
-    player: {
-        up: "assets/player/back.png",
-        down: "assets/player/front.png",
-        left: "assets/player/left.png",
-        right: "assets/player/right.png"
+        brickDry: "assets/tiles/brick-dry.png",
+        furnace: "assets/tiles/furnace.png"
     }
 }
+
+let gridLayers = [
+    "baseLayer",
+    "objectLayer", 
+    "playerLayer", 
+    "timeLayer"
+]
+let faceButtons = [
+    "arrowLeft",
+    "arrowRight",
+    "arrowUp",
+    "arrowDown",
+    "A",
+    "B",
+    "X",
+    "Y",
+    "menu",
+    "options",
+    "hint"
+]
+let options = [
+    "Music", "Buttons", "Theme"
+]
+let themes = [
+    "Original", "BoyGame", "Cream", "Midnight"
+]
 
 //Object class constructors
 class Tile {
@@ -155,7 +149,6 @@ let haveSearchedCoasts = false;
 let hasFishedBefore = false;
 let toolHasBroken = false;
 
-//Misc variable initialization
 let cameraColumns = 5;
 let cameraScope = cameraColumns ** 2;
 let cameraCenter = (cameraScope / 2) - 0.5;
@@ -181,6 +174,23 @@ let player = {
 }
 
 //Universal functions
+function Roll(min, max) {
+    let roll = Math.floor(Math.random() * (max - min + 1) + min);
+    if (roll === max) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function RollBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function ConvertName(obj) {
+    let objName = obj.name.replace(/_/g, ' ');
+    return `${objName.charAt(0).toUpperCase() + objName.slice(1)}`;
+}
 function Roll(min, max) {
     let roll = Math.floor(Math.random() * (max - min + 1) + min);
     if (roll === max) {

@@ -1,3 +1,4 @@
+//Misc variable initialization
 let gridColumns = 19;
 let treeMax = 120;
 let treeFrequency = 5;
@@ -9,6 +10,11 @@ let wormChance = 75;
 
 let treeGrowMin = 0.2; //in minutes
 let treeGrowMax = 2 //in minutes
+let brickDryMax = 1; //in minutes
+let brickDryMin = 0.2; //in minutes
 
-let brickDryMax = 1;
-let brickDryMin = 0.2;
+let version = "Version Alpha 2.0";
+let credits = [
+    "Developed by Michael A. Davis",
+    "Music by Jet Intelligence"
+]

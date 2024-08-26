@@ -1,5 +1,11 @@
 # Release Notes
 
+### Alpha 2.0
+This newest version comes with a big resturcturing. The HTML document is now essentially empty,
+and the creation of the DOM and its elements are all now handled by a javascript file -- the
+index.js file. In addition, the CSS has been rehauled to make the site more responsive, as well
+as fix some UI concerns I'd been having.
+
 ### Alpha 1.4.1
 This update has expanded the crafting and introduced a new placeable item, the wet brick. It's
 crafted from clay found by using the new tool, the spade, on the beaches. The wet brick dries

@@ -7,151 +7,9 @@
     <title>Tiny Island</title>
 </head>
 <body id="body">
-    <!-- Start Screen -->
-    <div id="startScreen">
-        <div id="logo">
-            <img src="assets/logo.svg" alt="Tiny Island" decoding="async" width="400" height="auto"/>
-            <h1>Version Alpha 1.4.1</h1>
-        </div>
-        <div id="startButtonBox">
-            <button class="start-button" id="startButton">Start Game</button>
-        </div>
-        <div id="text">
-            <p>
-                Developed by Michael A Davis
-                <br>
-                Music by Jet Intelligence
-            </p>
-        </div>
-    </div>
-
-    <!-- Top Bar-->
-    <div id="topBar">
-        <button class="button" id="menuButton" aria-label="Menu Button">
-            <img src="assets/icons/cog.svg" class="icon" alt="menu icon" decoding="async" width="40px" height="40px"/>
-        </button>
-        <button class="button" id="hintButton" aria-label="Hint button">?</button>
-    </div>
-
-    <!-- Hint Box -->
-    <div id="hintBox" class="menu">
-        <h2>HINT:</h2>
-        <p id="hintText">It seems you've washed ashore a tiny island... (Press B to close)</p>
-    </div>
-
-    <!-- Crafting Menu-->
-    <div id="craftingMenu" class="hidden menu">
-        <h2>Crafting</h2>
-        <div class="crafting-column" id="inventoryColumn">
-            <p>Inventory:</p>
-            <ul id="inventoryList0"></ul>
-        </div>
-        <div class="crafting-column" id="outputColumn">
-            <p>Craft:</p>
-            <ul id="possibleCrafts"></ul>
-        </div>
-    </div>
-
-    <!-- Inventory Menu -->
-    <div id="inventoryMenu" class="hidden menu">
-        <h2>Inventory</h2>
-        <div id="inventoryColumn1" class="short crafting-column">
-            <ul id="inventoryList1"></ul>
-        </div>
-        <div class="assign-row" id="xAssignRow">
-            <p>Assign to X:</p>
-            <div id="possibleXoptions">
-            </div>
-        </div>
-        <div class="assign-row" id="yAssignRow">
-            <p>Assign to Y:</p>
-            <div id="possibleYoptions"></div>
-        </div>
-    </div>
-
-    <!-- Options Menu-->
-    <div id="optionsMenu" class="hidden menu">
-        <h2>Options</h2>
-        <div class="option-group">
-            <p>Music:</p>
-            <label class="switch">
-                <input type="checkbox" id="musicCheck" checked>
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="option-group">
-            <p>Button Clicks:</p>
-            <label class="switch">
-                <input type="checkbox" id="clickCheck" checked>
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="option-group">
-            <p>Theme:</p>
-            <label class="switch">
-                <select name="theme" id="themeSelect">
-                    <option class="theme-option" value="original" selected>Original</option>
-                    <option class="theme-option" value="boy-game">BoyGame</option>
-                    <option class="theme-option" value="midnight">Midnight</option>
-                </select>
-            </label>
-        </div>
-    </div>
-
-    <!-- Grid -->
-    <div id="grid">
-        <div class="grid-layer" id="playerGrid"></div>
-        <div class="grid-layer" id="islandGrid"></div>
-        <div class="grid-layer" id="time"></div>
-    </div>
-
-    <!-- Controls -->
-    <div id="controlsBox">
-        <div id="gameLog">
-            <p id="logText"></p>
-        </div>
-        <div id="buttonsBox">
-            <div class="button-group">
-                <button class="button" id="upButton" aria-label="Up button">
-                    <img  class="icon" src="assets/icons/arrow-up.svg" alt="Up arrow" width="40px" height="40px">
-                </button>
-                <button class="button" id="downButton" aria-label="Down button">
-                    <img  class="icon" src="assets/icons/arrow-down.svg" alt="Down arrow" width="40px" height="40px">
-                </button>
-                <button class="button" id="leftButton" aria-label="Left button">
-                    <img  class="icon" src="assets/icons/arrow-left.svg" alt="Left arrow" width="40px" height="40px">
-                </button>
-                <button class="button" id="rightButton" aria-label="Right button">
-                    <img  class="icon" src="assets/icons/arrow-right.svg" alt="Left arrow" width="40px" height="40px">
-                </button>
-            </div>
-            <button class="button" id="inventoryButton" aria-label="Craft button">
-                <img  class="icon" src="assets/icons/menu.svg" alt="Left arrow" width="40px" height="40px">
-            </button>
-            <div class="button-group">
-                <button class="button" id="aButton" aria-label="A button">
-                    <p>A</p>
-                </button>
-                <button class="button" id="bButton" aria-label="B button">
-                    <p>B</p>
-                </button>
-                <button class="button" id="xButton" aria-label="X button">
-                    <p>X</p>
-                </button>
-                <button class="button" id="yButton" aria-label="Y button">
-                    <p>Y</p>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Music -->
-    <audio src="audio/sort-isle.mp3" id="bgm" loop></audio>
-    <audio src="audio/click.mp3" id="clickSound"></audio>
-
-    <!-- Scripts -->
     <script src="src/config.js"></script>
     <script src="src/data.js"></script>
+    <script src="src/index.js"></script>
     <script src="src/grid.js"></script>
     <script src="src/gui.js"></script>
     <script src="src/controls.js"></script>
@@ -159,4 +17,5 @@
     <script src="src/craft.js"></script>
     <script src="src/main.js"></script>
 </body>
+</html>
 </html>

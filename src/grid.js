@@ -112,7 +112,7 @@ function GenerateGrid() {
         const tile = document.createElement('img');
         tile.classList.add('tile');
         tile.id = i;
-        islandGrid.appendChild(tile);
+        baseLayer.appendChild(tile);
     }
     for (i = 0; i < cameraScope; i++) {
         const tile = document.createElement('img');
@@ -121,7 +121,7 @@ function GenerateGrid() {
             tile.src = assets.player.up;
             tile.id = "playerTile";
         }
-        playerGrid.appendChild(tile);
+        playerLayer.appendChild(tile);
     }
 }
 
