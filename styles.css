@@ -72,6 +72,7 @@
 }
 #startScreen img {
     animation: fallDown 2s;
+    width: clamp(0px, 90%, 400px);
 }
 #startScreen h1 {
     font-size: 1.2rem;
