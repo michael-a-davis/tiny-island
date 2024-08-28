@@ -81,12 +81,12 @@ function UpdateCraftingMenu() {
     yColumn.innerHTML = "";
 
     //Displays inventory
-    let crafters = GetFromInventoryOfType(BasicItem);
+    let crafters = GetFromInventoryOfType("basic");
     for (i = 0; i < 2; i++) {
         for (const crafter of crafters) {
             const listItem = document.createElement('li');
             let newName = ConvertName(crafter);
-            listItem.innerHTML = `${newName}: ${inventory[crafter.name].quantity}`;
+            listItem.innerHTML = inventory[crafter.name].quantity + " " + newName;
             if (i === 0) {
                 inventoryList.appendChild(listItem);
             }
@@ -110,7 +110,7 @@ function UpdateCraftingMenu() {
     }
 
     //Displays X Assignemnt Buttons
-    let tools = GetFromInventoryOfType(Tool);
+    let tools = GetFromInventoryOfType("tool");
     for (i = 0; i < tools.length; i++) {
         if (tools[i].quantity === 0) {
             continue;
@@ -131,7 +131,7 @@ function UpdateCraftingMenu() {
     }
 
     //Displays Y Assignment Buttons
-    let placeables = GetFromInventoryOfType(Placeable);
+    let placeables = GetFromInventoryOfType("placeable");
     for (const placeable of placeables) {
         if (inventory[placeable.name].quantity === 0) {
             continue;

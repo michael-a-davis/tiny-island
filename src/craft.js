@@ -24,10 +24,10 @@ function GetCraftableItems() {
     return craftables;
 }
 
-function GetFromInventoryOfType(objectClass) {
+function GetFromInventoryOfType(objectType) {
     let array = [];
     for (const key in inventory) {
-        if (inventory[key] instanceof objectClass && inventory[key].quantity > 0) {
+        if (inventory[key].type === objectType && inventory[key].quantity > 0) {
             array.push(inventory[key]);
         }
     }
@@ -47,7 +47,7 @@ function Craft(item) {
     for (const key in item.cost) {
         inventory[key].quantity -= item.cost[key];
     }
-    if (item instanceof Tool) {
+    if (item.type === "tool") {
         let toolName = ConvertName(item);
         currentTool = item.name;
         toolCount++;
@@ -58,7 +58,7 @@ function Craft(item) {
             logText.innerHTML = "The " + toolName + " is now equipped to X.";
         }
     }
-    if (item instanceof Placeable) {
+    if (item.type === "placeable") {
         let placeableName = ConvertName(item);
         currentPlaceable = item.name;
         placeableCount++;

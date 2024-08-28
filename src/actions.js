@@ -2,9 +2,10 @@
 function UpdateActions() {
     let facingTree = DetermineFacing("tree");
     let onCoast = DetermineOn("coast");
-    let facingBench = DetermineFacing("workbench0");
+    let facingBench0 = DetermineFacing("workbench0");
+    let facingBench1 = DetermineFacing("workbench1");
     let onDryBrick = DetermineOn('brick-dry');
-    if (facingBench) {
+    if (facingBench0 || facingBench1) {
         aAction = "toggleCrafting"
     }
     else if (facingTree) {
@@ -390,6 +391,8 @@ function UpgradeBench() {
         logText.innerHTML = "There's no bench to upgrade here...";
         return;
     }
+    AddByTool(player.facing, 'workbench1');
+    UpdateGrid(player.location);
     logText.innerHTML = "You upgraded the work bench!";
     inventory.workbench_Upgrade_Tier_1.quantity--;
     workbenchTier++;

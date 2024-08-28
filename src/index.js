@@ -62,7 +62,7 @@ function GenerateGUI() {
         const label = document.createElement('p');
         label.innerHTML = option + ":";
         group.appendChild(label);
-        if (option != "Theme") {
+        if (option === "Music" || option === "Buttons") {
             const swap = document.createElement('label');
             swap.classList.add('switch');
             const checkbox = document.createElement('input');
@@ -72,25 +72,36 @@ function GenerateGUI() {
             const slider = document.createElement('span');
             slider.classList.add('slider');
             swap.append(checkbox, slider);
-            group.append(label, swap);
+            group.append(swap);
             optionsMenu.appendChild(group);
             continue;
         }
-        const dropdown = document.createElement('select');
-        dropdown.id = "themeSelect";
-        dropdown.name = "select-theme";
-        for (const theme of themes) {
-            const option = document.createElement('option');
-            option.innerHTML = theme;
-            option.classList.add('theme-option');
-            option.value = theme.toLowerCase();
-            if (theme === "Original") {
-                option.selected;
-            }
-            dropdown.appendChild(option);
+        if (option === "Save Game" || option === "Erase Save") {
+            const button = document.createElement('button');
+            button.innerHTML = option;
+            button.classList.add('option-button');
+            button.id = option.replace(" ", "").replace(option.charAt(0), option.charAt(0).toLowerCase());
+            group.append(button);
+            optionsMenu.appendChild(group);
         }
-        group.append(label, dropdown);
-        optionsMenu.appendChild(group);
+        if (option === "Theme") {
+            const dropdown = document.createElement('select');
+            dropdown.id = "themeSelect";
+            dropdown.name = "select-theme";
+            for (const themeOption of themes) {
+                const option = document.createElement('option');
+                option.innerHTML = themeOption;
+                option.classList.add('theme-option');
+                option.value = themeOption.toLowerCase();
+                if (themeOption === theme) {
+                    option.selected;
+                    body.classList.add(themeOption.toLowerCase());
+                }
+                dropdown.appendChild(option);
+            }
+            group.append(dropdown);
+            optionsMenu.appendChild(group);
+        }
     }
 
     //Generates the inventory menu
@@ -162,9 +173,35 @@ function GenerateGUI() {
     hintText.innerHTML = hints[0];
     hintMenu.appendChild(hintText);
 
+    //Generates the confirm box
+    const confirmBox = CreateMenu("Confirm");
+    const confirmText = document.createElement('p');
+    confirmText.id = "confirmText";
+    confirmText.innerHTML = "Tiny Island utilizes local storage to save your game. Do you allow Tiny Island to write data to your browser?";
+    const yesButton = document.createElement('button');
+    const noButton = document.createElement('button');
+    yesButton.id = "yesButton";
+    yesButton.innerHTML = "YES, SAVE MY GAME";
+    yesButton.classList.add('confirm-button');
+    noButton.id = "noButton";
+    noButton.innerHTML = "I DO NOT CONSENT";
+    noButton.classList.add('confirm-button');
+    confirmBox.append(confirmText, yesButton, noButton);
+
     //Appends everything to the DOM
     uiContainer.append(topBar, gameLog, buttonContainer);
-    body.append(startScreen, gridContainer, uiContainer, optionsMenu, inventoryMenu, craftingMenu, hintMenu, sortIsle, click);
+    body.append(
+        startScreen,
+        gridContainer,
+        uiContainer,
+        optionsMenu,
+        inventoryMenu,
+        craftingMenu,
+        hintMenu,
+        confirmBox,
+        sortIsle,
+        click
+    );
 }
 
 function CreateMenu(name) {

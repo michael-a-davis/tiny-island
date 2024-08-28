@@ -23,7 +23,17 @@ function GenerateControls() {
                 continue;
             }
             body.classList.add(options[i].value);
+            theme = options[i].innerHTML;
+            console.log(theme);
         }
+    })
+
+    eraseButton.addEventListener("click", function() {
+        EraseSave();
+    })
+
+    saveButton.addEventListener("click", function() {
+        SaveGame();
     })
 
     window.addEventListener("keydown", function() {
@@ -52,6 +62,7 @@ function GenerateControls() {
             CloseHint();
             CloseMenu();
             CloseInventory();
+            confirmBox.style.display = "none";
             clickSound.play();
         }
         if (this.event.keyCode == 76) {
@@ -100,6 +111,7 @@ function GenerateControls() {
         CloseHint();
         CloseMenu();
         CloseInventory();
+        confirmBox.style.display = "none";
         clickSound.play();
     })
     xButton.addEventListener("click", function() {

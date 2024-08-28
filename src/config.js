@@ -13,7 +13,7 @@ let treeGrowMax = 2 //in minutes
 let brickDryMax = 1; //in minutes
 let brickDryMin = 0.2; //in minutes
 
-let version = "Version Alpha 2.0";
+let version = "Version Alpha 2.1";
 let credits = [
     "Developed by Michael A. Davis",
     "Music by Jet Intelligence"

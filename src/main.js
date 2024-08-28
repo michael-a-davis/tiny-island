@@ -1,3 +1,4 @@
+LoadSaveData();
 GenerateGUI();
 const splashScreen = document.getElementById('startScreen');
 const startButton = document.getElementById('startButton');
@@ -32,10 +33,22 @@ const clickCheck = document.getElementById('buttonsCheck');
 const themeSelect = document.getElementById('themeSelect');
 const xColumn = document.getElementById('xColumn');
 const yColumn = document.getElementById('yColumn');
+const saveButton = document.getElementById('saveGame');
+const eraseButton = document.getElementById('eraseSave');
+const confirmBox = document.getElementById('confirmMenu');
+const confirmText = document.getElementById('confirmText');
+const yesButton = document.getElementById('yesButton');
+const noButton = document.getElementById('noButton');
 
-GenerateIsland();
-GenerateGrid();
-UpdateGrid(player.location);
+if (!localStorage.getItem('saveState')) {
+    GenerateIsland();
+    GenerateGrid();
+    UpdateGrid(player.location);
+}
+else {
+    GenerateGrid();
+    UpdateGrid(player.location);
+}
 startButton.addEventListener('click', function() {
     bgm.play();
     splashScreen.classList.add('fade-out');

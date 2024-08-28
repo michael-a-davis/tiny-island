@@ -1,5 +1,12 @@
 # Release Notes
 
+### Alpha 2.1
+This update includes a brilliant new addition -- Local storage save states. Two options have
+been introduced, to "save game," which writes a bunch of variables to local storage that are
+retrieved upon reloading the site. A second option, to "erase game," deletes the local storage
+save state to start over. I am very proud of accomplishing this feature, and now I can work
+fully on building out the game content.
+
 ### Alpha 2.0
 This newest version comes with a big resturcturing. The HTML document is now essentially empty,
 and the creation of the DOM and its elements are all now handled by a javascript file -- the

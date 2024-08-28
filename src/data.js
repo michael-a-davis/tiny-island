@@ -1,3 +1,4 @@
+// * --- IMMUTABLE DATA --- * //
 //Asset links
 let assets = {
     icons: {
@@ -42,6 +43,7 @@ let assets = {
     }
 }
 
+//GUI data
 let gridLayers = [
     "baseLayer",
     "objectLayer", 
@@ -62,7 +64,7 @@ let faceButtons = [
     "hint"
 ]
 let options = [
-    "Music", "Buttons", "Theme"
+    "Music", "Buttons", "Theme", "Save Game", "Erase Save"
 ]
 let themes = [
     "Original", "BoyGame", "Cream", "Midnight"
@@ -80,59 +82,16 @@ class Tile {
         this.collision = collision;
     }
 }
-class BasicItem {
-    constructor(name, quantity) {
+class Item {
+    constructor(name, type, quantity, tier, durability, cost) {
         this.name = name;
+        this.type = type;
         this.quantity = quantity;
-    }
-}
-class Tool {
-    constructor(name, tier, durability, quantity, cost) {
-        this.name = name;
         this.tier = tier;
         this.durability = durability;
-        this.quantity = quantity;
         this.cost = cost;
     }
 }
-class Placeable {
-    constructor(name, quantity, cost) {
-        this.name = name;
-        this.quantity = quantity;
-        this.cost = cost;
-    }
-}
-
-//Items list
-let inventory = {
-    sticks: new BasicItem("sticks", 0),
-    string: new BasicItem("string", 0),
-    saplings: new Placeable("saplings", 0, null),
-    fire_Plough: new Tool("fire_Plough", 0, 15, 0, {sticks: 5, string: 5}),
-    worms: new BasicItem("worms", 0),
-    crappy_Fishing_Pole: new Tool("crappy_Fishing_Pole", 0, 15, 0, {sticks: 3, string: 3, worms: 1}),
-    bass: new BasicItem("bass", 0),
-    salmon: new BasicItem("salmon", 0),
-    clownfish: new BasicItem("clownfish", 0),
-    rubber_Tire: new BasicItem("rubber_Tire", 0),
-    copper: new BasicItem("copper", 0),
-    copper_Chisel: new Tool("copper_Chisel", 0, 15, 0, {sticks: 1, copper: 1}),
-    copper_Spade: new Tool("copper_Spade", 0, 15, 0, {sticks: 2, copper: 2}),
-    stones:  new BasicItem("stones", 0),
-    wet_Clay: new BasicItem("wet_Clay", 0),
-    wet_Clay_Bricks: new Placeable("wet_Clay_Bricks", 0, {wet_Clay: 2}),
-    bricks: new BasicItem("bricks", 0),
-    workbench: new Placeable("workbench", 0, null),
-    workbench_Upgrade_Tier_1: new Tool("workbench_Upgrade_Tier_1", 0, null, 0, {sticks: 10, stones: 10, copper_Chisel: 1, string: 5}),
-    stone_Spade: new Tool("stone_Spade", 1, 30, 0, {sticks: 2, stones: 2}),
-    stone_Chisel: new Tool("stone_Chisel", 1, 30, 0, {sticks: 1, stones: 1}),
-    stone_Axe: new Tool("stone_Axe", 1, 30, 0, {sticks: 3, stones: 5}),
-    stone_Pick: new Tool("stone_Pick", 1, 30, 0, {sticks: 3, stones: 5}),
-    logs: new BasicItem("logs", 0),
-    iron: new BasicItem("iron", 0),
-    gold: new BasicItem("gold", 0)
-}
-let workbenchTier = 0;
 
 //Hints list & associated variables
 let hints = [
@@ -143,20 +102,55 @@ let hints = [
     "Keep fishing... you might find something precious.",
     "You'll need to make better tools at some point."
 ]
+
+//Variables that apply config changes
+let cameraColumns = 5;
+let cameraScope = cameraColumns ** 2;
+let cameraCenter = (cameraScope / 2) - 0.5;
+let gridRows = gridColumns;
+let gridSize = gridColumns ** 2;
+let gridCenter = (gridSize / 2) - 0.5;
+let widthCenter = (gridColumns / 2) - 0.5;
+
+//Items list
+let inventory = {
+    sticks: new Item("sticks", "basic", 0, null, null, null),
+    string: new Item("string", "basic", 0, null, null, null),
+    saplings: new Item("saplings", "placeable", 0, null, null, null),
+    fire_Plough: new Item("fire_Plough", "tool", 0, 0, 15, {sticks: 5, string: 5}),
+    worms: new Item("worms", "basic", 0, null, null, null),
+    crappy_Fishing_Pole: new Item("crappy_Fishing_Pole", "tool", 0, 0, 15, {sticks: 3, string: 3, worms: 1}),
+    bass: new Item("bass", "basic", 0, null, null, null),
+    salmon: new Item("salmon", "basic", 0, null, null, null),
+    clownfish: new Item("clownfish", "basic", 0, null, null, null),
+    copper: new Item("copper", "basic", 0, null, null, null),
+    copper_Chisel: new Item("copper_Chisel", "tool", 0, 0, 15, {sticks: 1, copper: 1}),
+    copper_Spade: new Item("copper_Spade", "tool", 0, 0, 15, {sticks: 2, copper: 2}),
+    stones:  new Item("stones", "basic", 0, null, null, null),
+    wet_Clay: new Item("wet_Clay", "basic", 0, null, null ,null),
+    wet_Clay_Bricks: new Item("wet_Clay_Bricks", "placeable", 0, 0, null, {wet_Clay: 2}),
+    bricks: new Item("bricks", "basic", 0, null, null, null),
+    workbench: new Item("workbench", "placeable", 0, null, null, null),
+    workbench_Upgrade_Tier_1: new Item("workbench_Upgrade_Tier_1", "tool", 0, 0, null, {sticks: 10, stones: 10, copper_Chisel: 1, string: 5}),
+    stone_Spade: new Item("stone_Spade", "tool", 0, 1, 30, {sticks: 2, stones: 2}),
+    stone_Chisel: new Item("stone_Chisel", "tool", 0, 1, 30, {sticks: 1, stones: 1}),
+    stone_Axe: new Item("stone_Axe", "tool", 0, 1, 30, {sticks: 3, stones: 5}),
+    stone_Pick: new Item("stone_Pick", "tool", 0, 1, 30, {sticks: 3, stones: 5}),
+    logs: new Item("logs", "basic", 0, null, null, null),
+    iron: new Item("iron", "basic", 0, null, null, null),
+    gold: new Item("gold", "basic", 0, null, null, null)
+}
+
+
+//Hint data
 let hasOpenedHint = false;
 let haveShakenTree = false;
 let haveSearchedCoasts = false;
 let hasFishedBefore = false;
 let toolHasBroken = false;
 
-let cameraColumns = 5;
-let cameraScope = cameraColumns ** 2;
-let cameraCenter = (cameraScope / 2) - 0.5;
-let tiles = [];
-let gridRows = gridColumns;
-let gridSize = gridColumns ** 2;
-let gridCenter = (gridSize / 2) - 0.5;
-let widthCenter = (gridColumns / 2) - 0.5;
+//Various data
+let workbenchTier = 0;
 let playerStart = gridSize - gridColumns - gridColumns - widthCenter - (Math.floor(widthCenter / 2));
 let currentTool;
 let currentPlaceable;
@@ -167,6 +161,7 @@ let isCrafting = false;
 let isHint = true;
 let isMenu = false;
 let isInventory = false;
+let theme = themes[0];
 let aAction;
 let player = {
     location: playerStart,

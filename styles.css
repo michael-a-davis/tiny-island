@@ -277,12 +277,20 @@
     .options-group p {
         font-size: 1.2rem;
     }
-    #themeSelect {
+    #themeSelect, .option-button {
         scale: 1.2;
         font-family: Pixel, Arial, Helvetica, sans-serif;
         background-color: rgb(20, 20, 20);
         color: white;
-        padding: 0.2rem;
+        padding: 0.4rem;
+        border: 1px solid white;
+    }
+    #themeSelect:hover, .option-button:hover {
+        background-color: rgb(55, 55, 55);
+        cursor: pointer;
+    }
+    .option-button:active {
+        background-color: rgb(95, 95, 95);
     }
     .switch {
         display: inline-block;
@@ -419,6 +427,37 @@
     }
     .craft-button:hover {
         background-color: rgb(125, 125, 125);
+        cursor: pointer;
+    }
+    #confirmMenu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0.5rem;
+        height: fit-content;
+        aspect-ratio: 0;
+        top: 25svh;
+        transform: translate(-50%, -50%);
+        border: 1px solid white;
+    }
+    .confirm-button {
+        font-family: Pixel, Arial, Helvetica, sans-serif;
+        font-size: larger;
+        padding: 0.5rem;
+        color: white;
+        margin: 0.5rem 0;
+        transition: 200ms;
+        border: none;
+    }
+    #yesButton {
+        background-color: var(--green);
+    }
+    #noButton {
+        background-color: var(--bRed);
+        color: white;
+    }
+    .confirm-button:hover {
         cursor: pointer;
     }
 }

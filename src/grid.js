@@ -207,6 +207,9 @@ function UpdateGrid(id) {
             case "workbench0":
                 tile.src = assets.tiles.crappyWorkbench;
                 break;
+            case "workbench1":
+                tile.src = assets.tiles.decentWorkbench;
+                break;
             case "brick-wet":
                 tile.src = assets.tiles.brickWet;
                 break;
