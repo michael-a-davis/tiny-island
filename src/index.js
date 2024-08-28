@@ -30,6 +30,7 @@ function GenerateGUI() {
     for (const faceButton of faceButtons) {
         const button = document.createElement('button');
         button.id = faceButton + "Button";
+        button.ariaLabel = faceButton;
         button.classList.add('face-button');
         if (faceButton === "A" ||
             faceButton === "B" ||
@@ -147,6 +148,7 @@ function GenerateGUI() {
     versionText.innerHTML = version;
     logoContainer.append(logo, versionText);
     const startButton = document.createElement('button');
+    startButton.ariaLabel = "Start Button";
     startButton.id = "startButton";
     startButton.innerHTML = "START GAME";
     const creditText = document.createElement('div');
