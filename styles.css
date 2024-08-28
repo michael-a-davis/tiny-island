@@ -25,6 +25,7 @@
 @font-face {
     font-family: Pixel;
     src: url(fonts/PixeloidSans-mLxMm.ttf);
+    font-display: swap;
 }
 @keyframes fallDown {
     0% {transform: translate(0, -50svh);}
