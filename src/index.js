@@ -44,6 +44,7 @@ function GenerateGUI() {
         else {
             const icon = document.createElement('img');
             icon.classList.add('icon');
+            icon.alt = faceButton;
             icon.src = assets.icons[faceButton];
             button.appendChild(icon);
         }
