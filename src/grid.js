@@ -117,6 +117,7 @@ function GenerateGrid() {
     }
     for (i = 0; i < cameraScope; i++) {
         const tile = document.createElement('img');
+        tile.alt = "tile";
         tile.classList.add('tile');
         if (i === cameraCenter) {
             tile.src = assets.player.up;
