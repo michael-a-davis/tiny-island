@@ -141,7 +141,8 @@ function GenerateGUI() {
     logo.src = assets.icons.logo;
     logo.alt = "Tiny Island";
     logo.decoding = "async";
-    logo.width = "400";
+    logo.width = "1085.44";
+    logo.height = "219.136";
     const versionText = document.createElement('h1');
     versionText.innerHTML = version;
     logoContainer.append(logo, versionText);

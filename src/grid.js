@@ -111,6 +111,7 @@ function GenerateGrid() {
     for (i = 0; i < cameraScope; i++) {
         const tile = document.createElement('img');
         tile.classList.add('tile');
+        tile.alt = "tile";
         tile.id = i;
         baseLayer.appendChild(tile);
     }
